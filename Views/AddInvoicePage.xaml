@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BillWise.ViewModels"
+             xmlns:entities="clr-namespace:BillWise.Models.Entities"
+             x:Class="BillWise.Views.AddInvoicePage"
+             x:DataType="vm:AddInvoiceViewModel"
+             Title="New Invoice"
+             BackgroundColor="#FAFAFA">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="16,10,16,30">
+
+            <!-- Top Action Buttons -->
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12">
+                <!-- Scan -->
+                <Border Stroke="#2196F3" StrokeThickness="1" StrokeShape="RoundRectangle 12" 
+                        Padding="8" BackgroundColor="White" HeightRequest="80">
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="4">
+                        <Label Text="📷" FontSize="20" HorizontalOptions="Center" TextColor="#2196F3"/>
+                        <Label Text="Scan" FontSize="12" TextColor="#2196F3" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+                <!-- Voice -->
+                <Border Grid.Column="1" Stroke="#F44336" StrokeThickness="1" StrokeShape="RoundRectangle 12" 
+                        Padding="8" BackgroundColor="White" HeightRequest="80">
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="4">
+                        <Label Text="🎤" FontSize="20" HorizontalOptions="Center" TextColor="#F44336"/>
+                        <Label Text="Voice" FontSize="12" TextColor="#F44336" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+                <!-- Location -->
+                <Border Grid.Column="2" Stroke="#4CAF50" StrokeThickness="1" StrokeShape="RoundRectangle 12" 
+                        Padding="8" BackgroundColor="White" HeightRequest="80">
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="4">
+                        <Label Text="📍" FontSize="20" HorizontalOptions="Center" TextColor="#4CAF50"/>
+                        <Label Text="Location" FontSize="12" TextColor="#4CAF50" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Invoice Name -->
+            <Border Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 12" 
+                    BackgroundColor="White" Padding="16,12">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Invoice Name *" FontSize="13" TextColor="#757575"/>
+                    <Entry Text="{Binding InvoiceName}" Placeholder="e.g., ENEO, CAMWATER..." 
+                           BackgroundColor="Transparent" ClearButtonVisibility="WhileEditing"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Amount -->
+            <Border Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 12" 
+                    BackgroundColor="White" Padding="16,12">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Amount (FCFA) *" FontSize="13" TextColor="#757575"/>
+                    <Entry Text="{Binding AmountText}" Placeholder="e.g., 25000" Keyboard="Numeric"
+                           BackgroundColor="Transparent" ClearButtonVisibility="WhileEditing"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Due Date -->
+            <Border Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 12" 
+                    BackgroundColor="White" Padding="16,12">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Due Date *" FontSize="13" TextColor="#757575"/>
+                    <DatePicker Date="{Binding DueDate}" BackgroundColor="Transparent" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Category -->
+            <Border Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 12" 
+                    BackgroundColor="White" Padding="16,12">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Category *" FontSize="13" TextColor="#757575"/>
+                    
+                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto" ColumnSpacing="8" RowSpacing="8">
+                        <!-- We will just make these hardcoded buttons for now which map to the command or we can use radio buttons. 
+                             Using tap gesture recognizers for a cleaner look. -->
+                        <!-- Electricity -->
+                        <Border Grid.Row="0" Grid.Column="0" Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70" BackgroundColor="White">
+                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label Text="⚡" FontSize="20" HorizontalOptions="Center" />
+                                <Label Text="Electricity" FontSize="11" TextColor="Gray" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+                        <!-- Water -->
+                        <Border Grid.Row="0" Grid.Column="1" Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70" BackgroundColor="White">
+                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label Text="💧" FontSize="20" HorizontalOptions="Center" />
+                                <Label Text="Water" FontSize="11" TextColor="Gray" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+                        <!-- Internet -->
+                        <Border Grid.Row="0" Grid.Column="2" Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70" BackgroundColor="White">
+                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label Text="🌐" FontSize="20" HorizontalOptions="Center" />
+                                <Label Text="Internet" FontSize="11" TextColor="Gray" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+                        <!-- Rent -->
+                        <Border Grid.Row="1" Grid.Column="0" Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70" BackgroundColor="White">
+                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label Text="🏠" FontSize="20" HorizontalOptions="Center" />
+                                <Label Text="Rent" FontSize="11" TextColor="Gray" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+                        <!-- Subscription -->
+                        <Border Grid.Row="1" Grid.Column="1" Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70" BackgroundColor="White">
+                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label Text="📺" FontSize="20" HorizontalOptions="Center" />
+                                <Label Text="Subscription" FontSize="11" TextColor="Gray" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+                        <!-- Other -->
+                        <Border Grid.Row="1" Grid.Column="2" Stroke="#2196F3" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70" BackgroundColor="#E3F2FD">
+                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label Text="📄" FontSize="20" HorizontalOptions="Center" />
+                                <Label Text="Other" FontSize="11" TextColor="#2196F3" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Payment Method -->
+            <Border Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 12" 
+                    BackgroundColor="White" Padding="16,12">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Payment Method" FontSize="13" TextColor="#757575"/>
+                    <Picker SelectedItem="{Binding PaymentMethod}" Title="Select method..." BackgroundColor="Transparent">
+                        <Picker.Items>
+                            <x:String>Cash</x:String>
+                            <x:String>Mobile Money</x:String>
+                            <x:String>Bank Transfer</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Notes -->
+            <Border Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 12" 
+                    BackgroundColor="White" Padding="16,12">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Notes (optional)" FontSize="13" TextColor="#757575"/>
+                    <Editor Text="{Binding Notes}" Placeholder="Add notes..." HeightRequest="80" 
+                            BackgroundColor="Transparent" AutoSize="TextChanges"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Save Button -->
+            <Button Text="💾 Save Invoice" Command="{Binding SaveInvoiceCommand}"
+                    BackgroundColor="#3498DB" TextColor="White" 
+                    CornerRadius="8" HeightRequest="50" FontAttributes="Bold"
+                    Margin="0,10,0,0"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
