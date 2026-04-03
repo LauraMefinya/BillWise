@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BillWise.ViewModels"
+             x:Class="BillWise.Views.AlertsPage"
+             x:DataType="vm:AlertsViewModel"
+             BackgroundColor="#FAFAFA"
+             Shell.NavBarIsVisible="False">
+    
+    <Grid>
+        <VerticalStackLayout Spacing="16" Padding="16,40,16,100">
+            <!-- Header -->
+            <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,10">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Notifications" FontSize="26" FontAttributes="Bold" TextColor="#111827"/>
+                    <Label Text="{Binding UnreadCount, StringFormat='You have {0} unread notifications'}" FontSize="14" TextColor="#6B7280"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- Notifications List -->
+            <CollectionView ItemsSource="{Binding Notifications}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1"
+                                StrokeShape="RoundRectangle 12" Margin="0,6" Padding="16">
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                <!-- Icon depends on Type -->
+                                <Border Grid.Column="0" BackgroundColor="#FEE2E2" StrokeShape="RoundRectangle 24" 
+                                        StrokeThickness="0" WidthRequest="48" HeightRequest="48" VerticalOptions="Start">
+                                    <Label Text="🔔" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </Border>
+                                
+                                <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                    <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="16" TextColor="#111827"/>
+                                    <Label Text="{Binding Message}" FontSize="14" TextColor="#4B5563" LineBreakMode="WordWrap"/>
+                                    <Label Text="{Binding SentAt, StringFormat='{0:dd MMM yyyy, HH:mm}'}" FontSize="12" TextColor="#9CA3AF"/>
+                                </VerticalStackLayout>
+
+                                <BoxView Grid.Column="2" WidthRequest="10" HeightRequest="10" CornerRadius="5" 
+                                         Color="#EF4444" IsVisible="{Binding IsUnread}"
+                                         VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
