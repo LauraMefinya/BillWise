@@ -49,18 +49,55 @@ namespace BillWise.Models.Entities
 
         [JsonIgnore] public bool IsOverdue => Status != InvoiceStatus.Paid && DueDate < DateTime.Today;
         [JsonIgnore] public int DaysUntilDue => (DueDate - DateTime.Today).Days;
-        [JsonIgnore] public string StatusLabel => Status switch
-        {
-            InvoiceStatus.Paid => "Paid",
-            InvoiceStatus.Overdue => "Overdue",
-            _ => "Pending"
-        };
-        [JsonIgnore] public string AmountFormatted => $"{Amount:N0} FCFA";
 
-        // Display-only UI properties
-        [JsonIgnore] public string CategoryIcon { get; set; } = "📄";
-        [JsonIgnore] public string StatusBadgeColor { get; set; } = "#FFF9C4";
-        [JsonIgnore] public string StatusTextColor { get; set; } = "#F57F17";
+        // --- UI computed properties (used by XAML bindings) ---
+        [JsonIgnore] public string FormattedAmount => $"{Amount:N0} FCFA";
+
+        [JsonIgnore]
+        public string StatusText => Status switch
+        {
+            InvoiceStatus.Paid    => "Paid",
+            InvoiceStatus.Overdue => "Overdue",
+            _                     => "Pending"
+        };
+
+        [JsonIgnore]
+        public string StatusBackgroundColor => Status switch
+        {
+            InvoiceStatus.Paid    => "#D1FAE5",
+            InvoiceStatus.Overdue => "#FEE2E2",
+            _                     => "#FFF9C4"
+        };
+
+        [JsonIgnore]
+        public string StatusTextColor => Status switch
+        {
+            InvoiceStatus.Paid    => "#065F46",
+            InvoiceStatus.Overdue => "#B91C1C",
+            _                     => "#92400E"
+        };
+
+        [JsonIgnore]
+        public string CategoryIcon => Category switch
+        {
+            CategoryType.Electricity  => "⚡",
+            CategoryType.Water        => "💧",
+            CategoryType.Internet     => "🌐",
+            CategoryType.Rent         => "🏠",
+            CategoryType.Subscription => "📺",
+            _                         => "📄"
+        };
+
+        [JsonIgnore]
+        public string CategoryIconBackgroundColor => Category switch
+        {
+            CategoryType.Electricity  => "#FEF3C7",
+            CategoryType.Water        => "#DBEAFE",
+            CategoryType.Internet     => "#EDE9FE",
+            CategoryType.Rent         => "#FEE2E2",
+            CategoryType.Subscription => "#F3E8FF",
+            _                         => "#F3F4F6"
+        };
 
         public void MarkAsPaid(PaymentMethod method)
         {

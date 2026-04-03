@@ -28,7 +28,13 @@ namespace BillWise.ViewModels
         [ObservableProperty]
         private bool _hasOverdueInvoices;
 
-        public ObservableCollection<Invoice> UpcomingInvoices { get; } = new();
+        public ObservableCollection<Invoice> RecentInvoices { get; } = new();
+
+        [RelayCommand]
+        public async Task GoToInvoicesFallbackAsync()
+        {
+            await Shell.Current.GoToAsync("//InvoicesPage");
+        }
 
         [RelayCommand]
         public async Task LoadDataAsync()
@@ -43,10 +49,10 @@ namespace BillWise.ViewModels
                 TotalPaid = await _invoiceService.GetTotalPaidAsync();
 
                 var upcoming = await _invoiceService.GetUpcomingInvoicesAsync();
-                UpcomingInvoices.Clear();
+                RecentInvoices.Clear();
                 foreach (var inv in upcoming)
                 {
-                    UpcomingInvoices.Add(inv);
+                    RecentInvoices.Add(inv);
                 }
 
                 var overdue = await _invoiceService.GetOverdueInvoicesAsync();

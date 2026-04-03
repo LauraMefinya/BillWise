@@ -103,7 +103,9 @@ namespace BillWise.Models.Services
             if (string.IsNullOrEmpty(invoice.Id))
                 invoice.Id = Guid.NewGuid().ToString();
 
-            invoice.CreatedAt = DateTime.Now;
+            if (invoice.CreatedAt == default)
+                invoice.CreatedAt = DateTime.UtcNow;
+
             invoice.UpdateStatus();
 
             try
@@ -113,8 +115,7 @@ namespace BillWise.Models.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                return false;
+                throw new Exception($"Supabase Error: {ex.Message}", ex);
             }
         }
 

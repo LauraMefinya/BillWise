@@ -20,8 +20,15 @@ namespace BillWise.Views
 
         private async void OnFabClicked(object sender, EventArgs e)
         {
-            // Navigate to AddInvoicePage
-            await Shell.Current.GoToAsync(nameof(AddInvoicePage));
+            try 
+            {
+                // Navigate to AddInvoicePage
+                await Shell.Current.GoToAsync(nameof(AddInvoicePage));
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Navigation Error", $"Failed to open page: {ex.Message}", "OK");
+            }
         }
     }
 }

@@ -1,0 +1,111 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BillWise.ViewModels"
+             xmlns:strings="clr-namespace:BillWise.Resources.Strings"
+             x:Class="BillWise.Views.EditProfilePage"
+             x:DataType="vm:ProfileViewModel"
+             BackgroundColor="#FAFAFA"
+             Shell.NavBarIsVisible="False">
+             
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+            <!-- Header section (Blue Background) -->
+            <Grid BackgroundColor="#3498DB" Padding="20,40,20,40">
+                <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
+                    <Border StrokeShape="RoundRectangle 40" WidthRequest="80" HeightRequest="80" BackgroundColor="#2980B9" StrokeThickness="0" HorizontalOptions="Center">
+                        <Label Text="👤" FontSize="36" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Border StrokeShape="RoundRectangle 8" BackgroundColor="#5DADE2" StrokeThickness="0" Padding="12,8">
+                        <Label Text="{Binding UserName}" TextColor="White" FontSize="18" FontAttributes="Bold"/>
+                    </Border>
+                    <Border StrokeShape="RoundRectangle 8" BackgroundColor="#5DADE2" StrokeThickness="0" Padding="12,8" Margin="0,-10,0,0">
+                        <Label Text="{Binding UserEmail}" TextColor="White" FontSize="14"/>
+                    </Border>
+                </VerticalStackLayout>
+            </Grid>
+
+            <VerticalStackLayout Spacing="24" Padding="16,24,16,60" Margin="0,-20,0,0">
+                
+                <!-- Summary Card -->
+                <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="20">
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" ColumnSpacing="16" RowSpacing="24">
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
+                            <Label Text="{Binding TotalInvoices}" FontSize="24" FontAttributes="Bold" TextColor="#111827" HorizontalOptions="Center"/>
+                            <Label Text="Total Invoices" FontSize="12" TextColor="#6B7280" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
+                            <Label Text="{Binding PaidInvoices}" FontSize="24" FontAttributes="Bold" TextColor="#10B981" HorizontalOptions="Center"/>
+                            <Label Text="Paid" FontSize="12" TextColor="#6B7280" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="0" HorizontalOptions="Center">
+                            <Label Text="{Binding PendingInvoices}" FontSize="24" FontAttributes="Bold" TextColor="#F59E0B" HorizontalOptions="Center"/>
+                            <Label Text="Pending" FontSize="12" TextColor="#6B7280" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="Center">
+                            <Label Text="{Binding OverdueInvoices}" FontSize="24" FontAttributes="Bold" TextColor="#EF4444" HorizontalOptions="Center"/>
+                            <Label Text="Overdue" FontSize="12" TextColor="#6B7280" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <Label Text="{Binding [Settings], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
+
+                <!-- Currency & Language -->
+                <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                    <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,12,Auto">
+                        <Border Grid.Row="0" Grid.Column="0" BackgroundColor="#D1FAE5" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" VerticalOptions="Center">
+                            <Label Text="💲" FontSize="16"/>
+                        </Border>
+                        <Label Grid.Row="0" Grid.Column="1" Text="Currency" TextColor="#6B7280" FontSize="14" VerticalOptions="Center" Margin="12,0,0,0"/>
+                        <Entry Grid.Row="0" Grid.Column="2" Text="{Binding SelectedCurrency}" TextColor="#111827" FontFamily="Bold" BackgroundColor="Transparent" WidthRequest="60" HorizontalTextAlignment="End"/>
+                        
+                        <Border Grid.Row="2" Grid.Column="0" BackgroundColor="#DBEAFE" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" VerticalOptions="Center">
+                            <Label Text="🌐" FontSize="16"/>
+                        </Border>
+                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding [Language], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="14" VerticalOptions="Center" Margin="12,0,0,0"/>
+                        <Picker Grid.Row="2" Grid.Column="2" SelectedItem="{Binding SelectedLanguage}" TextColor="#111827" BackgroundColor="Transparent" WidthRequest="80">
+                            <Picker.Items>
+                                <x:String>en</x:String>
+                                <x:String>fr</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Grid>
+                </Border>
+
+                <!-- Notifications -->
+                <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                    <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
+                        <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" BackgroundColor="#FFEDD5" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" VerticalOptions="Start">
+                            <Label Text="🔔" FontSize="16"/>
+                        </Border>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding [Notifications], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="12" Margin="12,0,0,0"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding [Enabled], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontAttributes="Bold" TextColor="#111827" FontSize="14" Margin="12,0,0,0"/>
+                        <Switch Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" IsToggled="{Binding NotificationsEnabled}" VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+
+                <!-- Feedback -->
+                <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                    <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
+                        <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" BackgroundColor="#F3E8FF" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" VerticalOptions="Start">
+                            <Label Text="📳" FontSize="16"/>
+                        </Border>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding [HapticFeedback], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="12" Margin="12,0,0,0"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding [Enabled], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontAttributes="Bold" TextColor="#111827" FontSize="14" Margin="12,0,0,0"/>
+                        <Switch Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" IsToggled="{Binding HapticFeedbackEnabled}" VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+                    <Button Grid.Column="0" Text="{Binding [Cancel], Source={x:Static strings:LocalizationResourceManager.Instance}}" Command="{Binding CancelChangesCommand}" BackgroundColor="#E5E7EB" TextColor="#4B5563" CornerRadius="8" FontAttributes="Bold"/>
+                    <Button Grid.Column="1" Text="{Binding [Save], Source={x:Static strings:LocalizationResourceManager.Instance}}" Command="{Binding SaveSettingsCommand}" BackgroundColor="#3498DB" TextColor="White" CornerRadius="8" FontAttributes="Bold"/>
+                </Grid>
+
+                <Button Text="{Binding [ExportData], Source={x:Static strings:LocalizationResourceManager.Instance}}" Command="{Binding ExportDataCommand}" BackgroundColor="#10B981" TextColor="White" CornerRadius="8" FontAttributes="Bold" Margin="0,10,0,0"/>
+                
+                <Button Text="{Binding [ClearAllData], Source={x:Static strings:LocalizationResourceManager.Instance}}" Command="{Binding ClearAllDataCommand}" BackgroundColor="#EF4444" TextColor="White" CornerRadius="8" FontAttributes="Bold"/>
+
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -23,14 +23,13 @@
                       Icon="tab_stats.png"
                       Route="StatisticsPage"
                       ContentTemplate="{DataTemplate views:StatisticsPage}"/>
-        <ShellContent Title="Alerts"
-                      Icon="tab_alerts.png"
-                      Route="AlertsPage"
-                      ContentTemplate="{DataTemplate views:AlertsPage}"/>
-        <ShellContent Title="Profile"
-                      Icon="tab_profile.png"
-                      Route="ProfilePage"
-                      ContentTemplate="{DataTemplate views:ProfilePage}"/>
+        <Tab Title="Alerts" Icon="tab_alerts.png">
+            <ShellContent ContentTemplate="{DataTemplate views:AlertsPage}" />
+        </Tab>
+        
+        <Tab Title="Profile" Icon="tab_profile.png">
+            <ShellContent ContentTemplate="{DataTemplate views:ProfilePage}" />
+        </Tab>
     </TabBar>
 
 </Shell>

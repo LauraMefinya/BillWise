@@ -29,10 +29,16 @@ namespace BillWise.ViewModels
         private CategoryType _selectedCategory = CategoryType.Other;
 
         [ObservableProperty]
-        private string _paymentMethod = string.Empty;
+        private string _paymentMethod = "Cash";
 
         [ObservableProperty]
         private string _notes = string.Empty;
+
+        [RelayCommand]
+        public void SelectCategory(CategoryType category)
+        {
+            SelectedCategory = category;
+        }
 
         [RelayCommand]
         public async Task SaveInvoiceAsync()
@@ -41,12 +47,14 @@ namespace BillWise.ViewModels
 
             if (string.IsNullOrWhiteSpace(InvoiceName) || string.IsNullOrWhiteSpace(AmountText))
             {
-                return; // Validation failed
+                await Shell.Current.DisplayAlert("Error", "Please fill Name and Amount fields.", "OK");
+                return;
             }
 
             if (!decimal.TryParse(AmountText, out decimal amount))
             {
-                return; // Invalid amount
+                await Shell.Current.DisplayAlert("Error", "Invalid amount.", "OK");
+                return; 
             }
 
             try
@@ -55,20 +63,32 @@ namespace BillWise.ViewModels
 
                 var invoice = new Invoice
                 {
+                    Id = Guid.NewGuid().ToString(),
                     Name = InvoiceName,
                     Amount = amount,
                     DueDate = DueDate,
                     Category = SelectedCategory,
                     Notes = Notes,
-                    Status = InvoiceStatus.Pending
+                    Status = InvoiceStatus.Pending,
+                    CreatedAt = DateTime.UtcNow
                 };
 
-                await _invoiceService.AddInvoiceAsync(invoice);
-                await Shell.Current.GoToAsync("..");
+                // Default payment method setup if it's already marked as paid, but default is Pending.
+                
+                var success = await _invoiceService.AddInvoiceAsync(invoice);
+                if (success)
+                {
+                    await Shell.Current.GoToAsync("..");
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Error", "Failed to save invoice to Supabase. Check your connection or tables.", "OK");
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {

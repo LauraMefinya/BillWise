@@ -2,9 +2,9 @@ using BillWise.ViewModels;
 
 namespace BillWise.Views
 {
-    public partial class ProfilePage : ContentPage
+    public partial class EditProfilePage : ContentPage
     {
-        public ProfilePage(ProfileViewModel viewModel)
+        public EditProfilePage(ProfileViewModel viewModel)
         {
             InitializeComponent();
             BindingContext = viewModel;

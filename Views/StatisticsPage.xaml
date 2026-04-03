@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:BillWise.ViewModels"
+             xmlns:strings="clr-namespace:BillWise.Resources.Strings"
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
              x:Class="BillWise.Views.StatisticsPage"
              x:DataType="vm:StatisticsViewModel"
@@ -12,8 +13,8 @@
         <VerticalStackLayout Spacing="24" Padding="16,40,16,100">
             <!-- Header -->
             <VerticalStackLayout Spacing="4">
-                <Label Text="Statistics" FontSize="26" FontAttributes="Bold" TextColor="#111827"/>
-                <Label Text="Your spending analysis" FontSize="14" TextColor="#6B7280"/>
+                <Label Text="{Binding [Statistics], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="26" FontAttributes="Bold" TextColor="#111827"/>
+                <Label Text="{Binding [YourSpendingAnalysis], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="14" TextColor="#6B7280"/>
             </VerticalStackLayout>
 
             <!-- Cards Grid -->
@@ -24,7 +25,7 @@
                         <Border BackgroundColor="#E0F2FE" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="6" HorizontalOptions="Start">
                             <Label Text="💲" FontSize="16"/>
                         </Border>
-                        <Label Text="Total Amount" FontSize="12" TextColor="#6B7280"/>
+                        <Label Text="{Binding [TotalAmount], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280"/>
                         <Label Text="{Binding TotalAmount, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
                         <Label Text="FCFA" FontSize="10" TextColor="#9CA3AF"/>
                     </VerticalStackLayout>
@@ -35,7 +36,7 @@
                         <Border BackgroundColor="#DCFCE7" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="6" HorizontalOptions="Start">
                             <Label Text="📈" FontSize="16"/>
                         </Border>
-                        <Label Text="This Month" FontSize="12" TextColor="#6B7280"/>
+                        <Label Text="{Binding [ThisMonth], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280"/>
                         <Label Text="{Binding ThisMonthAmount, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
                         <Label Text="FCFA" FontSize="10" TextColor="#9CA3AF"/>
                     </VerticalStackLayout>

@@ -37,6 +37,7 @@ namespace BillWise
             builder.Services.AddSingleton<StatisticsViewModel>();
             builder.Services.AddSingleton<AlertsViewModel>();
             builder.Services.AddTransient<AddInvoiceViewModel>();
+            builder.Services.AddTransient<ProfileViewModel>();
 
             // Pages
             builder.Services.AddSingleton<HomePage>();
@@ -44,12 +45,24 @@ namespace BillWise
             builder.Services.AddSingleton<StatisticsPage>();
             builder.Services.AddSingleton<AlertsPage>();
             builder.Services.AddTransient<AddInvoicePage>();
+            builder.Services.AddTransient<ProfilePage>();
+            builder.Services.AddTransient<EditProfilePage>();
 
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
 
-            return builder.Build();
+            var app = builder.Build();
+
+            // Set initial language
+            var savedLang = Preferences.Default.Get("language", "en");
+            try
+            {
+                BillWise.Resources.Strings.LocalizationResourceManager.Instance.SetCulture(new System.Globalization.CultureInfo(savedLang));
+            }
+            catch {}
+
+            return app;
         }
     }
 }

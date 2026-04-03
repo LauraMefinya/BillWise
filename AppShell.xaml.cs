@@ -8,6 +8,7 @@ namespace BillWise
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(AddInvoicePage), typeof(AddInvoicePage));
+            Routing.RegisterRoute(nameof(EditProfilePage), typeof(EditProfilePage));
         }
     }
 }

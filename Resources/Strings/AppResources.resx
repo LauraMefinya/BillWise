@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <data name="AppTitle" xml:space="preserve">
+    <value>BillWise</value>
+  </data>
+  <data name="HomeGreeting" xml:space="preserve">
+    <value>Hello, User</value>
+  </data>
+  <data name="ManageBills" xml:space="preserve">
+    <value>Manage your bills easily</value>
+  </data>
+  <data name="TotalToPay" xml:space="preserve">
+    <value>Total to Pay</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Paid</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Overdue</value>
+  </data>
+  <data name="UpcomingInvoices" xml:space="preserve">
+    <value>Upcoming Invoices</value>
+  </data>
+  <data name="ViewAll" xml:space="preserve">
+    <value>View All</value>
+  </data>
+  <data name="MyInvoices" xml:space="preserve">
+    <value>My Invoices</value>
+  </data>
+  <data name="SearchInvoice" xml:space="preserve">
+    <value>Search invoice...</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="NoInvoicesFound" xml:space="preserve">
+    <value>No invoices found</value>
+  </data>
+  <data name="StartAdding" xml:space="preserve">
+    <value>Start by adding your first invoice</value>
+  </data>
+  <data name="NewInvoice" xml:space="preserve">
+    <value>New Invoice</value>
+  </data>
+  <data name="InvoiceName" xml:space="preserve">
+    <value>Invoice Name *</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount (FCFA) *</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Due Date *</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category *</value>
+  </data>
+  <data name="Electricity" xml:space="preserve">
+    <value>Electricity</value>
+  </data>
+  <data name="Water" xml:space="preserve">
+    <value>Water</value>
+  </data>
+  <data name="Internet" xml:space="preserve">
+    <value>Internet</value>
+  </data>
+  <data name="PaymentMethod" xml:space="preserve">
+    <value>Payment Method</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes (optional)</value>
+  </data>
+  <data name="SaveInvoice" xml:space="preserve">
+    <value>💾 Save Invoice</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="TotalInvoices" xml:space="preserve">
+    <value>Total Invoices</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="HapticFeedback" xml:space="preserve">
+    <value>Haptic Feedback</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>💾 Save</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>📥 Export Data</value>
+  </data>
+  <data name="ClearAllData" xml:space="preserve">
+    <value>🗑 Clear All Data</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="YourSpendingAnalysis" xml:space="preserve">
+    <value>Your spending analysis</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Total Amount</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>This Month</value>
+  </data>
+</root>
