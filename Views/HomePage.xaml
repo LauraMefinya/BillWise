@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BillWise.ViewModels"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             x:Class="BillWise.Views.HomePage"
+             x:DataType="vm:HomeViewModel"
+             BackgroundColor="#FAFAFA"
+             Shell.NavBarIsVisible="False">
+
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Spacing="0">
+                <!-- Blue Header Section -->
+                <VerticalStackLayout BackgroundColor="#3498DB" Padding="20,50,20,60" Spacing="8">
+                    <Label Text="Hello, User" FontSize="26" FontAttributes="Bold" TextColor="White"/>
+                    <Label Text="Manage your bills easily" FontSize="14" TextColor="#E3F2FD"/>
+                    
+                    <Border BackgroundColor="#2980B9" StrokeShape="RoundRectangle 16"
+                            Padding="20,16" StrokeThickness="0" Margin="0,16,0,0">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Total to Pay" TextColor="#BBDEFB" FontSize="14"/>
+                            <Label Text="{Binding TotalToPay, StringFormat='{0:N0} FCFA'}"
+                                   TextColor="White" FontSize="36" FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Main Content Area -->
+                <VerticalStackLayout BackgroundColor="#FAFAFA" Spacing="16" Padding="16,24,16,100" Margin="0,-30,0,0">
+
+                    <!-- Paid / To Pay Cards -->
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                        <Border Grid.Column="0" BackgroundColor="White" Stroke="#E0E0E0"
+                                StrokeShape="RoundRectangle 12" Padding="16" StrokeThickness="1">
+                            <VerticalStackLayout Spacing="12">
+                                <HorizontalStackLayout Spacing="8">
+                                    <Border BackgroundColor="#E8F5E9" StrokeShape="RoundRectangle 8" Padding="6" StrokeThickness="0">
+                                        <Label Text="📉" FontSize="16"/>
+                                    </Border>
+                                    <Label Text="Paid" TextColor="Gray" FontSize="13" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <VerticalStackLayout Spacing="2">
+                                    <Label Text="{Binding TotalPaid, StringFormat='{0:N0}'}" FontAttributes="Bold" FontSize="20" TextColor="#212121"/>
+                                    <Label Text="FCFA" TextColor="Gray" FontSize="11"/>
+                                </VerticalStackLayout>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Grid.Column="1" BackgroundColor="White" Stroke="#E0E0E0"
+                                StrokeShape="RoundRectangle 12" Padding="16" StrokeThickness="1">
+                            <VerticalStackLayout Spacing="12">
+                                <HorizontalStackLayout Spacing="8">
+                                    <Border BackgroundColor="#FFEBEE" StrokeShape="RoundRectangle 8" Padding="6" StrokeThickness="0">
+                                        <Label Text="📈" FontSize="16"/>
+                                    </Border>
+                                    <Label Text="To Pay" TextColor="Gray" FontSize="13" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <VerticalStackLayout Spacing="2">
+                                    <Label Text="{Binding TotalToPay, StringFormat='{0:N0}'}" FontAttributes="Bold" FontSize="20" TextColor="#212121"/>
+                                    <Label Text="FCFA" TextColor="Gray" FontSize="11"/>
+                                </VerticalStackLayout>
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+
+                    <!-- Monthly Expenses Graph Placeholder -->
+                    <!-- In standard app this would bind to a Chart. Because HomeViewModel lacks BarSeries, we show a placeholder or we can implement it. 
+                         The mockup shows a chart on Home. You should add Chart to HomeViewModel too! For now a static image or frame. -->
+                    <Border BackgroundColor="White" Stroke="#E0E0E0" StrokeShape="RoundRectangle 12" StrokeThickness="1" Padding="16">
+                        <VerticalStackLayout Spacing="12">
+                            <Label Text="Monthly Expenses" FontSize="16" FontAttributes="Bold" TextColor="#212121"/>
+                            <!-- A simplified visual placeholder since the actual chart is on Stats page -->
+                            <Grid HeightRequest="150" RowDefinitions="*,Auto" ColumnDefinitions="*,*,*,*,*,*">
+                                <BoxView Grid.Row="0" Grid.Column="5" Color="#3498DB" CornerRadius="4,4,0,0" VerticalOptions="End" HeightRequest="120"/>
+                                <!-- X Axis Labels -->
+                                <Label Grid.Row="1" Grid.Column="0" Text="Nov" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
+                                <Label Grid.Row="1" Grid.Column="1" Text="Dec" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
+                                <Label Grid.Row="1" Grid.Column="2" Text="Jan" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
+                                <Label Grid.Row="1" Grid.Column="3" Text="Feb" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
+                                <Label Grid.Row="1" Grid.Column="4" Text="Mar" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
+                                <Label Grid.Row="1" Grid.Column="5" Text="Apr" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Overdue Invoices -->
+                    <Border BackgroundColor="#FFEBEE" Stroke="#FFCDD2" StrokeShape="RoundRectangle 12" StrokeThickness="1" Padding="16" 
+                            IsVisible="{Binding HasOverdueInvoices}">
+                        <HorizontalStackLayout Spacing="10">
+                            <Label Text="⏰" FontSize="20" TextColor="#D32F2F"/>
+                            <VerticalStackLayout>
+                                <Label Text="Overdue Invoices" TextColor="#D32F2F" FontAttributes="Bold" FontSize="15"/>
+                                <Label Text="{Binding OverdueCount, StringFormat='You have {0} overdue invoice'}" TextColor="#B71C1C" FontSize="13"/>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                    </Border>
+
+                    <!-- Upcoming Invoices List -->
+                    <VerticalStackLayout Spacing="10">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Grid.Column="0" Text="Upcoming Invoices" FontSize="17" FontAttributes="Bold" TextColor="#212121"/>
+                            <Label Grid.Column="1" Text="View All" FontSize="13" TextColor="#3498DB"/>
+                        </Grid>
+                        
+                        <CollectionView ItemsSource="{Binding UpcomingInvoices}" SelectionMode="None">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BackgroundColor="White" Stroke="#E0E0E0" StrokeThickness="1"
+                                            StrokeShape="RoundRectangle 12" Margin="0,4" Padding="14">
+                                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                            <Border Grid.Column="0" BackgroundColor="#F5F5F5" StrokeShape="RoundRectangle 10" 
+                                                    StrokeThickness="0" Padding="8" WidthRequest="44" HeightRequest="44">
+                                                <Label Text="{Binding CategoryIcon}" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            </Border>
+                                            <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="15" TextColor="#212121"/>
+                                                <Label Text="{Binding DueDate, StringFormat='📅 {0:dd MMM yyyy}'}" FontSize="12" TextColor="Gray"/>
+                                                <Border StrokeThickness="0" Padding="8,3" StrokeShape="RoundRectangle 8" HorizontalOptions="Start" BackgroundColor="#FFF9C4">
+                                                    <Label Text="Pending" FontSize="11" TextColor="#F57F17"/>
+                                                </Border>
+                                            </VerticalStackLayout>
+                                            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center">
+                                                <Label Text="{Binding AmountFormatted}" FontAttributes="Bold" FontSize="15" TextColor="#212121"/>
+                                                <Label Text="❯" FontSize="12" TextColor="Gray" HorizontalOptions="End" Margin="0,4,0,0"/>
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Floating Action Button -->
+        <ImageButton Source="tab_home.svg" BackgroundColor="#3498DB" CornerRadius="30"
+                     WidthRequest="60" HeightRequest="60" Padding="15"
+                     HorizontalOptions="End" VerticalOptions="End" Margin="20,20,20,30"
+                     Clicked="OnFabClicked"
+                     >
+            <!-- A temporary FAB using standard button if ImageButton doesn't load icon properly -->
+            <ImageButton.Source>
+                <FontImageSource Glyph="+" Color="White" Size="24" />
+            </ImageButton.Source>
+        </ImageButton>
+    </Grid>
+
+</ContentPage>
