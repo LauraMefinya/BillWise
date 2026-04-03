@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BillWise.ViewModels"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             x:Class="BillWise.Views.StatisticsPage"
+             x:DataType="vm:StatisticsViewModel"
+             BackgroundColor="#FAFAFA"
+             Shell.NavBarIsVisible="False">
+    
+    <ScrollView>
+        <VerticalStackLayout Spacing="24" Padding="16,40,16,100">
+            <!-- Header -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Statistics" FontSize="26" FontAttributes="Bold" TextColor="#111827"/>
+                <Label Text="Your spending analysis" FontSize="14" TextColor="#6B7280"/>
+            </VerticalStackLayout>
+
+            <!-- Cards Grid -->
+            <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" ColumnSpacing="12" RowSpacing="12">
+                <!-- Total Amount -->
+                <Border Grid.Row="0" Grid.Column="0" BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                    <VerticalStackLayout Spacing="8">
+                        <Border BackgroundColor="#E0F2FE" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="6" HorizontalOptions="Start">
+                            <Label Text="💲" FontSize="16"/>
+                        </Border>
+                        <Label Text="Total Amount" FontSize="12" TextColor="#6B7280"/>
+                        <Label Text="{Binding TotalAmount, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
+                        <Label Text="FCFA" FontSize="10" TextColor="#9CA3AF"/>
+                    </VerticalStackLayout>
+                </Border>
+                <!-- This Month -->
+                <Border Grid.Row="0" Grid.Column="1" BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                    <VerticalStackLayout Spacing="8">
+                        <Border BackgroundColor="#DCFCE7" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="6" HorizontalOptions="Start">
+                            <Label Text="📈" FontSize="16"/>
+                        </Border>
+                        <Label Text="This Month" FontSize="12" TextColor="#6B7280"/>
+                        <Label Text="{Binding ThisMonthAmount, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
+                        <Label Text="FCFA" FontSize="10" TextColor="#9CA3AF"/>
+                    </VerticalStackLayout>
+                </Border>
+                <!-- Paid -->
+                <Border Grid.Row="1" Grid.Column="0" BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                    <VerticalStackLayout Spacing="8">
+                        <Border BackgroundColor="#D1FAE5" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="6" HorizontalOptions="Start">
+                            <Label Text="📉" FontSize="16"/>
+                        </Border>
+                        <Label Text="Paid" FontSize="12" TextColor="#6B7280"/>
+                        <Label Text="{Binding PaidAmount, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
+                        <Label Text="FCFA" FontSize="10" TextColor="#9CA3AF"/>
+                    </VerticalStackLayout>
+                </Border>
+                <!-- To Pay -->
+                <Border Grid.Row="1" Grid.Column="1" BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                    <VerticalStackLayout Spacing="8">
+                        <Border BackgroundColor="#FEE2E2" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="6" HorizontalOptions="Start">
+                            <Label Text="📅" FontSize="16"/>
+                        </Border>
+                        <Label Text="To Pay" FontSize="12" TextColor="#6B7280"/>
+                        <Label Text="{Binding ToPayAmount, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
+                        <Label Text="FCFA" FontSize="10" TextColor="#9CA3AF"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Monthly Expenses Bar Chart -->
+            <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                <VerticalStackLayout Spacing="16">
+                    <Label Text="Monthly Expenses" FontSize="16" FontAttributes="Bold" TextColor="#111827"/>
+                    <lvc:CartesianChart Series="{Binding BarSeries}" XAxes="{Binding XAxes}" HeightRequest="200" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Category Breakdown Pie Chart -->
+            <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                <VerticalStackLayout Spacing="24">
+                    <Label Text="Category Breakdown" FontSize="16" FontAttributes="Bold" TextColor="#111827"/>
+                    
+                    <lvc:PieChart Series="{Binding PieSeries}" HeightRequest="200" LegendPosition="Hidden" />
+
+                    <!-- Detailed Breakdown -->
+                    <CollectionView ItemsSource="{Binding CategoryStats}" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <VerticalStackLayout Spacing="4" Margin="0,8">
+                                    <Grid ColumnDefinitions="Auto,*,Auto">
+                                        <Ellipse Grid.Column="0" WidthRequest="10" HeightRequest="10" Fill="{Binding ColorHex}" VerticalOptions="Center" Margin="0,0,8,0"/>
+                                        <Label Grid.Column="1" Text="{Binding CategoryName}" FontSize="14" TextColor="#4B5563" VerticalOptions="Center"/>
+                                        <Label Grid.Column="2" Text="{Binding AmountFormatted}" FontAttributes="Bold" FontSize="14" TextColor="#111827" VerticalOptions="Center"/>
+                                    </Grid>
+                                    <BoxView HeightRequest="4" Color="{Binding ColorHex}" HorizontalOptions="Start" WidthRequest="150" CornerRadius="2"/>
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
