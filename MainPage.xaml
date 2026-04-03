@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BillWise.MainPage"
+             BackgroundColor="White">
+    <VerticalStackLayout
+        Padding="30"
+        Spacing="25"
+        VerticalOptions="Center">
+
+        <Label
+            Text="BillWise"
+            FontSize="32"
+            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            TextColor="#185FA5" />
+
+        <Label
+            Text="Setup in progress..."
+            FontSize="18"
+            HorizontalOptions="Center"
+            TextColor="Gray" />
+
+    </VerticalStackLayout>
+
+</ContentPage>
