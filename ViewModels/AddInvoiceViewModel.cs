@@ -23,7 +23,18 @@ namespace BillWise.ViewModels
         private string _amountText = string.Empty;
 
         [ObservableProperty]
-        private DateTime _dueDate;
+        [NotifyPropertyChangedFor(nameof(DueDateText))]
+        [NotifyPropertyChangedFor(nameof(DueDateColor))]
+        private DateTime _dueDate = DateTime.Today;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(DueDateText))]
+        [NotifyPropertyChangedFor(nameof(DueDateColor))]
+        private bool _isDateSelected = false;
+
+        public string DueDateText => IsDateSelected ? DueDate.ToString("dd / MM / yyyy") : "jj / mm / aaaa";
+        // Hex values directly converted or we can just return a string for ColorConverter. We can return Color.
+        public Color DueDateColor => IsDateSelected ? Colors.Black : Color.FromArgb("#9CA3AF");
 
         [ObservableProperty]
         private CategoryType _selectedCategory = CategoryType.Other;
@@ -38,6 +49,12 @@ namespace BillWise.ViewModels
         public void SelectCategory(CategoryType category)
         {
             SelectedCategory = category;
+        }
+
+        [RelayCommand]
+        public async Task GoBackAsync()
+        {
+            await Shell.Current.GoToAsync("..");
         }
 
         [RelayCommand]
@@ -69,6 +86,7 @@ namespace BillWise.ViewModels
                     DueDate = DueDate,
                     Category = SelectedCategory,
                     Notes = Notes,
+                    PaymentMethod = Enum.TryParse<Models.Entities.PaymentMethod>(PaymentMethod?.Replace(" ", ""), true, out var pm) ? pm : Models.Entities.PaymentMethod.Cash,
                     Status = InvoiceStatus.Pending,
                     CreatedAt = DateTime.UtcNow
                 };

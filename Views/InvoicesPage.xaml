@@ -28,28 +28,40 @@
                 <HorizontalStackLayout Spacing="8">
                     <!-- Filter: All -->
                     <Border StrokeThickness="0" BackgroundColor="#2196F3" StrokeShape="RoundRectangle 8" Padding="16,8">
-                        <Label Text="{Binding [All], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="White" FontSize="13" FontAttributes="Bold"/>
+                        <HorizontalStackLayout Spacing="4">
+                            <Label Text="{Binding [All], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="White" FontSize="13" FontAttributes="Bold"/>
+                            <Label Text="{Binding AllCount, StringFormat='({0})'}" TextColor="White" FontSize="13" FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding LoadDataCommand}" CommandParameter="All"/>
                         </Border.GestureRecognizers>
                     </Border>
                     <!-- Filter: Paid -->
                     <Border StrokeThickness="0" BackgroundColor="#F3F4F6" StrokeShape="RoundRectangle 8" Padding="16,8">
-                        <Label Text="{Binding [Paid], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#4B5563" FontSize="13"/>
+                        <HorizontalStackLayout Spacing="4">
+                            <Label Text="{Binding [Paid], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#4B5563" FontSize="13"/>
+                            <Label Text="{Binding PaidCount, StringFormat='({0})'}" TextColor="#4B5563" FontSize="13"/>
+                        </HorizontalStackLayout>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding LoadDataCommand}" CommandParameter="Paid"/>
                         </Border.GestureRecognizers>
                     </Border>
                     <!-- Filter: Pending -->
                     <Border StrokeThickness="0" BackgroundColor="#F3F4F6" StrokeShape="RoundRectangle 8" Padding="16,8">
-                        <Label Text="{Binding [Pending], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#4B5563" FontSize="13"/>
+                        <HorizontalStackLayout Spacing="4">
+                            <Label Text="{Binding [Pending], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#4B5563" FontSize="13"/>
+                            <Label Text="{Binding PendingCount, StringFormat='({0})'}" TextColor="#4B5563" FontSize="13"/>
+                        </HorizontalStackLayout>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding LoadDataCommand}" CommandParameter="Pending"/>
                         </Border.GestureRecognizers>
                     </Border>
                     <!-- Filter: Overdue -->
                     <Border StrokeThickness="0" BackgroundColor="#F3F4F6" StrokeShape="RoundRectangle 8" Padding="16,8">
-                        <Label Text="{Binding [Overdue], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#4B5563" FontSize="13"/>
+                        <HorizontalStackLayout Spacing="4">
+                            <Label Text="{Binding [Overdue], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#4B5563" FontSize="13"/>
+                            <Label Text="{Binding OverdueCount, StringFormat='({0})'}" TextColor="#4B5563" FontSize="13"/>
+                        </HorizontalStackLayout>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding LoadDataCommand}" CommandParameter="Overdue"/>
                         </Border.GestureRecognizers>
@@ -77,18 +89,22 @@
                                     <Label Text="{Binding CategoryIcon}" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center"/>
                                 </Border>
                                 
-                                <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
                                     <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" TextColor="#111827"/>
-                                    <Label Text="{Binding DueDate, StringFormat='Due: {0:MMM dd, yyyy}'}" FontSize="12" TextColor="#6B7280"/>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Column="2" Spacing="4" HorizontalOptions="End">
-                                    <Label Text="{Binding FormattedAmount}" FontSize="16" FontAttributes="Bold" TextColor="#111827" HorizontalOptions="End"/>
+                                    <HorizontalStackLayout Spacing="6">
+                                        <Label Text="📅" FontSize="12" TextColor="#6B7280" VerticalOptions="Center"/>
+                                        <Label Text="{Binding DueDate, StringFormat='{0:dd MMM. yyyy}'}" FontSize="12" TextColor="#6B7280" VerticalOptions="Center"/>
+                                    </HorizontalStackLayout>
                                     <Border BackgroundColor="{Binding StatusBackgroundColor}" StrokeThickness="0"
-                                            StrokeShape="RoundRectangle 12" Padding="8,4" HorizontalOptions="End">
+                                            StrokeShape="RoundRectangle 12" Padding="8,4" HorizontalOptions="Start" Margin="0,4,0,0">
                                         <Label Text="{Binding StatusText}" TextColor="{Binding StatusTextColor}"
                                                FontSize="10" FontAttributes="Bold"/>
                                     </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Column="2" Spacing="8" HorizontalOptions="End" VerticalOptions="Center">
+                                    <Label Text="{Binding FormattedAmount}" FontSize="16" FontAttributes="Bold" TextColor="#111827" HorizontalOptions="End"/>
+                                    <Label Text=">" FontSize="16" TextColor="#9CA3AF" HorizontalOptions="End"/>
                                 </VerticalStackLayout>
                             </Grid>
                         </Border>

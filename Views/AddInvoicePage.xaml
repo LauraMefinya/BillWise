@@ -6,11 +6,30 @@
              xmlns:strings="clr-namespace:BillWise.Resources.Strings"
              x:Class="BillWise.Views.AddInvoicePage"
              x:DataType="vm:AddInvoiceViewModel"
-             Title="New Invoice"
-             BackgroundColor="#FAFAFA">
+             BackgroundColor="#FAFAFA"
+             Shell.NavBarIsVisible="False">
 
-    <ScrollView>
-        <VerticalStackLayout Spacing="16" Padding="16,10,16,30">
+    <Grid RowDefinitions="Auto,*">
+        
+        <!-- Custom Header from mockup -->
+        <Border Grid.Row="0" BackgroundColor="White" StrokeThickness="0" Padding="0" Margin="0">
+            <VerticalStackLayout>
+                <Grid ColumnDefinitions="Auto, *" Padding="20,16,20,16">
+                    <!-- Back arrow -->
+                    <Label Text="←" FontSize="22" FontAttributes="Bold" TextColor="#001F3F" VerticalOptions="Center" Margin="0,0,16,0">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Grid.Column="1" Text="New Invoice" FontSize="20" FontAttributes="Bold" TextColor="#001F3F" VerticalOptions="Center"/>
+                </Grid>
+                <!-- Separator -->
+                <BoxView HeightRequest="1" Color="#E5E7EB"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="16" Padding="16,10,16,30">
 
             <!-- Top Action Buttons -->
             <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12" Margin="0,0,0,16">
@@ -37,28 +56,25 @@
                 </Border>
             </Grid>
 
-            <Label Text="{Binding [NewInvoice], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" 
-                   TextColor="#111827" Margin="0,8,0,0"/>
-
             <!-- Invoice Name -->
             <Border Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 12" 
-                    BackgroundColor="White" Padding="16,12">
-                <VerticalStackLayout Spacing="4">
+                    BackgroundColor="White" Padding="16,4" HeightRequest="65">
+                <VerticalStackLayout Spacing="0" VerticalOptions="Center">
                     <Label Text="{Binding [InvoiceName], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13" TextColor="#757575"/>
-                    <Entry Text="{Binding InvoiceName}" Placeholder="e.g., ENEO, CAMWATER..." 
-                           BackgroundColor="Transparent" ClearButtonVisibility="WhileEditing"
-                           TextColor="#212121"/>
+                    <Entry Text="{Binding InvoiceName, Mode=TwoWay}" Placeholder="e.g., ENEO, CAMWATER..." 
+                           PlaceholderColor="#9CA3AF" BackgroundColor="Transparent" 
+                           TextColor="Black" Margin="0,-4,0,0"/>
                 </VerticalStackLayout>
             </Border>
 
             <!-- Amount -->
             <Border Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 12" 
-                    BackgroundColor="White" Padding="16,12">
-                <VerticalStackLayout Spacing="4">
+                    BackgroundColor="White" Padding="16,4" HeightRequest="65">
+                <VerticalStackLayout Spacing="0" VerticalOptions="Center">
                     <Label Text="{Binding [Amount], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13" TextColor="#757575"/>
-                    <Entry Text="{Binding AmountText}" Placeholder="e.g., 25000" Keyboard="Numeric"
-                           BackgroundColor="Transparent" ClearButtonVisibility="WhileEditing"
-                           TextColor="#212121"/>
+                    <Entry Text="{Binding AmountText, Mode=TwoWay}" Placeholder="e.g., 25000" Keyboard="Numeric"
+                           PlaceholderColor="#9CA3AF" BackgroundColor="Transparent" 
+                           TextColor="Black" Margin="0,-4,0,0"/>
                 </VerticalStackLayout>
             </Border>
 
@@ -67,7 +83,16 @@
                     BackgroundColor="White" Padding="16,12">
                 <VerticalStackLayout Spacing="4">
                     <Label Text="{Binding [DueDate], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13" TextColor="#757575"/>
-                    <DatePicker Date="{Binding DueDate}" BackgroundColor="Transparent" TextColor="#212121"/>
+                    <Grid>
+                        <!-- Real hidden picker to trigger native dialog, TextColor transparent prevents it from showing its text -->
+                        <DatePicker Date="{Binding DueDate}" TextColor="Transparent" BackgroundColor="Transparent" DateSelected="OnDateSelected"/>
+                        
+                        <!-- Visual Fake Picker text -->
+                        <Label Text="{Binding DueDateText}" TextColor="{Binding DueDateColor}" VerticalOptions="Center" InputTransparent="True"/>
+                        
+                        <!-- Calendar Icon on the right -->
+                        <Label Text="📅" HorizontalOptions="End" VerticalOptions="Center" FontSize="16" InputTransparent="True"/>
+                    </Grid>
                 </VerticalStackLayout>
             </Border>
 
@@ -79,14 +104,11 @@
                     
                     <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto" ColumnSpacing="8" RowSpacing="8">
                         
-                        <Border Grid.Row="0" Grid.Column="0" Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
+                        <Border Grid.Row="0" Grid.Column="0" Stroke="#E0E0E0" BackgroundColor="White" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
                             <Border.Triggers>
                                 <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory}" Value="0">
                                     <Setter Property="BackgroundColor" Value="#E3F2FD" />
                                     <Setter Property="Stroke" Value="#2196F3" />
-                                </DataTrigger>
-                                <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory, Converter={StaticResource InvertedBoolConverter}}" Value="False">
-                                    <Setter Property="BackgroundColor" Value="White" />
                                 </DataTrigger>
                             </Border.Triggers>
                             <Border.GestureRecognizers>
@@ -104,14 +126,11 @@
                             </VerticalStackLayout>
                         </Border>
                         
-                        <Border Grid.Row="0" Grid.Column="1" Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
+                        <Border Grid.Row="0" Grid.Column="1" Stroke="#E0E0E0" BackgroundColor="White" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
                             <Border.Triggers>
                                 <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory}" Value="1">
                                     <Setter Property="BackgroundColor" Value="#E3F2FD" />
                                     <Setter Property="Stroke" Value="#2196F3" />
-                                </DataTrigger>
-                                <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory, Converter={StaticResource InvertedBoolConverter}}" Value="False">
-                                    <Setter Property="BackgroundColor" Value="White" />
                                 </DataTrigger>
                             </Border.Triggers>
                             <Border.GestureRecognizers>
@@ -129,14 +148,11 @@
                             </VerticalStackLayout>
                         </Border>
                         
-                        <Border Grid.Row="0" Grid.Column="2" Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
+                        <Border Grid.Row="0" Grid.Column="2" Stroke="#E0E0E0" BackgroundColor="White" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
                             <Border.Triggers>
                                 <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory}" Value="2">
                                     <Setter Property="BackgroundColor" Value="#E3F2FD" />
                                     <Setter Property="Stroke" Value="#2196F3" />
-                                </DataTrigger>
-                                <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory, Converter={StaticResource InvertedBoolConverter}}" Value="False">
-                                    <Setter Property="BackgroundColor" Value="White" />
                                 </DataTrigger>
                             </Border.Triggers>
                             <Border.GestureRecognizers>
@@ -154,14 +170,11 @@
                             </VerticalStackLayout>
                         </Border>
                         
-                        <Border Grid.Row="1" Grid.Column="0" Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
+                        <Border Grid.Row="1" Grid.Column="0" Stroke="#E0E0E0" BackgroundColor="White" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
                             <Border.Triggers>
                                 <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory}" Value="3">
                                     <Setter Property="BackgroundColor" Value="#E3F2FD" />
                                     <Setter Property="Stroke" Value="#2196F3" />
-                                </DataTrigger>
-                                <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory, Converter={StaticResource InvertedBoolConverter}}" Value="False">
-                                    <Setter Property="BackgroundColor" Value="White" />
                                 </DataTrigger>
                             </Border.Triggers>
                             <Border.GestureRecognizers>
@@ -179,14 +192,11 @@
                             </VerticalStackLayout>
                         </Border>
                         
-                        <Border Grid.Row="1" Grid.Column="1" Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
+                        <Border Grid.Row="1" Grid.Column="1" Stroke="#E0E0E0" BackgroundColor="White" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
                             <Border.Triggers>
                                 <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory}" Value="4">
                                     <Setter Property="BackgroundColor" Value="#E3F2FD" />
                                     <Setter Property="Stroke" Value="#2196F3" />
-                                </DataTrigger>
-                                <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory, Converter={StaticResource InvertedBoolConverter}}" Value="False">
-                                    <Setter Property="BackgroundColor" Value="White" />
                                 </DataTrigger>
                             </Border.Triggers>
                             <Border.GestureRecognizers>
@@ -204,14 +214,11 @@
                             </VerticalStackLayout>
                         </Border>
                         
-                        <Border Grid.Row="1" Grid.Column="2" Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
+                        <Border Grid.Row="1" Grid.Column="2" Stroke="#E0E0E0" BackgroundColor="White" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
                             <Border.Triggers>
                                 <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory}" Value="5">
                                     <Setter Property="BackgroundColor" Value="#E3F2FD" />
                                     <Setter Property="Stroke" Value="#2196F3" />
-                                </DataTrigger>
-                                <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory, Converter={StaticResource InvertedBoolConverter}}" Value="False">
-                                    <Setter Property="BackgroundColor" Value="White" />
                                 </DataTrigger>
                             </Border.Triggers>
                             <Border.GestureRecognizers>
@@ -237,7 +244,7 @@
                     BackgroundColor="White" Padding="16,12">
                 <VerticalStackLayout Spacing="4">
                     <Label Text="{Binding [PaymentMethod], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13" TextColor="#757575"/>
-                    <Picker SelectedItem="{Binding PaymentMethod}" Title="Select method..." BackgroundColor="Transparent" TextColor="#212121">
+                    <Picker SelectedItem="{Binding PaymentMethod}" Title="Select method..." TitleColor="#9CA3AF" BackgroundColor="Transparent" TextColor="Black">
                         <Picker.Items>
                             <x:String>Cash</x:String>
                             <x:String>Mobile Money</x:String>
@@ -252,8 +259,8 @@
                     BackgroundColor="White" Padding="16,12">
                 <VerticalStackLayout Spacing="4">
                     <Label Text="{Binding [Notes], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13" TextColor="#757575"/>
-                    <Editor Text="{Binding Notes}" Placeholder="Add notes..." HeightRequest="80" 
-                            BackgroundColor="Transparent" AutoSize="TextChanges" TextColor="#212121"/>
+                    <Editor Text="{Binding Notes}" Placeholder="Add notes..." PlaceholderColor="#9CA3AF" HeightRequest="80" 
+                            BackgroundColor="Transparent" AutoSize="TextChanges" TextColor="Black"/>
                 </VerticalStackLayout>
             </Border>
 
@@ -265,5 +272,5 @@
 
         </VerticalStackLayout>
     </ScrollView>
-
+    </Grid>
 </ContentPage>

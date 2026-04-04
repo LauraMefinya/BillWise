@@ -16,10 +16,10 @@
                         <Label Text="👤" FontSize="36" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
                     </Border>
                     <Border StrokeShape="RoundRectangle 8" BackgroundColor="#5DADE2" StrokeThickness="0" Padding="12,8">
-                        <Label Text="{Binding UserName}" TextColor="White" FontSize="18" FontAttributes="Bold"/>
+                        <Entry Text="{Binding UserName}" TextColor="White" PlaceholderColor="#EBF5FB" FontSize="18" FontAttributes="Bold" BackgroundColor="Transparent" HorizontalTextAlignment="Center"/>
                     </Border>
                     <Border StrokeShape="RoundRectangle 8" BackgroundColor="#5DADE2" StrokeThickness="0" Padding="12,8" Margin="0,-10,0,0">
-                        <Label Text="{Binding UserEmail}" TextColor="White" FontSize="14"/>
+                        <Entry Text="{Binding UserEmail}" TextColor="White" PlaceholderColor="#EBF5FB" FontSize="14" Keyboard="Email" BackgroundColor="Transparent" HorizontalTextAlignment="Center"/>
                     </Border>
                 </VerticalStackLayout>
             </Grid>
@@ -74,13 +74,18 @@
 
                 <!-- Notifications -->
                 <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
-                    <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
+                    <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
                         <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" BackgroundColor="#FFEDD5" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" VerticalOptions="Start">
                             <Label Text="🔔" FontSize="16"/>
                         </Border>
                         <Label Grid.Row="0" Grid.Column="1" Text="{Binding [Notifications], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="12" Margin="12,0,0,0"/>
                         <Label Grid.Row="1" Grid.Column="1" Text="{Binding [Enabled], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontAttributes="Bold" TextColor="#111827" FontSize="14" Margin="12,0,0,0"/>
                         <Switch Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" IsToggled="{Binding NotificationsEnabled}" VerticalOptions="Center"/>
+                        
+                        <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="Reminder before due date (days)" TextColor="#6B7280" FontSize="12" Margin="12,16,0,4"/>
+                        <Border Grid.Row="3" Grid.Column="1" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 4" BackgroundColor="White" Margin="12,0,0,0" Padding="8,0" HorizontalOptions="Start" WidthRequest="60">
+                            <Entry Text="{Binding ReminderDays, FallbackValue='2'}" Keyboard="Numeric" BackgroundColor="Transparent" TextColor="#111827" HorizontalTextAlignment="Center"/>
+                        </Border>
                     </Grid>
                 </Border>
 

@@ -20,15 +20,26 @@
                                FontSize="14" TextColor="#6B7280"/>
                     </VerticalStackLayout>
 
-                    <!-- Bell icon -->
-                    <Border Grid.Column="1"
-                            BackgroundColor="#EFF6FF" StrokeThickness="0"
-                            StrokeShape="RoundRectangle 22"
-                            WidthRequest="44" HeightRequest="44"
-                            VerticalOptions="Center">
-                        <Label Text="🔔" FontSize="20"
-                               HorizontalOptions="Center" VerticalOptions="Center"/>
-                    </Border>
+                    <!-- Bell icon with Badge -->
+                    <Grid Grid.Column="1" WidthRequest="44" HeightRequest="44" VerticalOptions="Center">
+                        <Border BackgroundColor="#EFF6FF" StrokeThickness="0"
+                                StrokeShape="RoundRectangle 22"
+                                WidthRequest="44" HeightRequest="44">
+                            <Label Text="🔔" FontSize="20"
+                                   HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </Border>
+                        
+                        <Border BackgroundColor="#EF4444" StrokeThickness="0" StrokeShape="RoundRectangle 10" 
+                                WidthRequest="20" HeightRequest="20" HorizontalOptions="End" VerticalOptions="Start"
+                                TranslationX="2" TranslationY="-2">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border" Binding="{Binding UnreadCount}" Value="0">
+                                    <Setter Property="IsVisible" Value="False" />
+                                </DataTrigger>
+                            </Border.Triggers>
+                            <Label Text="{Binding UnreadCount}" TextColor="White" FontSize="10" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </Border>
+                    </Grid>
                 </Grid>
 
                 <!-- Notifications List -->
