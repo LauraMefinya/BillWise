@@ -27,7 +27,7 @@ namespace BillWise.Views
             }
             catch (Exception ex)
             {
-                await Shell.Current.DisplayAlert("Navigation Error", $"Failed to open page: {ex.Message}", "OK");
+                await Shell.Current.DisplayAlertAsync("Navigation Error", $"Failed to open page: {ex.Message}", "OK");
             }
         }
     }

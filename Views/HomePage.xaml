@@ -109,6 +109,9 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="entities:Invoice">
                                 <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16" Margin="0,0,0,12">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
+                                    </Border.GestureRecognizers>
                                     <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="16">
                                         <!-- Category Icon -->
                                         <Border Grid.Column="0" BackgroundColor="{Binding CategoryIconBackgroundColor}" StrokeThickness="0" StrokeShape="RoundRectangle 12" WidthRequest="48" HeightRequest="48" HorizontalOptions="Center" VerticalOptions="Center">

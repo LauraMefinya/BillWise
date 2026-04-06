@@ -60,7 +60,7 @@ namespace BillWise.ViewModels
         }
 
         [RelayCommand]
-        public void SaveSettings()
+        public async Task SaveSettingsAsync()
         {
             Preferences.Default.Set("currency", SelectedCurrency);
             Preferences.Default.Set("language", SelectedLanguage);
@@ -76,7 +76,7 @@ namespace BillWise.ViewModels
             }
             catch { }
 
-            Shell.Current.DisplayAlert("Success", "Settings saved.", "OK");
+            await Shell.Current.DisplayAlertAsync("Success", "Settings saved.", "OK");
         }
 
         [RelayCommand]
@@ -88,17 +88,17 @@ namespace BillWise.ViewModels
         [RelayCommand]
         public async Task ExportDataAsync()
         {
-            await Shell.Current.DisplayAlert("Export", "Export feature coming soon.", "OK");
+            await Shell.Current.DisplayAlertAsync("Export", "Export feature coming soon.", "OK");
         }
 
         [RelayCommand]
         public async Task ClearAllDataAsync()
         {
-            bool answer = await Shell.Current.DisplayAlert("Warning", "Are you sure you want to clear all local data? This cannot be undone.", "Yes", "No");
+            bool answer = await Shell.Current.DisplayAlertAsync("Warning", "Are you sure you want to clear all local data? This cannot be undone.", "Yes", "No");
             if (answer)
             {
                 Preferences.Default.Clear();
-                await Shell.Current.DisplayAlert("Cleared", "All data cleared.", "OK");
+                await Shell.Current.DisplayAlertAsync("Cleared", "All data cleared.", "OK");
             }
         }
 

@@ -34,6 +34,14 @@ namespace BillWise.ViewModels
         private int _overdueCount;
 
         [RelayCommand]
+        public async Task GoToDetailsAsync(Invoice invoice)
+        {
+            if (invoice == null) return;
+            var parameters = new Dictionary<string, object> { { "Invoice", invoice } };
+            await Shell.Current.GoToAsync(nameof(Views.InvoiceDetailsPage), parameters);
+        }
+
+        [RelayCommand]
         public async Task LoadDataAsync(string filter = "All")
         {
             if (IsBusy) return;

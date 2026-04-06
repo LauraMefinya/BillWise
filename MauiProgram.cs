@@ -38,6 +38,8 @@ namespace BillWise
             builder.Services.AddSingleton<AlertsViewModel>();
             builder.Services.AddTransient<AddInvoiceViewModel>();
             builder.Services.AddTransient<ProfileViewModel>();
+            builder.Services.AddTransient<InvoiceDetailsViewModel>();
+            builder.Services.AddTransient<EditInvoiceViewModel>();
 
             // Pages
             builder.Services.AddSingleton<HomePage>();
@@ -47,6 +49,8 @@ namespace BillWise
             builder.Services.AddTransient<AddInvoicePage>();
             builder.Services.AddTransient<ProfilePage>();
             builder.Services.AddTransient<EditProfilePage>();
+            builder.Services.AddTransient<InvoiceDetailsPage>();
+            builder.Services.AddTransient<EditInvoicePage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

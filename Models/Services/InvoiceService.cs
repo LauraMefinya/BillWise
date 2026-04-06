@@ -21,7 +21,6 @@ namespace BillWise.Models.Services
                 var response = await _client.From<Invoice>().Get();
                 var invoices = response.Models;
 
-                bool updated = false;
                 foreach (var invoice in invoices)
                 {
                     var oldStatus = invoice.Status;
@@ -29,7 +28,6 @@ namespace BillWise.Models.Services
                     if (oldStatus != invoice.Status)
                     {
                         await _client.From<Invoice>().Update(invoice);
-                        updated = true;
                     }
                 }
 

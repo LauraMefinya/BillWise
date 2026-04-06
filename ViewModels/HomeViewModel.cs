@@ -31,6 +31,14 @@ namespace BillWise.ViewModels
         public ObservableCollection<Invoice> RecentInvoices { get; } = new();
 
         [RelayCommand]
+        public async Task GoToDetailsAsync(Invoice invoice)
+        {
+            if (invoice == null) return;
+            var parameters = new Dictionary<string, object> { { "Invoice", invoice } };
+            await Shell.Current.GoToAsync(nameof(Views.InvoiceDetailsPage), parameters);
+        }
+
+        [RelayCommand]
         public async Task GoToInvoicesFallbackAsync()
         {
             await Shell.Current.GoToAsync("//InvoicesPage");
