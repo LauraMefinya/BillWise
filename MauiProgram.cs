@@ -29,6 +29,7 @@ namespace BillWise
             builder.Services.AddSingleton(new Supabase.Client(url, key, options));
 
             // Services
+            builder.Services.AddSingleton<AuthService>();
             builder.Services.AddSingleton<InvoiceService>();
 
             // ViewModels
@@ -40,6 +41,8 @@ namespace BillWise
             builder.Services.AddTransient<ProfileViewModel>();
             builder.Services.AddTransient<InvoiceDetailsViewModel>();
             builder.Services.AddTransient<EditInvoiceViewModel>();
+            builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<RegisterViewModel>();
 
             // Pages
             builder.Services.AddSingleton<HomePage>();
@@ -51,6 +54,8 @@ namespace BillWise
             builder.Services.AddTransient<EditProfilePage>();
             builder.Services.AddTransient<InvoiceDetailsPage>();
             builder.Services.AddTransient<EditInvoicePage>();
+            builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<RegisterPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

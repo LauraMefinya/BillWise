@@ -59,11 +59,13 @@ namespace BillWise.ViewModels
 
         private void LoadInvoiceData()
         {
+            if (Invoice == null) return;
+
             InvoiceName = Invoice.Name;
             AmountText = Invoice.Amount.ToString();
             DueDate = Invoice.DueDate;
             SelectedCategory = Invoice.Category;
-            PaymentMethod = Invoice.PaymentMethod.ToString() == "MobileMoney" ? "Mobile Money" : Invoice.PaymentMethod.ToString() == "BankTransfer" ? "Bank Transfer" : "Cash";
+            PaymentMethod = Invoice.PaymentMethod?.ToString() == "MobileMoney" ? "Mobile Money" : Invoice.PaymentMethod?.ToString() == "BankTransfer" ? "Bank Transfer" : "Cash";
             Notes = Invoice.Notes ?? string.Empty;
         }
 

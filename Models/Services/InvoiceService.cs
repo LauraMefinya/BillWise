@@ -13,12 +13,17 @@ namespace BillWise.Models.Services
         }
 
         // ── READ ──────────────────────────────────────
-
+        
         public async Task<List<Invoice>> GetAllInvoicesAsync()
         {
             try
             {
-                var response = await _client.From<Invoice>().Get();
+                var userId = _client.Auth.CurrentUser?.Id;
+                if (string.IsNullOrEmpty(userId)) return new List<Invoice>();
+
+                var response = await _client.From<Invoice>()
+                    .Filter("user_id", Postgrest.Constants.Operator.Equals, userId)
+                    .Get();
                 var invoices = response.Models;
 
                 foreach (var invoice in invoices)
@@ -65,7 +70,13 @@ namespace BillWise.Models.Services
         {
             try
             {
-                var response = await _client.From<Invoice>().Filter("id", Postgrest.Constants.Operator.Equals, id).Get();
+                var userId = _client.Auth.CurrentUser?.Id;
+                if (string.IsNullOrEmpty(userId)) return null;
+
+                var response = await _client.From<Invoice>()
+                    .Filter("id", Postgrest.Constants.Operator.Equals, id)
+                    .Filter("user_id", Postgrest.Constants.Operator.Equals, userId)
+                    .Get();
                 return response.Models.FirstOrDefault();
             }
             catch
@@ -104,6 +115,8 @@ namespace BillWise.Models.Services
             if (invoice.CreatedAt == default)
                 invoice.CreatedAt = DateTime.UtcNow;
 
+            invoice.UserId = _client.Auth.CurrentUser?.Id ?? string.Empty;
+
             invoice.UpdateStatus();
 
             try
@@ -136,7 +149,13 @@ namespace BillWise.Models.Services
         {
             try
             {
-                await _client.From<Invoice>().Filter("id", Postgrest.Constants.Operator.Equals, id).Delete();
+                var userId = _client.Auth.CurrentUser?.Id;
+                if (string.IsNullOrEmpty(userId)) return false;
+
+                await _client.From<Invoice>()
+                    .Filter("id", Postgrest.Constants.Operator.Equals, id)
+                    .Filter("user_id", Postgrest.Constants.Operator.Equals, userId)
+                    .Delete();
                 return true;
             }
             catch

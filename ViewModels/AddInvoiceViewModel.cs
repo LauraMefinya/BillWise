@@ -33,7 +33,6 @@ namespace BillWise.ViewModels
         private bool _isDateSelected = false;
 
         public string DueDateText => IsDateSelected ? DueDate.ToString("dd / MM / yyyy") : "jj / mm / aaaa";
-        // Hex values directly converted or we can just return a string for ColorConverter. We can return Color.
         public Color DueDateColor => IsDateSelected ? Colors.Black : Color.FromArgb("#9CA3AF");
 
         [ObservableProperty]

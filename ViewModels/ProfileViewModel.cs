@@ -5,10 +5,39 @@ namespace BillWise.ViewModels
 {
     public partial class ProfileViewModel : BaseViewModel
     {
-        public ProfileViewModel()
+        private readonly Models.Services.AuthService _authService;
+        private readonly Models.Services.InvoiceService _invoiceService;
+
+        public ProfileViewModel(Models.Services.AuthService authService, Models.Services.InvoiceService invoiceService)
         {
+            _authService = authService;
+            _invoiceService = invoiceService;
             Title = "Profile";
             LoadSettings();
+            LoadUserData();
+        }
+
+        private async void LoadUserData()
+        {
+            var email = _authService.GetCurrentUserEmail();
+            UserEmail = !string.IsNullOrEmpty(email) ? email : "Connected User";
+            
+            // Set a default user name if we don't have one
+            if (!string.IsNullOrEmpty(email))
+            {
+                UserName = email.Split('@')[0];
+            }
+
+            await RefreshStatsAsync();
+        }
+
+        private async Task RefreshStatsAsync()
+        {
+            var invoices = await _invoiceService.GetAllInvoicesAsync();
+            TotalInvoices = invoices.Count;
+            PaidInvoices = invoices.Count(i => i.Status == Models.Entities.InvoiceStatus.Paid);
+            PendingInvoices = invoices.Count(i => i.Status == Models.Entities.InvoiceStatus.Pending);
+            OverdueInvoices = invoices.Count(i => i.Status == Models.Entities.InvoiceStatus.Overdue);
         }
 
         [ObservableProperty]
@@ -106,6 +135,25 @@ namespace BillWise.ViewModels
         public async Task GoToEditProfileAsync()
         {
             await Shell.Current.GoToAsync(nameof(Views.EditProfilePage));
+        }
+
+        [RelayCommand]
+        public async Task LogoutAsync()
+        {
+            var mainPage = Application.Current?.Windows[0]?.Page;
+            if (mainPage == null) return;
+
+            bool confirm = await mainPage.DisplayAlertAsync("Logout", "Are you sure you want to log out?", "Yes", "No");
+            if (confirm)
+            {
+                await _authService.LogoutAsync();
+                
+                var loginPage = Application.Current.Handler.MauiContext.Services.GetService<Views.LoginPage>();
+                if (Application.Current?.Windows.Count > 0)
+                {
+                    Application.Current.Windows[0].Page = new NavigationPage(loginPage);
+                }
+            }
         }
     }
 }

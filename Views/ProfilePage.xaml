@@ -101,7 +101,9 @@
                 
                 <Button Text="{Binding [ExportData], Source={x:Static strings:LocalizationResourceManager.Instance}}" Command="{Binding ExportDataCommand}" BackgroundColor="#2ECC71" TextColor="White" CornerRadius="8" FontAttributes="Bold" HeightRequest="50"/>
                 
-                <Button Text="{Binding [ClearAllData], Source={x:Static strings:LocalizationResourceManager.Instance}}" Command="{Binding ClearAllDataCommand}" BackgroundColor="#E74C3C" TextColor="White" CornerRadius="8" FontAttributes="Bold" HeightRequest="50" Margin="0,0,0,20"/>
+                <Button Text="{Binding [ClearAllData], Source={x:Static strings:LocalizationResourceManager.Instance}}" Command="{Binding ClearAllDataCommand}" BackgroundColor="#E74C3C" TextColor="White" CornerRadius="8" FontAttributes="Bold" HeightRequest="50" Margin="0,0,0,10"/>
+
+                <Button Text="Logout" Command="{Binding LogoutCommand}" BackgroundColor="Transparent" TextColor="#E74C3C" BorderColor="#E74C3C" BorderWidth="1" CornerRadius="8" FontAttributes="Bold" HeightRequest="50" Margin="0,0,0,20"/>
 
             </VerticalStackLayout>
         </VerticalStackLayout>

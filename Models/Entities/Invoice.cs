@@ -13,6 +13,9 @@ namespace BillWise.Models.Entities
     {
         [PrimaryKey("id", true)]
         public string Id { get; set; } = Guid.NewGuid().ToString();
+
+        [Column("user_id")]
+        public string UserId { get; set; } = string.Empty;
         
         [Column("name")]
         public string Name { get; set; } = string.Empty;
