@@ -12,7 +12,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  
+
   <data name="AppTitle" xml:space="preserve">
     <value>BillWise</value>
   </data>
@@ -71,7 +71,7 @@
     <value>Catégorie *</value>
   </data>
   <data name="Electricity" xml:space="preserve">
-    <value>Électricité</value>
+    <value>Electricité</value>
   </data>
   <data name="Water" xml:space="preserve">
     <value>Eau</value>
@@ -86,7 +86,7 @@
     <value>Notes (optionnel)</value>
   </data>
   <data name="SaveInvoice" xml:space="preserve">
-    <value>💾 Enregistrer</value>
+    <value>Enregistrer la facture</value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profil</value>
@@ -113,13 +113,13 @@
     <value>Annuler</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>💾 Enregistrer</value>
+    <value>Enregistrer</value>
   </data>
   <data name="ExportData" xml:space="preserve">
-    <value>📥 Exporter Données</value>
+    <value>Exporter les données</value>
   </data>
   <data name="ClearAllData" xml:space="preserve">
-    <value>🗑 Effacer tout</value>
+    <value>Effacer tout</value>
   </data>
   <data name="Statistics" xml:space="preserve">
     <value>Statistiques</value>

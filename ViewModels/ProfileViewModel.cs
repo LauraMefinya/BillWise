@@ -1,4 +1,4 @@
-using BillWise.Models.Providers;
+using BillWise.Models.Messages;using BillWise.Models.Providers;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -21,6 +21,13 @@ namespace BillWise.ViewModels
             // Listen for invoice changes from any page
             _invoiceProvider.InvoicesChanged += async () =>
                 await RefreshStatsAsync();
+        }
+
+        // Override to reload settings when language changes
+        public override void Receive(LanguageChangedMessage message)
+        {
+            base.Receive(message);
+            LoadSettings();
         }
 
         private async void LoadUserData()
@@ -78,6 +85,7 @@ namespace BillWise.ViewModels
             try
             {
                 var culture = new System.Globalization.CultureInfo(SelectedLanguage);
+                // This now broadcasts LanguageChangedMessage to all pages
                 BillWise.Resources.Strings.LocalizationResourceManager
                     .Instance.SetCulture(culture);
             }

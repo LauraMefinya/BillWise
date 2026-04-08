@@ -1,3 +1,5 @@
+using CommunityToolkit.Mvvm.Messaging;
+using BillWise.Models.Messages;
 using System.ComponentModel;
 using System.Globalization;
 using System.Resources;
@@ -13,8 +15,9 @@ namespace BillWise.Resources.Strings
 
         private LocalizationResourceManager()
         {
-            // Update this if the namespace differs
-            _resourceManager = new ResourceManager("BillWise.Resources.Strings.AppResources", typeof(LocalizationResourceManager).Assembly);
+            _resourceManager = new ResourceManager(
+                "BillWise.Resources.Strings.AppResources",
+                typeof(LocalizationResourceManager).Assembly);
         }
 
         public string this[string text]
@@ -30,7 +33,13 @@ namespace BillWise.Resources.Strings
         {
             CultureInfo.CurrentUICulture = culture;
             CultureInfo.CurrentCulture = culture;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null)); // Refresh all bindings
+
+            // Notify all bindings to refresh
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
+
+            // Broadcast to all ViewModels
+            WeakReferenceMessenger.Default.Send(
+                new LanguageChangedMessage(culture.Name));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
