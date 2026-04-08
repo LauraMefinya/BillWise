@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:BillWise.ViewModels"
+             xmlns:strings="clr-namespace:BillWise.Resources.Strings"
              x:Class="BillWise.Views.LoginPage"
              x:DataType="vm:LoginViewModel"
              BackgroundColor="#3498DB"
@@ -30,7 +31,7 @@
                        FontSize="34" FontAttributes="Bold"
                        TextColor="White"
                        HorizontalOptions="Center"/>
-                <Label Text="Manage your invoices smartly"
+                <Label Text="{Binding [ManageInvoicesSmartly], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                        FontSize="14" TextColor="#D6EAF8"
                        HorizontalOptions="Center"/>
             </VerticalStackLayout>
@@ -44,15 +45,15 @@
 
                 <VerticalStackLayout Spacing="0">
 
-                    <Label Text="Welcome Back"
+                    <Label Text="{Binding [WelcomeBack], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                            FontSize="26" FontAttributes="Bold"
                            TextColor="#1A1A2E"/>
-                    <Label Text="Sign in to your account"
+                    <Label Text="{Binding [SignInToAccount], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                            FontSize="14" TextColor="#9CA3AF"
                            Margin="0,6,0,28"/>
 
                     <!-- Email -->
-                    <Label Text="Email Address" FontSize="13"
+                    <Label Text="{Binding [EmailAddress], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13"
                            FontAttributes="Bold" TextColor="#374151"
                            Margin="0,0,0,6"/>
                     <Border Stroke="#E5E7EB" StrokeThickness="1.5"
@@ -70,7 +71,7 @@
                     </Border>
 
                     <!-- Password -->
-                    <Label Text="Password" FontSize="13"
+                    <Label Text="{Binding [Password], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13"
                            FontAttributes="Bold" TextColor="#374151"
                            Margin="0,0,0,6"/>
                     <Border Stroke="#E5E7EB" StrokeThickness="1.5"
@@ -87,13 +88,13 @@
                                VerticalTextAlignment="Center"/>
                     </Border>
 
-                    <Label Text="Forgot password?"
+                    <Label Text="{Binding [ForgotPassword], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                            TextColor="#3498DB" FontSize="13"
                            FontAttributes="Bold"
                            HorizontalOptions="End"
                            Margin="0,0,0,28"/>
 
-                    <Button Text="Login"
+                    <Button Text="{Binding [Login], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                             Command="{Binding LoginCommand}"
                             BackgroundColor="#3498DB" TextColor="White"
                             CornerRadius="14" HeightRequest="56"
@@ -107,10 +108,10 @@
 
                     <HorizontalStackLayout HorizontalOptions="Center"
                                            Spacing="4" Margin="0,24,0,0">
-                        <Label Text="Don't have an account?"
+                        <Label Text="{Binding [DontHaveAccount], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                                TextColor="#9CA3AF" FontSize="14"
                                VerticalOptions="Center"/>
-                        <Label Text="Sign Up" TextColor="#3498DB"
+                        <Label Text="{Binding [SignUp], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#3498DB"
                                FontAttributes="Bold" FontSize="14"
                                VerticalOptions="Center">
                             <Label.GestureRecognizers>

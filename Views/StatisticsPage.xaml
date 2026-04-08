@@ -47,7 +47,7 @@
                         <Border BackgroundColor="#D1FAE5" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="6" HorizontalOptions="Start">
                             <Label Text="📉" FontSize="16"/>
                         </Border>
-                        <Label Text="Paid" FontSize="12" TextColor="#6B7280"/>
+                        <Label Text="{Binding [Paid], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280"/>
                         <Label Text="{Binding PaidAmount, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
                         <Label Text="FCFA" FontSize="10" TextColor="#9CA3AF"/>
                     </VerticalStackLayout>
@@ -58,7 +58,7 @@
                         <Border BackgroundColor="#FEE2E2" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="6" HorizontalOptions="Start">
                             <Label Text="📅" FontSize="16"/>
                         </Border>
-                        <Label Text="To Pay" FontSize="12" TextColor="#6B7280"/>
+                        <Label Text="{Binding [ToPay], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280"/>
                         <Label Text="{Binding ToPayAmount, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
                         <Label Text="FCFA" FontSize="10" TextColor="#9CA3AF"/>
                     </VerticalStackLayout>
@@ -68,7 +68,7 @@
             <!-- Monthly Expenses Bar Chart -->
             <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
                 <VerticalStackLayout Spacing="16">
-                    <Label Text="Monthly Expenses" FontSize="16" FontAttributes="Bold" TextColor="#111827"/>
+                    <Label Text="{Binding [MonthlyExpenses], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="16" FontAttributes="Bold" TextColor="#111827"/>
                     <lvc:CartesianChart Series="{Binding BarSeries}" XAxes="{Binding XAxes}" HeightRequest="200" />
                 </VerticalStackLayout>
             </Border>
@@ -76,7 +76,7 @@
             <!-- Category Breakdown Pie Chart -->
             <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
                 <VerticalStackLayout Spacing="24">
-                    <Label Text="Category Breakdown" FontSize="16" FontAttributes="Bold" TextColor="#111827"/>
+                    <Label Text="{Binding [CategoryBreakdown], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="16" FontAttributes="Bold" TextColor="#111827"/>
                     
                     <lvc:PieChart Series="{Binding PieSeries}" HeightRequest="200" LegendPosition="Hidden" />
 

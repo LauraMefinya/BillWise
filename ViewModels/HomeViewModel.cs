@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using BillWise.Models.Entities;
 using BillWise.Models.Services;
+using BillWise.Resources.Strings;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -23,10 +24,14 @@ namespace BillWise.ViewModels
         private decimal _totalPaid;
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(OverdueMessage))]
         private int _overdueCount;
 
         [ObservableProperty]
         private bool _hasOverdueInvoices;
+
+        public string OverdueMessage =>
+            string.Format(LocalizationResourceManager.Instance["OverdueCountMessage"], OverdueCount);
 
         public ObservableCollection<Invoice> RecentInvoices { get; } = new();
 

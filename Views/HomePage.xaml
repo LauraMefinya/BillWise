@@ -15,8 +15,8 @@
                 <!-- Blue Header Section -->
                 <Grid BackgroundColor="#3498DB" Padding="20,40,20,60">
                     <VerticalStackLayout Spacing="16">
-                        <Label Text="Hello, User" FontSize="26" FontAttributes="Bold" TextColor="White"/>
-                        <Label Text="Manage your bills easily" FontSize="14" TextColor="#E0F2FE" Margin="0,-12,0,0"/>
+                        <Label Text="{Binding [HomeGreeting], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="26" FontAttributes="Bold" TextColor="White"/>
+                        <Label Text="{Binding [ManageBills], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="14" TextColor="#E0F2FE" Margin="0,-12,0,0"/>
 
                         <Border BackgroundColor="#2980B9" StrokeThickness="0" StrokeShape="RoundRectangle 12" Padding="20" Margin="0,10,0,0">
                             <VerticalStackLayout Spacing="4">
@@ -60,7 +60,7 @@
                     </Grid>
 
                     <!-- Monthly Expenses Graph (Placeholder) -->
-                    <Label Text="Monthly Expenses" FontSize="18" FontAttributes="Bold" TextColor="#111827" Margin="0,10,0,0"/>
+                    <Label Text="{Binding [MonthlyExpenses], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="18" FontAttributes="Bold" TextColor="#111827" Margin="0,10,0,0"/>
                     <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16" HeightRequest="200">
                         <Grid ColumnDefinitions="Auto,*,*,*,*,*,*" RowDefinitions="*,*,*,*,Auto" VerticalOptions="FillAndExpand">
                             <!-- Y axis labels -->
@@ -86,18 +86,18 @@
                     </Border>
 
                     <!-- Overdue Alert -->
-                    <Border BackgroundColor="#FEF2F2" Stroke="#FECACA" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16" Margin="0,10,0,0">
+                    <Border IsVisible="{Binding HasOverdueInvoices}" BackgroundColor="#FEF2F2" Stroke="#FECACA" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16" Margin="0,10,0,0">
                         <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto" ColumnSpacing="12">
                             <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Text="🕒" FontSize="24" VerticalOptions="Center"/>
-                            <Label Grid.Row="0" Grid.Column="1" Text="Overdue Invoices" TextColor="#B91C1C" FontSize="16" FontAttributes="Bold"/>
-                            <Label Grid.Row="1" Grid.Column="1" Text="You have 1 overdue invoice" TextColor="#DC2626" FontSize="13"/>
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding [OverdueInvoices], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#B91C1C" FontSize="16" FontAttributes="Bold"/>
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding OverdueMessage}" TextColor="#DC2626" FontSize="13"/>
                         </Grid>
                     </Border>
 
                     <!-- Upcoming Invoices Header -->
                     <Grid ColumnDefinitions="*,Auto" Margin="0,16,0,8">
-                        <Label Text="Upcoming Invoices" FontSize="18" FontAttributes="Bold" TextColor="#111827" VerticalOptions="Center"/>
-                        <Label Text="View All" TextColor="#3498DB" FontSize="14" FontAttributes="Bold" VerticalOptions="Center">
+                        <Label Text="{Binding [UpcomingInvoices], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="18" FontAttributes="Bold" TextColor="#111827" VerticalOptions="Center"/>
+                        <Label Text="{Binding [ViewAll], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#3498DB" FontSize="14" FontAttributes="Bold" VerticalOptions="Center">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding GoToInvoicesFallbackCommand}" />
                             </Label.GestureRecognizers>

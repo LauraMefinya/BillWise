@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:BillWise.ViewModels"
              xmlns:entities="clr-namespace:BillWise.Models.Entities"
+             xmlns:strings="clr-namespace:BillWise.Resources.Strings"
              x:Class="BillWise.Views.AlertsPage"
              x:DataType="vm:AlertsViewModel"
              BackgroundColor="#FAFAFA"
@@ -15,9 +16,8 @@
                 <!-- Header -->
                 <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,8">
                     <VerticalStackLayout Spacing="4">
-                        <Label Text="Notifications" FontSize="26" FontAttributes="Bold" TextColor="#111827"/>
-                        <Label Text="{Binding UnreadCount, StringFormat='You have {0} unread notifications'}"
-                               FontSize="14" TextColor="#6B7280"/>
+                        <Label Text="{Binding [Notifications], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="26" FontAttributes="Bold" TextColor="#111827"/>
+                        <Label Text="{Binding UnreadMessage}" FontSize="14" TextColor="#6B7280"/>
                     </VerticalStackLayout>
 
                     <!-- Bell icon with Badge -->
@@ -92,7 +92,7 @@
                         <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center"
                                              Spacing="12" Padding="0,60,0,0">
                             <Label Text="🔕" FontSize="48" HorizontalOptions="Center"/>
-                            <Label Text="No notifications yet" FontSize="16"
+                            <Label Text="{Binding [NoNotifications], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="16"
                                    TextColor="#9CA3AF" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </CollectionView.EmptyView>

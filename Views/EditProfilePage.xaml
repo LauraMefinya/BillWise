@@ -31,19 +31,19 @@
                     <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" ColumnSpacing="16" RowSpacing="24">
                         <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
                             <Label Text="{Binding TotalInvoices}" FontSize="24" FontAttributes="Bold" TextColor="#111827" HorizontalOptions="Center"/>
-                            <Label Text="Total Invoices" FontSize="12" TextColor="#6B7280" HorizontalOptions="Center"/>
+                            <Label Text="{Binding [TotalInvoices], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
                             <Label Text="{Binding PaidInvoices}" FontSize="24" FontAttributes="Bold" TextColor="#10B981" HorizontalOptions="Center"/>
-                            <Label Text="Paid" FontSize="12" TextColor="#6B7280" HorizontalOptions="Center"/>
+                            <Label Text="{Binding [Paid], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Row="1" Grid.Column="0" HorizontalOptions="Center">
                             <Label Text="{Binding PendingInvoices}" FontSize="24" FontAttributes="Bold" TextColor="#F59E0B" HorizontalOptions="Center"/>
-                            <Label Text="Pending" FontSize="12" TextColor="#6B7280" HorizontalOptions="Center"/>
+                            <Label Text="{Binding [Pending], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="Center">
                             <Label Text="{Binding OverdueInvoices}" FontSize="24" FontAttributes="Bold" TextColor="#EF4444" HorizontalOptions="Center"/>
-                            <Label Text="Overdue" FontSize="12" TextColor="#6B7280" HorizontalOptions="Center"/>
+                            <Label Text="{Binding [Overdue], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Grid>
                 </Border>
@@ -56,7 +56,7 @@
                         <Border Grid.Row="0" Grid.Column="0" BackgroundColor="#D1FAE5" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" VerticalOptions="Center">
                             <Label Text="💲" FontSize="16"/>
                         </Border>
-                        <Label Grid.Row="0" Grid.Column="1" Text="Currency" TextColor="#6B7280" FontSize="14" VerticalOptions="Center" Margin="12,0,0,0"/>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding [Currency], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="14" VerticalOptions="Center" Margin="12,0,0,0"/>
                         <Entry Grid.Row="0" Grid.Column="2" Text="{Binding SelectedCurrency}" TextColor="#111827" FontFamily="Bold" BackgroundColor="Transparent" WidthRequest="60" HorizontalTextAlignment="End"/>
                         
                         <Border Grid.Row="2" Grid.Column="0" BackgroundColor="#DBEAFE" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" VerticalOptions="Center">
@@ -82,7 +82,7 @@
                         <Label Grid.Row="1" Grid.Column="1" Text="{Binding [Enabled], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontAttributes="Bold" TextColor="#111827" FontSize="14" Margin="12,0,0,0"/>
                         <Switch Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" IsToggled="{Binding NotificationsEnabled}" VerticalOptions="Center"/>
                         
-                        <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="Reminder before due date (days)" TextColor="#6B7280" FontSize="12" Margin="12,16,0,4"/>
+                        <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding [ReminderDays], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="12" Margin="12,16,0,4"/>
                         <Border Grid.Row="3" Grid.Column="1" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 4" BackgroundColor="White" Margin="12,0,0,0" Padding="8,0" HorizontalOptions="Start" WidthRequest="60">
                             <Entry Text="{Binding ReminderDays, FallbackValue='2'}" Keyboard="Numeric" BackgroundColor="Transparent" TextColor="#111827" HorizontalTextAlignment="Center"/>
                         </Border>

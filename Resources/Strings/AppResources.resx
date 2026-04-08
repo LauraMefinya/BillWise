@@ -133,4 +133,136 @@
   <data name="ThisMonth" xml:space="preserve">
     <value>This Month</value>
   </data>
+  <data name="TabHome" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="TabInvoices" xml:space="preserve">
+    <value>Invoices</value>
+  </data>
+  <data name="TabStats" xml:space="preserve">
+    <value>Stats</value>
+  </data>
+  <data name="TabAlerts" xml:space="preserve">
+    <value>Alerts</value>
+  </data>
+  <data name="ToPay" xml:space="preserve">
+    <value>To Pay</value>
+  </data>
+  <data name="MonthlyExpenses" xml:space="preserve">
+    <value>Monthly Expenses</value>
+  </data>
+  <data name="OverdueInvoices" xml:space="preserve">
+    <value>Overdue Invoices</value>
+  </data>
+  <data name="OverdueCountMessage" xml:space="preserve">
+    <value>You have {0} overdue invoice(s)</value>
+  </data>
+  <data name="Rent" xml:space="preserve">
+    <value>Rent</value>
+  </data>
+  <data name="Subscription" xml:space="preserve">
+    <value>Subscription</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Scan" xml:space="preserve">
+    <value>Scan</value>
+  </data>
+  <data name="Voice" xml:space="preserve">
+    <value>Voice</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="AddNotes" xml:space="preserve">
+    <value>Add notes...</value>
+  </data>
+  <data name="SelectMethod" xml:space="preserve">
+    <value>Select method...</value>
+  </data>
+  <data name="EditInvoice" xml:space="preserve">
+    <value>Edit Invoice</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Edit Profile</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="CategoryBreakdown" xml:space="preserve">
+    <value>Category Breakdown</value>
+  </data>
+  <data name="UnreadNotificationsMessage" xml:space="preserve">
+    <value>You have {0} unread notifications</value>
+  </data>
+  <data name="NoNotifications" xml:space="preserve">
+    <value>No notifications yet</value>
+  </data>
+  <data name="AmountLabel" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="DueDateLabel" xml:space="preserve">
+    <value>Due Date</value>
+  </data>
+  <data name="CategoryLabel" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="PaymentDate" xml:space="preserve">
+    <value>Payment Date</value>
+  </data>
+  <data name="MarkAsPaid" xml:space="preserve">
+    <value>Mark as Paid</value>
+  </data>
+  <data name="ReminderDays" xml:space="preserve">
+    <value>Reminder before due date (days)</value>
+  </data>
+  <data name="ManageInvoicesSmartly" xml:space="preserve">
+    <value>Manage your invoices smartly</value>
+  </data>
+  <data name="WelcomeBack" xml:space="preserve">
+    <value>Welcome Back</value>
+  </data>
+  <data name="SignInToAccount" xml:space="preserve">
+    <value>Sign in to your account</value>
+  </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="DontHaveAccount" xml:space="preserve">
+    <value>Don't have an account?</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Create Account</value>
+  </data>
+  <data name="JoinToday" xml:space="preserve">
+    <value>Join BillWise today</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="AlreadyHaveAccount" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
 </root>

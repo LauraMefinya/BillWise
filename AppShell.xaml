@@ -2,6 +2,7 @@
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:views="clr-namespace:BillWise.Views"
+       xmlns:strings="clr-namespace:BillWise.Resources.Strings"
        x:Class="BillWise.AppShell"
        Shell.FlyoutBehavior="Disabled"
        Shell.TabBarBackgroundColor="White"
@@ -11,23 +12,25 @@
        Shell.NavBarIsVisible="False">
 
     <TabBar>
-        <ShellContent Title="Home"
+        <ShellContent Title="{Binding [TabHome], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                       Icon="tab_home.png"
                       Route="HomePage"
                       ContentTemplate="{DataTemplate views:HomePage}"/>
-        <ShellContent Title="Invoices"
+        <ShellContent Title="{Binding [TabInvoices], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                       Icon="tab_invoices.png"
                       Route="InvoicesPage"
                       ContentTemplate="{DataTemplate views:InvoicesPage}"/>
-        <ShellContent Title="Stats"
+        <ShellContent Title="{Binding [TabStats], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                       Icon="tab_stats.png"
                       Route="StatisticsPage"
                       ContentTemplate="{DataTemplate views:StatisticsPage}"/>
-        <Tab Title="Alerts" Icon="tab_alerts.png">
+        <Tab Title="{Binding [TabAlerts], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+             Icon="tab_alerts.png">
             <ShellContent ContentTemplate="{DataTemplate views:AlertsPage}" />
         </Tab>
-        
-        <Tab Title="Profile" Icon="tab_profile.png">
+
+        <Tab Title="{Binding [Profile], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+             Icon="tab_profile.png">
             <ShellContent ContentTemplate="{DataTemplate views:ProfilePage}" />
         </Tab>
     </TabBar>

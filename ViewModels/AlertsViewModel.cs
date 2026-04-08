@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using BillWise.Models.Entities;
+using BillWise.Resources.Strings;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -15,7 +16,11 @@ namespace BillWise.ViewModels
         public ObservableCollection<AppNotification> Notifications { get; } = new();
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(UnreadMessage))]
         private int _unreadCount;
+
+        public string UnreadMessage =>
+            string.Format(LocalizationResourceManager.Instance["UnreadNotificationsMessage"], UnreadCount);
 
         [RelayCommand]
         public void LoadData()

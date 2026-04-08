@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:BillWise.ViewModels"
+             xmlns:strings="clr-namespace:BillWise.Resources.Strings"
              x:Class="BillWise.Views.InvoiceDetailsPage"
              x:DataType="vm:InvoiceDetailsViewModel"
              BackgroundColor="#F3F4F6"
@@ -65,7 +66,7 @@
                                 <Shadow Brush="Black" Offset="0,4" Radius="10" Opacity="0.05"/>
                             </Border.Shadow>
                             <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
-                                <Label Text="Amount" TextColor="#6B7280" FontSize="13" HorizontalOptions="Center"/>
+                                <Label Text="{Binding [AmountLabel], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="13" HorizontalOptions="Center"/>
                                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="4" VerticalOptions="End">
                                     <Label Text="{Binding Invoice.Amount, StringFormat='{0:N0}'}" FontSize="32" FontAttributes="Bold" TextColor="#111827" />
                                     <Label Text="FCFA" FontSize="16" FontAttributes="Bold" TextColor="#4B5563" VerticalOptions="Center" Margin="0,8,0,0"/>
@@ -81,7 +82,7 @@
                                     <Label Text="📅" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                    <Label Text="Due Date" TextColor="#6B7280" FontSize="12" />
+                                    <Label Text="{Binding [DueDateLabel], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="12" />
                                     <Label Text="{Binding Invoice.DueDate, StringFormat='{0:dd MMMM yyyy}'}" TextColor="#111827" FontSize="14" FontAttributes="Bold" />
                                 </VerticalStackLayout>
                             </Grid>
@@ -95,7 +96,7 @@
                                     <Label Text="{Binding Invoice.CategoryIcon}" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                    <Label Text="Category" TextColor="#6B7280" FontSize="12" />
+                                    <Label Text="{Binding [CategoryLabel], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="12" />
                                     <Label Text="{Binding Invoice.Category}" TextColor="#111827" FontSize="14" FontAttributes="Bold" />
                                 </VerticalStackLayout>
                             </Grid>
@@ -108,7 +109,7 @@
                                     <Label Text="✅" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                    <Label Text="Payment Date" TextColor="#6B7280" FontSize="12" />
+                                    <Label Text="{Binding [PaymentDate], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="12" />
                                     <Label Text="{Binding PaymentDateText}" TextColor="#111827" FontSize="14" FontAttributes="Bold" />
                                 </VerticalStackLayout>
                             </Grid>
@@ -121,14 +122,14 @@
                                     <Label Text="💳" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                    <Label Text="Payment Method" TextColor="#6B7280" FontSize="12" />
+                                    <Label Text="{Binding [PaymentMethod], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="12" />
                                     <Label Text="{Binding Invoice.PaymentMethod}" TextColor="#111827" FontSize="14" FontAttributes="Bold" />
                                 </VerticalStackLayout>
                             </Grid>
                         </Border>
 
                         <!-- Bottom Action Button -->
-                        <Button Text="Mark as Paid" Command="{Binding MarkAsPaidCommand}"
+                        <Button Text="{Binding [MarkAsPaid], Source={x:Static strings:LocalizationResourceManager.Instance}}" Command="{Binding MarkAsPaidCommand}"
                                 BackgroundColor="#10B981" TextColor="White" 
                                 CornerRadius="12" HeightRequest="56" FontAttributes="Bold" FontSize="16"
                                 Margin="0,16,0,0" IsVisible="{Binding ShowPaymentAction}"/>
