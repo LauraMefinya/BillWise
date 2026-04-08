@@ -9,5 +9,13 @@ namespace BillWise.Views
             InitializeComponent();
             BindingContext = viewModel;
         }
+
+        // Refresh stats every time page appears
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            if (BindingContext is ProfileViewModel vm)
+                await vm.RefreshStatsAsync();
+        }
     }
 }

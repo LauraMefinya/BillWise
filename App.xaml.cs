@@ -7,7 +7,8 @@ namespace BillWise
         private readonly Models.Services.AuthService _authService;
         private readonly IServiceProvider _serviceProvider;
 
-        public App(Models.Services.AuthService authService, IServiceProvider serviceProvider)
+        public App(Models.Services.AuthService authService,
+                   IServiceProvider serviceProvider)
         {
             InitializeComponent();
             _authService = authService;
@@ -16,20 +17,43 @@ namespace BillWise
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            if (_authService.IsUserLoggedIn())
+            // Show a loading page while we restore session
+            return new Window(new ContentPage
             {
-                return new Window(new AppShell());
+                BackgroundColor = Color.FromArgb("#3498DB"),
+                Content = new ActivityIndicator
+                {
+                    IsRunning = true,
+                    Color = Colors.White,
+                    HorizontalOptions = LayoutOptions.Center,
+                    VerticalOptions = LayoutOptions.Center
+                }
+            });
+        }
+
+        protected override async void OnStart()
+        {
+            base.OnStart();
+            await InitializeAsync();
+        }
+
+        private async Task InitializeAsync()
+        {
+            // Try to restore saved session
+            var restored = await _authService.RestoreSessionAsync();
+
+            if (restored || _authService.IsUserLoggedIn())
+            {
+                // Session valid — go to main app
+                if (Windows.Count > 0)
+                    Windows[0].Page = new AppShell();
             }
             else
             {
+                // No session — go to login
                 var loginPage = _serviceProvider.GetService<Views.LoginPage>();
-                if (loginPage != null)
-                {
-                    return new Window(new NavigationPage(loginPage));
-                }
-                
-                // Fallback to Shell if LoginPage for some reason fails to resolve
-                return new Window(new AppShell());
+                if (Windows.Count > 0)
+                    Windows[0].Page = new NavigationPage(loginPage);
             }
         }
     }

@@ -5,18 +5,49 @@ namespace BillWise.Models.Services
     public class AuthService
     {
         private readonly Supabase.Client _client;
+        private readonly SessionService _sessionService;
 
-        public AuthService(Supabase.Client client)
+        public AuthService(Supabase.Client client, SessionService sessionService)
         {
             _client = client;
+            _sessionService = sessionService;
         }
 
-        public async Task<(bool Success, string ErrorMessage)> LoginAsync(string email, string password)
+        // Restore session from saved tokens on app start
+        public async Task<bool> RestoreSessionAsync()
+        {
+            try
+            {
+                if (!_sessionService.HasSession()) return false;
+
+                var (accessToken, refreshToken) = _sessionService.LoadSession();
+                if (accessToken == null || refreshToken == null) return false;
+
+                var session = await _client.Auth.SetSession(accessToken, refreshToken);
+                return session?.AccessToken != null;
+            }
+            catch
+            {
+                _sessionService.ClearSession();
+                return false;
+            }
+        }
+
+        public async Task<(bool Success, string ErrorMessage)> LoginAsync(
+            string email, string password)
         {
             try
             {
                 var session = await _client.Auth.SignIn(email, password);
-                return (session != null, string.Empty);
+                if (session?.AccessToken != null)
+                {
+                    // Save session after successful login
+                    _sessionService.SaveSession(
+                        session.AccessToken,
+                        session.RefreshToken ?? "");
+                    return (true, string.Empty);
+                }
+                return (false, "Login failed.");
             }
             catch (Exception ex)
             {
@@ -24,11 +55,18 @@ namespace BillWise.Models.Services
             }
         }
 
-        public async Task<(bool Success, string ErrorMessage)> RegisterAsync(string email, string password)
+        public async Task<(bool Success, string ErrorMessage)> RegisterAsync(
+            string email, string password)
         {
             try
             {
                 var session = await _client.Auth.SignUp(email, password);
+                if (session?.AccessToken != null)
+                {
+                    _sessionService.SaveSession(
+                        session.AccessToken,
+                        session.RefreshToken ?? "");
+                }
                 return (session != null, string.Empty);
             }
             catch (Exception ex)
@@ -43,25 +81,21 @@ namespace BillWise.Models.Services
             {
                 await _client.Auth.SignOut();
             }
-            catch
+            catch { }
+            finally
             {
-                // Ignore any error on sign out globally just in case user session was already invalidated
+                // Always clear saved session on logout
+                _sessionService.ClearSession();
             }
         }
 
-        public bool IsUserLoggedIn()
-        {
-            return _client.Auth.CurrentSession != null;
-        }
+        public bool IsUserLoggedIn() =>
+            _client.Auth.CurrentSession != null;
 
-        public string GetCurrentUserId()
-        {
-            return _client.Auth.CurrentUser?.Id ?? string.Empty;
-        }
+        public string GetCurrentUserId() =>
+            _client.Auth.CurrentUser?.Id ?? string.Empty;
 
-        public string GetCurrentUserEmail()
-        {
-            return _client.Auth.CurrentUser?.Email ?? string.Empty;
-        }
+        public string GetCurrentUserEmail() =>
+            _client.Auth.CurrentUser?.Email ?? string.Empty;
     }
 }

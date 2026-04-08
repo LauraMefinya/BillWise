@@ -1,9 +1,11 @@
+using BillWise.Models.Providers;
 using BillWise.Models.Services;
 using BillWise.ViewModels;
 using BillWise.Views;
+using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
-using Supabase;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using Supabase;
 
 namespace BillWise
 {
@@ -15,6 +17,8 @@ namespace BillWise
 
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
+                .UseMauiCommunityToolkitMediaElement(false)
                 .UseSkiaSharp()
                 .ConfigureFonts(fonts =>
                 {
@@ -22,15 +26,17 @@ namespace BillWise
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            // SUPABASE CONFIGURATION
+            // SUPABASE
             var url = "https://xnlstfhdhghhhmhmdhgm.supabase.co";
             var key = "sb_publishable_PkUeHm6SLzHVXu5B0pYiEA_sR1mL6Ux";
             var options = new SupabaseOptions { AutoConnectRealtime = true };
             builder.Services.AddSingleton(new Supabase.Client(url, key, options));
 
             // Services
+            builder.Services.AddSingleton<SessionService>();
             builder.Services.AddSingleton<AuthService>();
             builder.Services.AddSingleton<InvoiceService>();
+            builder.Services.AddSingleton<InvoiceProvider>();
 
             // ViewModels
             builder.Services.AddSingleton<HomeViewModel>();
@@ -63,13 +69,14 @@ namespace BillWise
 
             var app = builder.Build();
 
-            // Set initial language
             var savedLang = Preferences.Default.Get("language", "en");
             try
             {
-                BillWise.Resources.Strings.LocalizationResourceManager.Instance.SetCulture(new System.Globalization.CultureInfo(savedLang));
+                BillWise.Resources.Strings.LocalizationResourceManager
+                    .Instance.SetCulture(
+                        new System.Globalization.CultureInfo(savedLang));
             }
-            catch {}
+            catch { }
 
             return app;
         }
