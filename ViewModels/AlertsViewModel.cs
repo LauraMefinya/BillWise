@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using BillWise.Models.Entities;
+using BillWise.Models.Services;
 using BillWise.Resources.Strings;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -8,46 +9,65 @@ namespace BillWise.ViewModels
 {
     public partial class AlertsViewModel : BaseViewModel
     {
-        public AlertsViewModel()
+        private readonly NotificationService _notificationService;
+
+        public AlertsViewModel(NotificationService notificationService)
         {
             Title = "Notifications";
+            _notificationService = notificationService;
         }
 
         public ObservableCollection<AppNotification> Notifications { get; } = new();
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(UnreadMessage))]
+        [NotifyPropertyChangedFor(nameof(HasUnread))]
         private int _unreadCount;
+
+        public bool HasUnread => UnreadCount > 0;
 
         public string UnreadMessage =>
             string.Format(LocalizationResourceManager.Instance["UnreadNotificationsMessage"], UnreadCount);
 
         [RelayCommand]
-        public void LoadData()
+        public async Task LoadDataAsync()
         {
             if (IsBusy) return;
             IsBusy = true;
 
-            // Example mock data as there is no NotificationService yet
-            Notifications.Clear();
-            Notifications.Add(new AppNotification
+            try
             {
-                Title = "Facture en retard",
-                Message = "Votre facture CAMWATER est en retard",
-                Type = "danger",
-                SentAt = DateTime.Now.AddHours(-1)
-            });
-            Notifications.Add(new AppNotification
+                var items = await _notificationService.GetNotificationsAsync();
+                Notifications.Clear();
+                foreach (var n in items)
+                    Notifications.Add(n);
+
+                UnreadCount = Notifications.Count(n => !n.IsRead);
+            }
+            catch (Exception ex)
             {
-                Title = "Facture à payer bientôt",
-                Message = "Votre facture Loyer Mensuel expire dans 1 jour",
-                Type = "warning",
-                SentAt = DateTime.Now.AddHours(-2)
-            });
+                Console.WriteLine($"Error loading notifications: {ex.Message}");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
 
-            UnreadCount = Notifications.Count(n => !n.IsRead);
+        [RelayCommand]
+        public async Task MarkAsReadAsync(AppNotification notification)
+        {
+            if (notification.IsRead) return;
 
-            IsBusy = false;
+            _notificationService.MarkAsRead(notification.Id);
+            await LoadDataAsync();
+        }
+
+        [RelayCommand]
+        public async Task MarkAllAsReadAsync()
+        {
+            _notificationService.MarkAllAsRead(Notifications.Select(n => n.Id));
+            await LoadDataAsync();
         }
     }
 }

@@ -36,8 +36,9 @@ namespace BillWise.Resources.Strings
             CultureInfo.DefaultThreadCurrentUICulture = culture;
             CultureInfo.DefaultThreadCurrentCulture = culture;
 
-            // Notify all bindings to refresh
+            // Notify all bindings to refresh (null = all properties, Item[] = all indexer bindings)
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item[]"));
 
             // Broadcast to all ViewModels
             WeakReferenceMessenger.Default.Send(

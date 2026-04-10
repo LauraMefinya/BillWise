@@ -5,6 +5,7 @@ using BillWise.Views;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Media;
 using Microsoft.Extensions.Logging;
+using Plugin.LocalNotification;
 using Plugin.Maui.OCR;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using Supabase;
@@ -23,6 +24,7 @@ namespace BillWise
                 .UseMauiCommunityToolkitMediaElement(false)
                 .UseSkiaSharp()
                 .UseOcr()
+                .UseLocalNotification()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -41,6 +43,7 @@ namespace BillWise
             builder.Services.AddSingleton<SessionService>();
             builder.Services.AddSingleton<AuthService>();
             builder.Services.AddSingleton<InvoiceService>();
+            builder.Services.AddSingleton<NotificationService>();
             builder.Services.AddSingleton<InvoiceProvider>();
 
             // ViewModels

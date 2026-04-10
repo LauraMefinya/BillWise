@@ -199,11 +199,29 @@
   <data name="CategoryBreakdown" xml:space="preserve">
     <value>Répartition par catégorie</value>
   </data>
+  <data name="ExpensesByCategory" xml:space="preserve">
+    <value>Dépenses par catégorie</value>
+  </data>
   <data name="UnreadNotificationsMessage" xml:space="preserve">
     <value>Vous avez {0} notifications non lues</value>
   </data>
   <data name="NoNotifications" xml:space="preserve">
     <value>Aucune notification pour l'instant</value>
+  </data>
+  <data name="NotifOverdueTitle" xml:space="preserve">
+    <value>Facture en retard</value>
+  </data>
+  <data name="NotifOverdueMessage" xml:space="preserve">
+    <value>{0} est en retard</value>
+  </data>
+  <data name="NotifDueSoonTitle" xml:space="preserve">
+    <value>Bientôt due</value>
+  </data>
+  <data name="NotifDueSoonMessage" xml:space="preserve">
+    <value>{0} expire dans {1} jour(s)</value>
+  </data>
+  <data name="MarkAllRead" xml:space="preserve">
+    <value>Tout marquer comme lu</value>
   </data>
   <data name="AmountLabel" xml:space="preserve">
     <value>Montant</value>

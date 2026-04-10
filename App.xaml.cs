@@ -1,4 +1,6 @@
+using BillWise.Resources.Strings;
 using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
 
 namespace BillWise
 {
@@ -13,6 +15,21 @@ namespace BillWise
             InitializeComponent();
             _authService = authService;
             _serviceProvider = serviceProvider;
+            RestoreLanguage();
+        }
+
+        private static void RestoreLanguage()
+        {
+            var saved = Preferences.Default.Get("language", string.Empty);
+            if (!string.IsNullOrEmpty(saved))
+            {
+                try
+                {
+                    LocalizationResourceManager.Instance.SetCulture(
+                        new CultureInfo(saved));
+                }
+                catch { }
+            }
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

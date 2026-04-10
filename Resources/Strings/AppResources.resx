@@ -199,11 +199,29 @@
   <data name="CategoryBreakdown" xml:space="preserve">
     <value>Category Breakdown</value>
   </data>
+  <data name="ExpensesByCategory" xml:space="preserve">
+    <value>Expenses by Category</value>
+  </data>
   <data name="UnreadNotificationsMessage" xml:space="preserve">
     <value>You have {0} unread notifications</value>
   </data>
   <data name="NoNotifications" xml:space="preserve">
     <value>No notifications yet</value>
+  </data>
+  <data name="NotifOverdueTitle" xml:space="preserve">
+    <value>Overdue Invoice</value>
+  </data>
+  <data name="NotifOverdueMessage" xml:space="preserve">
+    <value>{0} is overdue</value>
+  </data>
+  <data name="NotifDueSoonTitle" xml:space="preserve">
+    <value>Due Soon</value>
+  </data>
+  <data name="NotifDueSoonMessage" xml:space="preserve">
+    <value>{0} is due in {1} day(s)</value>
+  </data>
+  <data name="MarkAllRead" xml:space="preserve">
+    <value>Mark all as read</value>
   </data>
   <data name="AmountLabel" xml:space="preserve">
     <value>Amount</value>

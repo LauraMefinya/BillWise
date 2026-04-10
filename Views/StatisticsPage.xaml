@@ -8,93 +8,148 @@
              x:DataType="vm:StatisticsViewModel"
              BackgroundColor="#FAFAFA"
              Shell.NavBarIsVisible="False">
-    
+
     <ScrollView>
-        <VerticalStackLayout Spacing="24" Padding="16,40,16,100">
+        <VerticalStackLayout Spacing="20" Padding="16,40,16,100">
+
             <!-- Header -->
             <VerticalStackLayout Spacing="4">
-                <Label Text="{Binding [Statistics], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="26" FontAttributes="Bold" TextColor="#111827"/>
-                <Label Text="{Binding [YourSpendingAnalysis], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="14" TextColor="#6B7280"/>
+                <Label Text="{Binding [Statistics], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                       FontSize="26" FontAttributes="Bold" TextColor="#111827"/>
+                <Label Text="{Binding [YourSpendingAnalysis], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                       FontSize="14" TextColor="#6B7280"/>
             </VerticalStackLayout>
 
             <!-- Cards Grid -->
-            <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" ColumnSpacing="12" RowSpacing="12">
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+
                 <!-- Total Amount -->
-                <Border Grid.Row="0" Grid.Column="0" BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                <Border Grid.Row="0" Grid.Column="0" BackgroundColor="White"
+                        Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
                     <VerticalStackLayout Spacing="8">
-                        <Border BackgroundColor="#E0F2FE" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="6" HorizontalOptions="Start">
+                        <Border BackgroundColor="#E0F2FE" StrokeThickness="0"
+                                StrokeShape="RoundRectangle 8" Padding="8" HorizontalOptions="Start">
                             <Label Text="💲" FontSize="16"/>
                         </Border>
-                        <Label Text="{Binding [TotalAmount], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280"/>
-                        <Label Text="{Binding TotalAmount, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
+                        <Label Text="{Binding [TotalAmount], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                               FontSize="12" TextColor="#6B7280"/>
+                        <Label Text="{Binding TotalAmount, StringFormat='{0:N0}'}"
+                               FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
                         <Label Text="FCFA" FontSize="10" TextColor="#9CA3AF"/>
                     </VerticalStackLayout>
                 </Border>
+
                 <!-- This Month -->
-                <Border Grid.Row="0" Grid.Column="1" BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                <Border Grid.Row="0" Grid.Column="1" BackgroundColor="White"
+                        Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
                     <VerticalStackLayout Spacing="8">
-                        <Border BackgroundColor="#DCFCE7" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="6" HorizontalOptions="Start">
+                        <Border BackgroundColor="#DCFCE7" StrokeThickness="0"
+                                StrokeShape="RoundRectangle 8" Padding="8" HorizontalOptions="Start">
                             <Label Text="📈" FontSize="16"/>
                         </Border>
-                        <Label Text="{Binding [ThisMonth], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280"/>
-                        <Label Text="{Binding ThisMonthAmount, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
+                        <Label Text="{Binding [ThisMonth], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                               FontSize="12" TextColor="#6B7280"/>
+                        <Label Text="{Binding ThisMonthAmount, StringFormat='{0:N0}'}"
+                               FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
                         <Label Text="FCFA" FontSize="10" TextColor="#9CA3AF"/>
                     </VerticalStackLayout>
                 </Border>
+
                 <!-- Paid -->
-                <Border Grid.Row="1" Grid.Column="0" BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                <Border Grid.Row="1" Grid.Column="0" BackgroundColor="White"
+                        Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
                     <VerticalStackLayout Spacing="8">
-                        <Border BackgroundColor="#D1FAE5" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="6" HorizontalOptions="Start">
-                            <Label Text="📉" FontSize="16"/>
+                        <Border BackgroundColor="#D1FAE5" StrokeThickness="0"
+                                StrokeShape="RoundRectangle 8" Padding="8" HorizontalOptions="Start">
+                            <Label Text="✅" FontSize="16"/>
                         </Border>
-                        <Label Text="{Binding [Paid], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280"/>
-                        <Label Text="{Binding PaidAmount, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
+                        <Label Text="{Binding [Paid], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                               FontSize="12" TextColor="#6B7280"/>
+                        <Label Text="{Binding PaidAmount, StringFormat='{0:N0}'}"
+                               FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
                         <Label Text="FCFA" FontSize="10" TextColor="#9CA3AF"/>
                     </VerticalStackLayout>
                 </Border>
+
                 <!-- To Pay -->
-                <Border Grid.Row="1" Grid.Column="1" BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                <Border Grid.Row="1" Grid.Column="1" BackgroundColor="White"
+                        Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
                     <VerticalStackLayout Spacing="8">
-                        <Border BackgroundColor="#FEE2E2" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="6" HorizontalOptions="Start">
+                        <Border BackgroundColor="#FEE2E2" StrokeThickness="0"
+                                StrokeShape="RoundRectangle 8" Padding="8" HorizontalOptions="Start">
                             <Label Text="📅" FontSize="16"/>
                         </Border>
-                        <Label Text="{Binding [ToPay], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280"/>
-                        <Label Text="{Binding ToPayAmount, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
+                        <Label Text="{Binding [ToPay], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                               FontSize="12" TextColor="#6B7280"/>
+                        <Label Text="{Binding ToPayAmount, StringFormat='{0:N0}'}"
+                               FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
                         <Label Text="FCFA" FontSize="10" TextColor="#9CA3AF"/>
                     </VerticalStackLayout>
                 </Border>
+
             </Grid>
 
             <!-- Monthly Expenses Bar Chart -->
-            <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+            <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12" Padding="16">
                 <VerticalStackLayout Spacing="16">
-                    <Label Text="{Binding [MonthlyExpenses], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="16" FontAttributes="Bold" TextColor="#111827"/>
-                    <lvc:CartesianChart Series="{Binding BarSeries}" XAxes="{Binding XAxes}" HeightRequest="200" />
+                    <Label Text="{Binding [MonthlyExpenses], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                           FontSize="16" FontAttributes="Bold" TextColor="#111827"/>
+                    <lvc:CartesianChart Series="{Binding BarSeries}"
+                                        XAxes="{Binding XAxes}"
+                                        YAxes="{Binding YAxes}"
+                                        HeightRequest="220"/>
                 </VerticalStackLayout>
             </Border>
 
-            <!-- Category Breakdown Pie Chart -->
-            <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
-                <VerticalStackLayout Spacing="24">
-                    <Label Text="{Binding [CategoryBreakdown], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="16" FontAttributes="Bold" TextColor="#111827"/>
-                    
-                    <lvc:PieChart Series="{Binding PieSeries}" HeightRequest="200" LegendPosition="Hidden" />
+            <!-- Expenses by Category (Pie Chart) -->
+            <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12" Padding="16">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="{Binding [ExpensesByCategory], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                           FontSize="16" FontAttributes="Bold" TextColor="#111827"/>
+                    <lvc:PieChart Series="{Binding PieSeries}"
+                                  HeightRequest="240"
+                                  LegendPosition="Right"/>
+                </VerticalStackLayout>
+            </Border>
 
-                    <!-- Detailed Breakdown -->
+            <!-- Category Breakdown List -->
+            <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12" Padding="16">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="{Binding [CategoryBreakdown], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                           FontSize="16" FontAttributes="Bold" TextColor="#111827" Margin="0,0,0,8"/>
+
                     <CollectionView ItemsSource="{Binding CategoryStats}" SelectionMode="None">
                         <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <VerticalStackLayout Spacing="4" Margin="0,8">
-                                    <Grid ColumnDefinitions="Auto,*,Auto">
-                                        <Ellipse Grid.Column="0" WidthRequest="10" HeightRequest="10" Fill="{Binding ColorHex}" VerticalOptions="Center" Margin="0,0,8,0"/>
-                                        <Label Grid.Column="1" Text="{Binding CategoryName}" FontSize="14" TextColor="#4B5563" VerticalOptions="Center"/>
-                                        <Label Grid.Column="2" Text="{Binding AmountFormatted}" FontAttributes="Bold" FontSize="14" TextColor="#111827" VerticalOptions="Center"/>
+                            <DataTemplate x:DataType="vm:CategoryStat">
+                                <VerticalStackLayout Spacing="6" Margin="0,8">
+                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                                        <Ellipse Grid.Column="0"
+                                                 WidthRequest="12" HeightRequest="12"
+                                                 Fill="{Binding ColorHex}"
+                                                 VerticalOptions="Center"/>
+                                        <Label Grid.Column="1"
+                                               Text="{Binding CategoryName}"
+                                               FontSize="14" TextColor="#4B5563"
+                                               VerticalOptions="Center"/>
+                                        <Label Grid.Column="2"
+                                               Text="{Binding AmountFormatted}"
+                                               FontAttributes="Bold" FontSize="14"
+                                               TextColor="#111827"
+                                               VerticalOptions="Center"/>
                                     </Grid>
-                                    <BoxView HeightRequest="4" Color="{Binding ColorHex}" HorizontalOptions="Start" WidthRequest="150" CornerRadius="2"/>
+                                    <BoxView HeightRequest="5"
+                                             Color="{Binding ColorHex}"
+                                             WidthRequest="{Binding BarWidth}"
+                                             HorizontalOptions="Start"
+                                             CornerRadius="3"/>
                                 </VerticalStackLayout>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
+
                 </VerticalStackLayout>
             </Border>
 

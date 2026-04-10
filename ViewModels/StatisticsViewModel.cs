@@ -41,6 +41,9 @@ namespace BillWise.ViewModels
         private Axis[] _xAxes = new[] { new Axis() };
 
         [ObservableProperty]
+        private Axis[] _yAxes = new[] { new Axis() };
+
+        [ObservableProperty]
         private ObservableCollection<ISeries> _pieSeries = new();
 
         public ObservableCollection<CategoryStat> CategoryStats { get; } = new();
@@ -72,7 +75,9 @@ namespace BillWise.ViewModels
                         {
                             Values = values,
                             Fill = new SolidColorPaint(SKColors.CornflowerBlue),
-                            MaxBarWidth = 30
+                            MaxBarWidth = 35,
+                            Rx = 4,
+                            Ry = 4
                         }
                     };
 
@@ -81,8 +86,20 @@ namespace BillWise.ViewModels
                         new Axis
                         {
                             Labels = labels,
-                            TextSize = 12,
-                            LabelsPaint = new SolidColorPaint(SKColors.Gray)
+                            TextSize = 11,
+                            LabelsPaint = new SolidColorPaint(SKColors.Gray),
+                            SeparatorsPaint = null
+                        }
+                    };
+
+                    YAxes = new Axis[]
+                    {
+                        new Axis
+                        {
+                            Labeler = value => $"{value:N0}",
+                            TextSize = 10,
+                            LabelsPaint = new SolidColorPaint(SKColors.Gray),
+                            SeparatorsPaint = new SolidColorPaint(SKColors.LightGray) { StrokeThickness = 1 }
                         }
                     };
                 }
@@ -91,6 +108,8 @@ namespace BillWise.ViewModels
                 PieSeries.Clear();
                 CategoryStats.Clear();
 
+                var total = categories.Values.Sum();
+
                 foreach (var cat in categories)
                 {
                     var color = GetCategoryColor(cat.Key);
@@ -98,15 +117,17 @@ namespace BillWise.ViewModels
                     {
                         Values = new double[] { (double)cat.Value },
                         Name = cat.Key.ToString(),
-                        Fill = new SolidColorPaint(color),
-                        InnerRadius = 60
+                        Fill = new SolidColorPaint(color)
                     });
 
+                    var percentage = total > 0 ? (double)cat.Value / (double)total : 0;
+                    var hex = $"#{color.Red:X2}{color.Green:X2}{color.Blue:X2}";
                     CategoryStats.Add(new CategoryStat
                     {
                         CategoryName = LocalizationResourceManager.Instance[cat.Key.ToString()],
                         AmountFormatted = $"{cat.Value:N0} FCFA",
-                        ColorHex = "#" + color.ToString().Substring(2)
+                        ColorHex = hex,
+                        BarWidth = (int)(percentage * 220)
                     });
                 }
             }
@@ -139,5 +160,6 @@ namespace BillWise.ViewModels
         public string CategoryName { get; set; } = string.Empty;
         public string AmountFormatted { get; set; } = string.Empty;
         public string ColorHex { get; set; } = "#000000";
+        public int BarWidth { get; set; } = 0;
     }
 }

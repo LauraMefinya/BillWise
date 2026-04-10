@@ -16,7 +16,8 @@
                 <!-- Header -->
                 <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,8">
                     <VerticalStackLayout Spacing="4">
-                        <Label Text="{Binding [Notifications], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="26" FontAttributes="Bold" TextColor="#111827"/>
+                        <Label Text="{Binding [Notifications], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                               FontSize="26" FontAttributes="Bold" TextColor="#111827"/>
                         <Label Text="{Binding UnreadMessage}" FontSize="14" TextColor="#6B7280"/>
                     </VerticalStackLayout>
 
@@ -28,19 +29,30 @@
                             <Label Text="🔔" FontSize="20"
                                    HorizontalOptions="Center" VerticalOptions="Center"/>
                         </Border>
-                        
-                        <Border BackgroundColor="#EF4444" StrokeThickness="0" StrokeShape="RoundRectangle 10" 
-                                WidthRequest="20" HeightRequest="20" HorizontalOptions="End" VerticalOptions="Start"
-                                TranslationX="2" TranslationY="-2">
-                            <Border.Triggers>
-                                <DataTrigger TargetType="Border" Binding="{Binding UnreadCount}" Value="0">
-                                    <Setter Property="IsVisible" Value="False" />
-                                </DataTrigger>
-                            </Border.Triggers>
-                            <Label Text="{Binding UnreadCount}" TextColor="White" FontSize="10" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Border BackgroundColor="#EF4444" StrokeThickness="0"
+                                StrokeShape="RoundRectangle 10"
+                                WidthRequest="20" HeightRequest="20"
+                                HorizontalOptions="End" VerticalOptions="Start"
+                                TranslationX="2" TranslationY="-2"
+                                IsVisible="{Binding HasUnread}">
+                            <Label Text="{Binding UnreadCount}" TextColor="White"
+                                   FontSize="10" FontAttributes="Bold"
+                                   HorizontalOptions="Center" VerticalOptions="Center"/>
                         </Border>
                     </Grid>
                 </Grid>
+
+                <!-- Mark all as read button (only visible if there are unread) -->
+                <Border IsVisible="{Binding HasUnread}"
+                        BackgroundColor="#EFF6FF" StrokeThickness="0"
+                        StrokeShape="RoundRectangle 8" Padding="12,8"
+                        HorizontalOptions="End">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MarkAllAsReadCommand}"/>
+                    </Border.GestureRecognizers>
+                    <Label Text="{Binding [MarkAllRead], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                           TextColor="#3498DB" FontSize="13" FontAttributes="Bold"/>
+                </Border>
 
                 <!-- Notifications List -->
                 <CollectionView ItemsSource="{Binding Notifications}" SelectionMode="None">
@@ -51,9 +63,14 @@
                                     StrokeThickness="1"
                                     StrokeShape="RoundRectangle 12"
                                     Margin="0,0,0,12" Padding="16">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AlertsViewModel}}, Path=MarkAsReadCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
                                 <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
 
-                                    <!-- Dynamic icon per type -->
+                                    <!-- Icon -->
                                     <Border Grid.Column="0"
                                             BackgroundColor="{Binding TypeIconBgColor}"
                                             StrokeShape="RoundRectangle 24"
@@ -72,14 +89,14 @@
                                         <Label Text="{Binding Message}"
                                                FontSize="13" TextColor="#4B5563"
                                                LineBreakMode="WordWrap"/>
-                                        <Label Text="{Binding SentAt, StringFormat='{0:dd MMM yyyy} at {0:HH:mm}'}"
+                                        <Label Text="{Binding SentAt, StringFormat='{0:dd MMM yyyy}'}"
                                                FontSize="12" TextColor="#9CA3AF"/>
                                     </VerticalStackLayout>
 
-                                    <!-- Unread indicator dot -->
+                                    <!-- Unread dot -->
                                     <BoxView Grid.Column="2"
-                                             WidthRequest="10" HeightRequest="10" CornerRadius="5"
-                                             Color="#EF4444"
+                                             WidthRequest="10" HeightRequest="10"
+                                             CornerRadius="5" Color="#EF4444"
                                              IsVisible="{Binding IsUnread}"
                                              VerticalOptions="Start" Margin="0,4,0,0"/>
                                 </Grid>
@@ -92,13 +109,20 @@
                         <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center"
                                              Spacing="12" Padding="0,60,0,0">
                             <Label Text="🔕" FontSize="48" HorizontalOptions="Center"/>
-                            <Label Text="{Binding [NoNotifications], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="16"
-                                   TextColor="#9CA3AF" HorizontalOptions="Center"/>
+                            <Label Text="{Binding [NoNotifications], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                                   FontSize="16" TextColor="#9CA3AF" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </CollectionView.EmptyView>
                 </CollectionView>
 
             </VerticalStackLayout>
         </ScrollView>
+
+        <!-- Loading indicator -->
+        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           Color="#3498DB"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
     </Grid>
 </ContentPage>
