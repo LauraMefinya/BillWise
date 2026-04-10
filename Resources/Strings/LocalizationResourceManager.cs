@@ -33,6 +33,8 @@ namespace BillWise.Resources.Strings
         {
             CultureInfo.CurrentUICulture = culture;
             CultureInfo.CurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
+            CultureInfo.DefaultThreadCurrentCulture = culture;
 
             // Notify all bindings to refresh
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));

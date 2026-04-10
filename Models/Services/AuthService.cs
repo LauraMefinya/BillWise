@@ -55,23 +55,31 @@ namespace BillWise.Models.Services
             }
         }
 
-        public async Task<(bool Success, string ErrorMessage)> RegisterAsync(
+        public async Task<(bool Success, bool NeedsEmailConfirmation, string ErrorMessage)> RegisterAsync(
             string email, string password)
         {
             try
             {
                 var session = await _client.Auth.SignUp(email, password);
+
+                // Auto-confirm disabled: user is immediately logged in
                 if (session?.AccessToken != null)
                 {
                     _sessionService.SaveSession(
                         session.AccessToken,
                         session.RefreshToken ?? "");
+                    return (true, false, string.Empty);
                 }
-                return (session != null, string.Empty);
+
+                // Email confirmation required: account created but not yet active
+                if (session?.User != null)
+                    return (true, true, string.Empty);
+
+                return (false, false, "Registration failed. Please try again.");
             }
             catch (Exception ex)
             {
-                return (false, ex.Message);
+                return (false, false, ex.Message);
             }
         }
 

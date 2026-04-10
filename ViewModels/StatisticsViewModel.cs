@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using BillWise.Models.Entities;
 using BillWise.Models.Services;
+using BillWise.Resources.Strings;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LiveChartsCore;
@@ -103,7 +104,7 @@ namespace BillWise.ViewModels
 
                     CategoryStats.Add(new CategoryStat
                     {
-                        CategoryName = cat.Key.ToString(),
+                        CategoryName = LocalizationResourceManager.Instance[cat.Key.ToString()],
                         AmountFormatted = $"{cat.Value:N0} FCFA",
                         ColorHex = "#" + color.ToString().Substring(2)
                     });

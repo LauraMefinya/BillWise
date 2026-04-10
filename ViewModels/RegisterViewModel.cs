@@ -1,4 +1,5 @@
 using BillWise.Models.Services;
+using BillWise.Resources.Strings;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -14,54 +15,56 @@ namespace BillWise.ViewModels
             Title = "Register";
         }
 
-        [ObservableProperty]
-        private string _email = string.Empty;
-
-        [ObservableProperty]
-        private string _password = string.Empty;
-
-        [ObservableProperty]
-        private string _confirmPassword = string.Empty;
+        [ObservableProperty] private string _email = string.Empty;
+        [ObservableProperty] private string _password = string.Empty;
+        [ObservableProperty] private string _confirmPassword = string.Empty;
 
         [RelayCommand]
         public async Task RegisterAsync()
         {
+            var L = LocalizationResourceManager.Instance;
+            var mainPage = Application.Current?.Windows[0]?.Page;
+
             if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
             {
-                var mainPage = Application.Current?.Windows[0]?.Page;
                 if (mainPage != null)
-                    await mainPage.DisplayAlertAsync("Error", "Please enter your email and password.", "OK");
+                    await mainPage.DisplayAlertAsync(L["ErrorTitle"], L["EnterEmailAndPassword"], "OK");
                 return;
             }
 
             if (Password != ConfirmPassword)
             {
-                var mainPage = Application.Current?.Windows[0]?.Page;
                 if (mainPage != null)
-                    await mainPage.DisplayAlertAsync("Error", "Passwords do not match.", "OK");
+                    await mainPage.DisplayAlertAsync(L["ErrorTitle"], L["PasswordsDoNotMatch"], "OK");
                 return;
             }
 
             IsBusy = true;
-            
             var result = await _authService.RegisterAsync(Email.Trim(), Password);
-            
             IsBusy = false;
+
+            if (mainPage == null) return;
 
             if (result.Success)
             {
-                var mainPage = Application.Current?.Windows[0]?.Page;
-                if (mainPage != null)
+                if (result.NeedsEmailConfirmation)
                 {
-                    await mainPage.DisplayAlertAsync("Success", "Account created successfully! You can now log in.", "OK");
-                    await mainPage.Navigation.PopAsync(); // Go back to login
+                    await mainPage.DisplayAlertAsync(
+                        L["CheckEmailTitle"], L["CheckEmailMessage"], "OK");
                 }
+                else
+                {
+                    await mainPage.DisplayAlertAsync(L["SuccessTitle"], L["AccountCreated"], "OK");
+                    if (Application.Current?.Windows.Count > 0)
+                        Application.Current.Windows[0].Page = new AppShell();
+                    return;
+                }
+
+                await mainPage.Navigation.PopAsync();
             }
             else
             {
-                var mainPage = Application.Current?.Windows[0]?.Page;
-                if (mainPage != null)
-                    await mainPage.DisplayAlertAsync("Registration Failed", result.ErrorMessage, "OK");
+                await mainPage.DisplayAlertAsync(L["RegistrationFailed"], result.ErrorMessage, "OK");
             }
         }
 

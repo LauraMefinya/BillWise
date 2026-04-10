@@ -3,7 +3,9 @@ using BillWise.Models.Services;
 using BillWise.ViewModels;
 using BillWise.Views;
 using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Media;
 using Microsoft.Extensions.Logging;
+using Plugin.Maui.OCR;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using Supabase;
 
@@ -20,6 +22,7 @@ namespace BillWise
                 .UseMauiCommunityToolkit()
                 .UseMauiCommunityToolkitMediaElement(false)
                 .UseSkiaSharp()
+                .UseOcr()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -33,6 +36,8 @@ namespace BillWise
             builder.Services.AddSingleton(new Supabase.Client(url, key, options));
 
             // Services
+            builder.Services.AddSingleton<ISpeechToText>(SpeechToText.Default);
+            builder.Services.AddSingleton(OcrPlugin.Default);
             builder.Services.AddSingleton<SessionService>();
             builder.Services.AddSingleton<AuthService>();
             builder.Services.AddSingleton<InvoiceService>();

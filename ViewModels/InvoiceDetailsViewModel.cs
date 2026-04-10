@@ -1,5 +1,6 @@
 using BillWise.Models.Entities;
 using BillWise.Models.Services;
+using BillWise.Resources.Strings;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -29,41 +30,44 @@ namespace BillWise.ViewModels
         public bool ShowPaymentAction => Invoice != null && Invoice.Status != InvoiceStatus.Paid;
         public bool ShowEditAction => Invoice != null && Invoice.Status != InvoiceStatus.Paid;
 
+        // Uses resource keys so the text changes with the app language
         public string StatusText => Invoice?.Status switch
         {
-            InvoiceStatus.Paid => "Paid",
-            InvoiceStatus.Overdue => "Overdue",
-            _ => "Pending"
+            InvoiceStatus.Paid    => LocalizationResourceManager.Instance["Paid"],
+            InvoiceStatus.Overdue => LocalizationResourceManager.Instance["Overdue"],
+            _                     => LocalizationResourceManager.Instance["Pending"]
         };
 
         public string StatusBadgeBackgroundColor => Invoice?.Status switch
         {
-            InvoiceStatus.Paid => "#D1FAE5",      // Light Green
+            InvoiceStatus.Paid    => "#D1FAE5",   // Light Green
             InvoiceStatus.Overdue => "#FEE2E2",   // Light Red
-            _ => "#FEF3C7"                        // Light Yellow
+            _                     => "#FEF3C7"    // Light Yellow
         };
 
         public string StatusBadgeTextColor => Invoice?.Status switch
         {
-            InvoiceStatus.Paid => "#065F46",      // Dark Green
+            InvoiceStatus.Paid    => "#065F46",   // Dark Green
             InvoiceStatus.Overdue => "#B91C1C",   // Dark Red
-            _ => "#92400E"                        // Dark Yellow (Brown)
+            _                     => "#92400E"    // Dark Yellow
         };
 
         public string PaymentDateText => Invoice?.PaidAt?.ToString("dd MMMM yyyy") ?? "-";
 
         [RelayCommand]
-        public async Task GoBackAsync()
-        {
-            await Shell.Current.GoToAsync("..");
-        }
+        public async Task GoBackAsync() => await Shell.Current.GoToAsync("..");
 
         [RelayCommand]
         public async Task DeleteInvoiceAsync()
         {
+            var L = LocalizationResourceManager.Instance;
             if (Invoice == null) return;
 
-            bool confirm = await Shell.Current.DisplayAlertAsync("Delete Invoice", $"Are you sure you want to delete {Invoice.Name}?", "Yes", "No");
+            bool confirm = await Shell.Current.DisplayAlertAsync(
+                L["WarningTitle"],
+                string.Format(L["ConfirmDeleteInvoice"], Invoice.Name),
+                L["Yes"], L["No"]);
+
             if (confirm)
             {
                 IsBusy = true;
@@ -71,13 +75,9 @@ namespace BillWise.ViewModels
                 IsBusy = false;
 
                 if (success)
-                {
-                    await Shell.Current.GoToAsync(".."); // Go back to list
-                }
+                    await Shell.Current.GoToAsync("..");
                 else
-                {
-                    await Shell.Current.DisplayAlertAsync("Error", "Failed to delete the invoice.", "OK");
-                }
+                    await Shell.Current.DisplayAlertAsync(L["ErrorTitle"], L["FailedDeleteInvoice"], "OK");
             }
         }
 
@@ -92,32 +92,35 @@ namespace BillWise.ViewModels
         [RelayCommand]
         public async Task MarkAsPaidAsync()
         {
+            var L = LocalizationResourceManager.Instance;
             if (Invoice == null) return;
-            
-            // In a real flow, this might open a bottom sheet to select payment method.
-            // Using a simple action sheet for now.
-            string action = await Shell.Current.DisplayActionSheetAsync("Select Payment Method", "Cancel", null, "Cash", "Mobile Money", "Bank Transfer");
-            
-            if (action == "Cancel" || string.IsNullOrEmpty(action)) return;
 
-            if (Enum.TryParse<PaymentMethod>(action.Replace(" ", ""), true, out var method))
-            {
-                Invoice.MarkAsPaid(method);
-                
-                IsBusy = true;
-                bool success = await _invoiceService.UpdateInvoiceAsync(Invoice);
-                IsBusy = false;
+            var optCash   = L["PaymentCash"];
+            var optMobile = L["PaymentMobileMoney"];
+            var optBank   = L["PaymentBankTransfer"];
 
-                if (success)
-                {
-                    // Update property to trigger UI refresh
-                    OnPropertyChanged(nameof(Invoice)); 
-                }
-                else
-                {
-                    await Shell.Current.DisplayAlertAsync("Error", "Failed to update the invoice status.", "OK");
-                }
-            }
+            string action = await Shell.Current.DisplayActionSheetAsync(
+                L["SelectPaymentMethodTitle"], L["Cancel"], null,
+                optCash, optMobile, optBank);
+
+            if (string.IsNullOrEmpty(action) || action == L["Cancel"]) return;
+
+            PaymentMethod method;
+            if (action == optCash)        method = PaymentMethod.Cash;
+            else if (action == optMobile) method = PaymentMethod.MobileMoney;
+            else if (action == optBank)   method = PaymentMethod.BankTransfer;
+            else return;
+
+            Invoice.MarkAsPaid(method);
+
+            IsBusy = true;
+            bool success = await _invoiceService.UpdateInvoiceAsync(Invoice);
+            IsBusy = false;
+
+            if (success)
+                OnPropertyChanged(nameof(Invoice));
+            else
+                await Shell.Current.DisplayAlertAsync(L["ErrorTitle"], L["FailedUpdateInvoice"], "OK");
         }
     }
 }

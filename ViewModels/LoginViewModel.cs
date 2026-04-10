@@ -1,4 +1,5 @@
 using BillWise.Models.Services;
+using BillWise.Resources.Strings;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -16,42 +17,35 @@ namespace BillWise.ViewModels
             Title = "Login";
         }
 
-        [ObservableProperty]
-        private string _email = string.Empty;
-
-        [ObservableProperty]
-        private string _password = string.Empty;
+        [ObservableProperty] private string _email = string.Empty;
+        [ObservableProperty] private string _password = string.Empty;
 
         [RelayCommand]
         public async Task LoginAsync()
         {
+            var L = LocalizationResourceManager.Instance;
+            var mainPage = Application.Current?.Windows[0]?.Page;
+
             if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
             {
-                var mainPage = Application.Current?.Windows[0]?.Page;
                 if (mainPage != null)
-                    await mainPage.DisplayAlertAsync("Error", "Please enter your email and password.", "OK");
+                    await mainPage.DisplayAlertAsync(L["ErrorTitle"], L["EnterEmailAndPassword"], "OK");
                 return;
             }
 
             IsBusy = true;
-            
             var result = await _authService.LoginAsync(Email.Trim(), Password);
-            
             IsBusy = false;
 
             if (result.Success)
             {
-                // Navigate to main application shell
                 if (Application.Current != null && Application.Current.Windows.Count > 0)
-                {
                     Application.Current.Windows[0].Page = new AppShell();
-                }
             }
             else
             {
-                var mainPage = Application.Current?.Windows[0]?.Page;
                 if (mainPage != null)
-                    await mainPage.DisplayAlertAsync("Login Failed", result.ErrorMessage, "OK");
+                    await mainPage.DisplayAlertAsync(L["LoginFailed"], result.ErrorMessage, "OK");
             }
         }
 

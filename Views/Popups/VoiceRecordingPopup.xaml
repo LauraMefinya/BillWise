@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:strings="clr-namespace:BillWise.Resources.Strings"
+               x:Class="BillWise.Views.Popups.VoiceRecordingPopup"
+               x:TypeArguments="x:String">
+
+    <Border BackgroundColor="White"
+            StrokeShape="RoundRectangle 24"
+            StrokeThickness="0"
+            WidthRequest="320"
+            Padding="28,32">
+        <Border.Shadow>
+            <Shadow Brush="Black" Offset="0,8" Radius="24" Opacity="0.12"/>
+        </Border.Shadow>
+
+        <VerticalStackLayout Spacing="20">
+
+            <!-- Mic icon with pulse ring -->
+            <Grid HorizontalOptions="Center" WidthRequest="80" HeightRequest="80">
+                <Ellipse x:Name="PulseRing"
+                         Fill="Transparent"
+                         Stroke="#3498DB"
+                         StrokeThickness="2"
+                         Opacity="0"
+                         WidthRequest="80" HeightRequest="80"
+                         HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Border x:Name="MicCircle"
+                        BackgroundColor="#EBF5FB"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 40"
+                        WidthRequest="68" HeightRequest="68"
+                        HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="🎤" FontSize="28"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Border>
+            </Grid>
+
+            <!-- Status label -->
+            <Label x:Name="StatusLabel"
+                   Text="{Binding [VoiceListening], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                   FontSize="15" FontAttributes="Bold"
+                   TextColor="#111827"
+                   HorizontalOptions="Center"/>
+
+            <!-- Live transcription preview -->
+            <Border BackgroundColor="#F9FAFB"
+                    Stroke="#E5E7EB"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12"
+                    Padding="14,10"
+                    MinimumHeightRequest="64">
+                <Label x:Name="TranscriptionLabel"
+                       Text="{Binding [VoicePlaceholder], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                       FontSize="14"
+                       TextColor="#9CA3AF"
+                       LineBreakMode="WordWrap"/>
+            </Border>
+
+            <!-- Cancel / Validate buttons -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Button Grid.Column="0"
+                        Text="{Binding [Cancel], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                        BackgroundColor="#F3F4F6"
+                        TextColor="#6B7280"
+                        CornerRadius="12"
+                        HeightRequest="48"
+                        FontAttributes="Bold"
+                        Clicked="OnCancelClicked"/>
+                <Button x:Name="ValidateButton"
+                        Grid.Column="1"
+                        Text="{Binding [Validate], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                        BackgroundColor="#3498DB"
+                        TextColor="White"
+                        CornerRadius="12"
+                        HeightRequest="48"
+                        FontAttributes="Bold"
+                        IsEnabled="False"
+                        Clicked="OnValidateClicked"/>
+            </Grid>
+
+        </VerticalStackLayout>
+    </Border>
+</toolkit:Popup>

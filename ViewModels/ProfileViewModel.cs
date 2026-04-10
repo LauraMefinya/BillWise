@@ -1,4 +1,6 @@
-using BillWise.Models.Messages;using BillWise.Models.Providers;
+using BillWise.Models.Messages;
+using BillWise.Models.Providers;
+using BillWise.Resources.Strings;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -75,6 +77,8 @@ namespace BillWise.ViewModels
         [RelayCommand]
         public async Task SaveSettingsAsync()
         {
+            var L = LocalizationResourceManager.Instance;
+
             Preferences.Default.Set("currency", SelectedCurrency);
             Preferences.Default.Set("language", SelectedLanguage);
             Preferences.Default.Set("notif_enabled", NotificationsEnabled);
@@ -85,39 +89,39 @@ namespace BillWise.ViewModels
             try
             {
                 var culture = new System.Globalization.CultureInfo(SelectedLanguage);
-                // This now broadcasts LanguageChangedMessage to all pages
-                BillWise.Resources.Strings.LocalizationResourceManager
-                    .Instance.SetCulture(culture);
+                // Broadcasts LanguageChangedMessage to all pages
+                LocalizationResourceManager.Instance.SetCulture(culture);
             }
             catch { }
 
-            await Shell.Current.DisplayAlertAsync("Success", "Settings saved.", "OK");
+            await Shell.Current.DisplayAlertAsync(L["SuccessTitle"], L["SettingsSaved"], "OK");
             await Shell.Current.GoToAsync("..");
         }
 
         [RelayCommand]
         public async Task CancelChangesAsync()
         {
-            // Revert changes and go back
             LoadSettings();
             await Shell.Current.GoToAsync("..");
         }
 
         [RelayCommand]
-        public async Task ExportDataAsync() =>
-            await Shell.Current.DisplayAlertAsync("Export",
-                "Export feature coming soon.", "OK");
+        public async Task ExportDataAsync()
+        {
+            var L = LocalizationResourceManager.Instance;
+            await Shell.Current.DisplayAlertAsync(L["ExportTitle"], L["ExportComingSoon"], "OK");
+        }
 
         [RelayCommand]
         public async Task ClearAllDataAsync()
         {
-            bool answer = await Shell.Current.DisplayAlertAsync("Warning",
-                "Are you sure you want to clear all data?", "Yes", "No");
+            var L = LocalizationResourceManager.Instance;
+            bool answer = await Shell.Current.DisplayAlertAsync(
+                L["WarningTitle"], L["ClearDataConfirm"], L["Yes"], L["No"]);
             if (answer)
             {
                 Preferences.Default.Clear();
-                await Shell.Current.DisplayAlertAsync("Cleared",
-                    "All data cleared.", "OK");
+                await Shell.Current.DisplayAlertAsync(L["ClearedTitle"], L["DataCleared"], "OK");
             }
         }
 
@@ -128,11 +132,12 @@ namespace BillWise.ViewModels
         [RelayCommand]
         public async Task LogoutAsync()
         {
+            var L = LocalizationResourceManager.Instance;
             var mainPage = Application.Current?.Windows[0]?.Page;
             if (mainPage == null) return;
 
-            bool confirm = await mainPage.DisplayAlertAsync("Logout",
-                "Are you sure you want to log out?", "Yes", "No");
+            bool confirm = await mainPage.DisplayAlertAsync(
+                L["Logout"], L["LogoutConfirm"], L["Yes"], L["No"]);
             if (confirm)
             {
                 await _authService.LogoutAsync();

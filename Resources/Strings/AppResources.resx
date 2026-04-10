@@ -265,4 +265,136 @@
   <data name="SignIn" xml:space="preserve">
     <value>Sign In</value>
   </data>
+  <data name="Validate" xml:space="preserve">
+    <value>Validate</value>
+  </data>
+  <data name="VoiceListening" xml:space="preserve">
+    <value>Listening...</value>
+  </data>
+  <data name="VoiceDone" xml:space="preserve">
+    <value>Done — tap Validate to confirm</value>
+  </data>
+  <data name="VoicePlaceholder" xml:space="preserve">
+    <value>Say the invoice name and amount...</value>
+  </data>
+  <data name="VoiceError" xml:space="preserve">
+    <value>Could not recognize speech</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="SuccessTitle" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="WarningTitle" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="ClearedTitle" xml:space="preserve">
+    <value>Cleared</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="FillNameAndAmount" xml:space="preserve">
+    <value>Please fill Name and Amount fields.</value>
+  </data>
+  <data name="InvalidAmount" xml:space="preserve">
+    <value>Invalid amount.</value>
+  </data>
+  <data name="FailedSaveInvoice" xml:space="preserve">
+    <value>Failed to save invoice.</value>
+  </data>
+  <data name="FailedUpdateInvoice" xml:space="preserve">
+    <value>Failed to update invoice.</value>
+  </data>
+  <data name="FailedDeleteInvoice" xml:space="preserve">
+    <value>Failed to delete the invoice.</value>
+  </data>
+  <data name="ConfirmDeleteInvoice" xml:space="preserve">
+    <value>Are you sure you want to delete {0}?</value>
+  </data>
+  <data name="SelectPaymentMethodTitle" xml:space="preserve">
+    <value>Select Payment Method</value>
+  </data>
+  <data name="PaymentCash" xml:space="preserve">
+    <value>Cash</value>
+  </data>
+  <data name="PaymentMobileMoney" xml:space="preserve">
+    <value>Mobile Money</value>
+  </data>
+  <data name="PaymentBankTransfer" xml:space="preserve">
+    <value>Bank Transfer</value>
+  </data>
+  <data name="SettingsSaved" xml:space="preserve">
+    <value>Settings saved.</value>
+  </data>
+  <data name="ExportTitle" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="ExportComingSoon" xml:space="preserve">
+    <value>Export feature coming soon.</value>
+  </data>
+  <data name="ClearDataConfirm" xml:space="preserve">
+    <value>Are you sure you want to clear all data?</value>
+  </data>
+  <data name="DataCleared" xml:space="preserve">
+    <value>All data cleared.</value>
+  </data>
+  <data name="LogoutConfirm" xml:space="preserve">
+    <value>Are you sure you want to log out?</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Login Failed</value>
+  </data>
+  <data name="EnterEmailAndPassword" xml:space="preserve">
+    <value>Please enter your email and password.</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Passwords do not match.</value>
+  </data>
+  <data name="AccountCreated" xml:space="preserve">
+    <value>Account created successfully!</value>
+  </data>
+  <data name="CheckEmailTitle" xml:space="preserve">
+    <value>Check your email</value>
+  </data>
+  <data name="CheckEmailMessage" xml:space="preserve">
+    <value>Account created! Please confirm your email address before logging in.</value>
+  </data>
+  <data name="RegistrationFailed" xml:space="preserve">
+    <value>Registration Failed</value>
+  </data>
+  <data name="PermissionTitle" xml:space="preserve">
+    <value>Permission</value>
+  </data>
+  <data name="CameraPermissionRequired" xml:space="preserve">
+    <value>Camera permission is required to scan invoices.</value>
+  </data>
+  <data name="MicrophonePermissionRequired" xml:space="preserve">
+    <value>Microphone permission is required for voice input.</value>
+  </data>
+  <data name="LocationPermissionRequired" xml:space="preserve">
+    <value>Location permission is required.</value>
+  </data>
+  <data name="SelectSource" xml:space="preserve">
+    <value>Select source</value>
+  </data>
+  <data name="TakePhoto" xml:space="preserve">
+    <value>Take a photo</value>
+  </data>
+  <data name="ChooseFromGallery" xml:space="preserve">
+    <value>Choose from gallery</value>
+  </data>
+  <data name="ScanNoText" xml:space="preserve">
+    <value>No text could be read from this image.</value>
+  </data>
+  <data name="CouldNotGetLocation" xml:space="preserve">
+    <value>Could not get location.</value>
+  </data>
+  <data name="SelectInvoicePhoto" xml:space="preserve">
+    <value>Select invoice photo</value>
+  </data>
 </root>

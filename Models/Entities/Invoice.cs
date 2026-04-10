@@ -1,6 +1,7 @@
+using BillWise.Resources.Strings;
+using Newtonsoft.Json;
 using Postgrest.Attributes;
 using Postgrest.Models;
-using Newtonsoft.Json;
 
 namespace BillWise.Models.Entities
 {
@@ -59,9 +60,9 @@ namespace BillWise.Models.Entities
         [JsonIgnore]
         public string StatusText => Status switch
         {
-            InvoiceStatus.Paid    => "Paid",
-            InvoiceStatus.Overdue => "Overdue",
-            _                     => "Pending"
+            InvoiceStatus.Paid    => LocalizationResourceManager.Instance["Paid"],
+            InvoiceStatus.Overdue => LocalizationResourceManager.Instance["Overdue"],
+            _                     => LocalizationResourceManager.Instance["Pending"]
         };
 
         [JsonIgnore]
@@ -100,6 +101,25 @@ namespace BillWise.Models.Entities
             CategoryType.Rent         => "#FEE2E2",
             CategoryType.Subscription => "#F3E8FF",
             _                         => "#F3F4F6"
+        };
+
+        [JsonIgnore]
+        public string CategoryText => Category switch
+        {
+            CategoryType.Electricity  => LocalizationResourceManager.Instance["Electricity"],
+            CategoryType.Water        => LocalizationResourceManager.Instance["Water"],
+            CategoryType.Internet     => LocalizationResourceManager.Instance["Internet"],
+            CategoryType.Rent         => LocalizationResourceManager.Instance["Rent"],
+            CategoryType.Subscription => LocalizationResourceManager.Instance["Subscription"],
+            _                         => LocalizationResourceManager.Instance["Other"]
+        };
+
+        [JsonIgnore]
+        public string PaymentMethodText => PaymentMethod switch
+        {
+            Entities.PaymentMethod.MobileMoney  => LocalizationResourceManager.Instance["PaymentMobileMoney"],
+            Entities.PaymentMethod.BankTransfer => LocalizationResourceManager.Instance["PaymentBankTransfer"],
+            _                                   => LocalizationResourceManager.Instance["PaymentCash"]
         };
 
         public void MarkAsPaid(PaymentMethod method)

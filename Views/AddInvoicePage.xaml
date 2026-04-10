@@ -33,27 +33,57 @@
 
             <!-- Top Action Buttons -->
             <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12" Margin="0,0,0,16">
+
                 <!-- Scan Button -->
-                <Border Grid.Column="0" Stroke="#3498DB" StrokeThickness="1" StrokeShape="RoundRectangle 12" BackgroundColor="White" Padding="0,16">
-                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
-                        <Label Text="📷" FontSize="24" TextColor="#3498DB" HorizontalOptions="Center"/>
-                        <Label Text="{Binding [Scan], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#3498DB" HorizontalOptions="Center"/>
+                <Border Grid.Column="0" Stroke="#3498DB" StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12" BackgroundColor="White"
+                        Padding="0,16">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ScanCommand}"/>
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Label Text="📷" FontSize="24" TextColor="#3498DB"
+                            HorizontalOptions="Center"/>
+                        <Label Text="{Binding [Scan], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                            FontSize="12" TextColor="#3498DB"
+                            HorizontalOptions="Center"/>
                     </VerticalStackLayout>
                 </Border>
+
                 <!-- Voice Button -->
-                <Border Grid.Column="1" Stroke="#E74C3C" StrokeThickness="1" StrokeShape="RoundRectangle 12" BackgroundColor="White" Padding="0,16">
-                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
-                        <Label Text="🎤" FontSize="24" TextColor="#E74C3C" HorizontalOptions="Center"/>
-                        <Label Text="{Binding [Voice], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#E74C3C" HorizontalOptions="Center"/>
+                <Border Grid.Column="1" StrokeThickness="1"
+                        Stroke="{Binding VoiceButtonColor}"
+                        StrokeShape="RoundRectangle 12" BackgroundColor="White"
+                        Padding="0,16">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding VoiceCommand}"/>
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Label Text="🎤" FontSize="24"
+                            TextColor="{Binding VoiceButtonColor}"
+                            HorizontalOptions="Center"/>
+                        <Label Text="{Binding [Voice], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                            FontSize="12" TextColor="{Binding VoiceButtonColor}"
+                            HorizontalOptions="Center"/>
                     </VerticalStackLayout>
                 </Border>
+
                 <!-- Location Button -->
-                <Border Grid.Column="2" Stroke="#2ECC71" StrokeThickness="1" StrokeShape="RoundRectangle 12" BackgroundColor="White" Padding="0,16">
-                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
-                        <Label Text="📍" FontSize="24" TextColor="#2ECC71" HorizontalOptions="Center"/>
-                        <Label Text="{Binding [Location], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#2ECC71" HorizontalOptions="Center"/>
+                <Border Grid.Column="2" Stroke="#2ECC71" StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12" BackgroundColor="White"
+                        Padding="0,16">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LocationCommand}"/>
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Label Text="📍" FontSize="24" TextColor="#2ECC71"
+                            HorizontalOptions="Center"/>
+                        <Label Text="{Binding [Location], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                            FontSize="12" TextColor="#2ECC71"
+                            HorizontalOptions="Center"/>
                     </VerticalStackLayout>
                 </Border>
+
             </Grid>
 
             <!-- Invoice Name -->

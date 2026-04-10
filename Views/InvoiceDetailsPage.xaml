@@ -97,7 +97,7 @@
                                 </Border>
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
                                     <Label Text="{Binding [CategoryLabel], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="12" />
-                                    <Label Text="{Binding Invoice.Category}" TextColor="#111827" FontSize="14" FontAttributes="Bold" />
+                                    <Label Text="{Binding Invoice.CategoryText}" TextColor="#111827" FontSize="14" FontAttributes="Bold" />
                                 </VerticalStackLayout>
                             </Grid>
                         </Border>
@@ -123,7 +123,7 @@
                                 </Border>
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
                                     <Label Text="{Binding [PaymentMethod], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="12" />
-                                    <Label Text="{Binding Invoice.PaymentMethod}" TextColor="#111827" FontSize="14" FontAttributes="Bold" />
+                                    <Label Text="{Binding Invoice.PaymentMethodText}" TextColor="#111827" FontSize="14" FontAttributes="Bold" />
                                 </VerticalStackLayout>
                             </Grid>
                         </Border>
