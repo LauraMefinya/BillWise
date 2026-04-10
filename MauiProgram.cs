@@ -44,6 +44,7 @@ namespace BillWise
             builder.Services.AddSingleton<AuthService>();
             builder.Services.AddSingleton<InvoiceService>();
             builder.Services.AddSingleton<NotificationService>();
+            builder.Services.AddSingleton<LocalNotificationScheduler>();
             builder.Services.AddSingleton<InvoiceProvider>();
 
             // ViewModels

@@ -7,13 +7,16 @@ namespace BillWise
     public partial class App : Application
     {
         private readonly Models.Services.AuthService _authService;
+        private readonly Models.Services.LocalNotificationScheduler _scheduler;
         private readonly IServiceProvider _serviceProvider;
 
         public App(Models.Services.AuthService authService,
+                   Models.Services.LocalNotificationScheduler scheduler,
                    IServiceProvider serviceProvider)
         {
             InitializeComponent();
             _authService = authService;
+            _scheduler = scheduler;
             _serviceProvider = serviceProvider;
             RestoreLanguage();
         }
@@ -64,6 +67,9 @@ namespace BillWise
                 // Session valid — go to main app
                 if (Windows.Count > 0)
                     Windows[0].Page = new AppShell();
+
+                // Schedule OS-level notifications in the background
+                _ = _scheduler.ScheduleAsync();
             }
             else
             {
@@ -72,6 +78,13 @@ namespace BillWise
                 if (Windows.Count > 0)
                     Windows[0].Page = new NavigationPage(loginPage);
             }
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            if (_authService.IsUserLoggedIn())
+                _ = _scheduler.ScheduleAsync();
         }
     }
 }

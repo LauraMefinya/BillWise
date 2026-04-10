@@ -1,6 +1,7 @@
 using BillWise.Models.Entities;
 using BillWise.Resources.Strings;
 using Plugin.LocalNotification;
+using Plugin.LocalNotification.Core.Models;
 using System.Text.Json;
 
 namespace BillWise.Models.Services
@@ -26,7 +27,7 @@ namespace BillWise.Models.Services
             var L = LocalizationResourceManager.Instance;
 
             // Cancel all previously scheduled BillWise notifications then reschedule fresh
-            await LocalNotificationCenter.Current.CancelAll();
+             LocalNotificationCenter.Current.CancelAll();
 
             // Stagger immediate notifications slightly so they don't overlap
             int delaySeconds = 5;
