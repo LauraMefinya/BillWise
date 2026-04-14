@@ -45,7 +45,7 @@ namespace BillWise.ViewModels
         public Color DueDateColor => IsDateSelected ? Colors.Black : Color.FromArgb("#9CA3AF");
 
         [ObservableProperty] private CategoryType _selectedCategory = CategoryType.Other;
-        [ObservableProperty] private string _paymentMethod = "Cash";
+        [ObservableProperty] private string _paymentMethod = "Bank Transfer";
         [ObservableProperty] private string _notes = string.Empty;
 
         private void LoadInvoiceData()
@@ -56,11 +56,11 @@ namespace BillWise.ViewModels
             AmountText = Invoice.Amount.ToString();
             DueDate = Invoice.DueDate;
             SelectedCategory = Invoice.Category;
-            PaymentMethod = Invoice.PaymentMethod?.ToString() == "MobileMoney"
-                ? "Mobile Money"
-                : Invoice.PaymentMethod?.ToString() == "BankTransfer"
-                    ? "Bank Transfer"
-                    : "Cash";
+            PaymentMethod = Invoice.PaymentMethod?.ToString() == "PayPal"
+                ? "PayPal"
+                : Invoice.PaymentMethod?.ToString() == "GooglePay"
+                    ? "Google Pay"
+                    : "Bank Transfer";
             Notes = Invoice.Notes ?? string.Empty;
         }
 
@@ -100,7 +100,7 @@ namespace BillWise.ViewModels
                 Invoice.Notes = Notes;
                 Invoice.PaymentMethod = Enum.TryParse<Models.Entities.PaymentMethod>(
                     PaymentMethod?.Replace(" ", ""), true, out var pm)
-                    ? pm : Models.Entities.PaymentMethod.Cash;
+                    ? pm : Models.Entities.PaymentMethod.BankTransfer;
 
                 var success = await _invoiceService.UpdateInvoiceAsync(Invoice);
                 if (success)

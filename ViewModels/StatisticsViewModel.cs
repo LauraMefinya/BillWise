@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using BillWise.Models.Entities;
+using BillWise.Models.Messages;
 using BillWise.Models.Services;
 using BillWise.Resources.Strings;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -125,7 +126,7 @@ namespace BillWise.ViewModels
                     CategoryStats.Add(new CategoryStat
                     {
                         CategoryName = LocalizationResourceManager.Instance[cat.Key.ToString()],
-                        AmountFormatted = $"{cat.Value:N0} FCFA",
+                        AmountFormatted = CurrencyService.Format(cat.Value),
                         ColorHex = hex,
                         BarWidth = (int)(percentage * 220)
                     });
@@ -139,6 +140,13 @@ namespace BillWise.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        public override void Receive(CurrencyChangedMessage message)
+        {
+            base.Receive(message);
+            if (!IsBusy)
+                LoadDataCommand.Execute(null);
         }
 
         private SKColor GetCategoryColor(CategoryType type)

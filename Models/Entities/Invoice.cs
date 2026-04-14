@@ -1,3 +1,4 @@
+using BillWise.Models.Services;
 using BillWise.Resources.Strings;
 using Newtonsoft.Json;
 using Postgrest.Attributes;
@@ -6,7 +7,7 @@ using Postgrest.Models;
 namespace BillWise.Models.Entities
 {
     public enum InvoiceStatus { Pending, Paid, Overdue }
-    public enum PaymentMethod { Cash, MobileMoney, BankTransfer }
+    public enum PaymentMethod { BankTransfer, PayPal, GooglePay }
     public enum CategoryType { Electricity, Water, Internet, Rent, Subscription, Other }
 
     [Table("invoices")]
@@ -55,7 +56,7 @@ namespace BillWise.Models.Entities
         [JsonIgnore] public int DaysUntilDue => (DueDate - DateTime.Today).Days;
 
         // --- UI computed properties (used by XAML bindings) ---
-        [JsonIgnore] public string FormattedAmount => $"{Amount:N0} FCFA";
+        [JsonIgnore] public string FormattedAmount => CurrencyService.Format(Amount);
 
         [JsonIgnore]
         public string StatusText => Status switch
@@ -117,9 +118,9 @@ namespace BillWise.Models.Entities
         [JsonIgnore]
         public string PaymentMethodText => PaymentMethod switch
         {
-            Entities.PaymentMethod.MobileMoney  => LocalizationResourceManager.Instance["PaymentMobileMoney"],
-            Entities.PaymentMethod.BankTransfer => LocalizationResourceManager.Instance["PaymentBankTransfer"],
-            _                                   => LocalizationResourceManager.Instance["PaymentCash"]
+            Entities.PaymentMethod.PayPal       => LocalizationResourceManager.Instance["PaymentPayPal"],
+            Entities.PaymentMethod.GooglePay    => LocalizationResourceManager.Instance["PaymentGooglePay"],
+            _                                   => LocalizationResourceManager.Instance["PaymentBankTransfer"]
         };
 
         public void MarkAsPaid(PaymentMethod method)

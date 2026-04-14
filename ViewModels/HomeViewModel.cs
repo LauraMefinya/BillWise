@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using BillWise.Models.Entities;
+using BillWise.Models.Messages;
 using BillWise.Models.Services;
 using BillWise.Resources.Strings;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -34,6 +35,13 @@ namespace BillWise.ViewModels
             string.Format(LocalizationResourceManager.Instance["OverdueCountMessage"], OverdueCount);
 
         public ObservableCollection<Invoice> RecentInvoices { get; } = new();
+
+        public override void Receive(CurrencyChangedMessage message)
+        {
+            base.Receive(message);
+            if (!IsBusy)
+                LoadDataCommand.Execute(null);
+        }
 
         [RelayCommand]
         public async Task GoToDetailsAsync(Invoice invoice)

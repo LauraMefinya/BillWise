@@ -9,22 +9,29 @@
              BackgroundColor="#FAFAFA"
              Shell.NavBarIsVisible="False">
     <Grid>
-        <VerticalStackLayout Spacing="16" Padding="16,40,16,100">
+        <Grid RowDefinitions="Auto,Auto,Auto,*" Padding="16,0,16,0" RowSpacing="16">
+
             <!-- Header -->
-            <Label Text="{Binding [MyInvoices], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="26" FontAttributes="Bold" TextColor="#111827"/>
+            <Label Grid.Row="0"
+                   Text="{Binding [MyInvoices], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                   FontSize="26" FontAttributes="Bold" TextColor="#111827"/>
 
             <!-- Search Bar -->
-            <Border Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" BackgroundColor="White" Padding="10,0">
+            <Border Grid.Row="1"
+                    Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12"
+                    BackgroundColor="White" Padding="10,0">
                 <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                     <Label Text="🔍" FontSize="18" TextColor="#9CA3AF" VerticalOptions="Center"/>
-                    <Entry Grid.Column="1" Placeholder="{Binding [SearchInvoice], Source={x:Static strings:LocalizationResourceManager.Instance}}" PlaceholderColor="#9CA3AF" 
+                    <Entry Grid.Column="1"
+                           Placeholder="{Binding [SearchInvoice], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                           PlaceholderColor="#9CA3AF"
                            Text="{Binding SearchQuery}" ClearButtonVisibility="WhileEditing"
                            BackgroundColor="Transparent"/>
                 </Grid>
             </Border>
 
             <!-- Filters -->
-            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+            <ScrollView Grid.Row="2" Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
                 <HorizontalStackLayout Spacing="8">
                     <!-- Filter: All -->
                     <Border StrokeThickness="0" BackgroundColor="#2196F3" StrokeShape="RoundRectangle 8" Padding="16,8">
@@ -70,7 +77,10 @@
             </ScrollView>
 
             <!-- Invoices List -->
-            <CollectionView ItemsSource="{Binding Invoices}" SelectionMode="None">
+            <CollectionView Grid.Row="3" ItemsSource="{Binding Invoices}" SelectionMode="None">
+                <CollectionView.Footer>
+                    <ContentView HeightRequest="100"/>
+                </CollectionView.Footer>
                 <CollectionView.EmptyView>
                     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="16" Margin="0,50,0,0">
                         <Label Text="📄" FontSize="60" HorizontalOptions="Center" TextColor="#D1D5DB"/>
@@ -114,7 +124,8 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </VerticalStackLayout>
+
+        </Grid>
 
         <!-- Floating Action Button -->
         <ImageButton BackgroundColor="#2196F3" CornerRadius="30"

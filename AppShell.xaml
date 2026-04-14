@@ -9,7 +9,8 @@
        Shell.TabBarForegroundColor="#185FA5"
        Shell.TabBarUnselectedColor="#9E9E9E"
        Shell.TabBarTitleColor="#185FA5"
-       Shell.NavBarIsVisible="False">
+       Shell.NavBarIsVisible="False"
+       Shell.BackgroundColor="Transparent">
 
     <TabBar>
         <ShellContent Title="{Binding [TabHome], Source={x:Static strings:LocalizationResourceManager.Instance}}"

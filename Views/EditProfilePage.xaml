@@ -57,7 +57,13 @@
                             <Label Text="💲" FontSize="16"/>
                         </Border>
                         <Label Grid.Row="0" Grid.Column="1" Text="{Binding [Currency], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="14" VerticalOptions="Center" Margin="12,0,0,0"/>
-                        <Entry Grid.Row="0" Grid.Column="2" Text="{Binding SelectedCurrency}" TextColor="#111827" FontFamily="Bold" BackgroundColor="Transparent" WidthRequest="60" HorizontalTextAlignment="End"/>
+                        <Picker Grid.Row="0" Grid.Column="2" SelectedItem="{Binding SelectedCurrency}" TextColor="#111827" BackgroundColor="Transparent" WidthRequest="70">
+                            <Picker.Items>
+                                <x:String>£</x:String>
+                                <x:String>€</x:String>
+                                <x:String>$</x:String>
+                            </Picker.Items>
+                        </Picker>
                         
                         <Border Grid.Row="2" Grid.Column="0" BackgroundColor="#DBEAFE" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" VerticalOptions="Center">
                             <Label Text="🌐" FontSize="16"/>

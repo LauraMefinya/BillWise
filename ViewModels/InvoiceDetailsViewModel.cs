@@ -95,20 +95,20 @@ namespace BillWise.ViewModels
             var L = LocalizationResourceManager.Instance;
             if (Invoice == null) return;
 
-            var optCash   = L["PaymentCash"];
-            var optMobile = L["PaymentMobileMoney"];
             var optBank   = L["PaymentBankTransfer"];
+            var optPayPal = L["PaymentPayPal"];
+            var optGoogle = L["PaymentGooglePay"];
 
             string action = await Shell.Current.DisplayActionSheetAsync(
                 L["SelectPaymentMethodTitle"], L["Cancel"], null,
-                optCash, optMobile, optBank);
+                optBank, optPayPal, optGoogle);
 
             if (string.IsNullOrEmpty(action) || action == L["Cancel"]) return;
 
             PaymentMethod method;
-            if (action == optCash)        method = PaymentMethod.Cash;
-            else if (action == optMobile) method = PaymentMethod.MobileMoney;
-            else if (action == optBank)   method = PaymentMethod.BankTransfer;
+            if (action == optBank)        method = PaymentMethod.BankTransfer;
+            else if (action == optPayPal) method = PaymentMethod.PayPal;
+            else if (action == optGoogle) method = PaymentMethod.GooglePay;
             else return;
 
             Invoice.MarkAsPaid(method);

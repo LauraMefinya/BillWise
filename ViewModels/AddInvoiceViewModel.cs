@@ -32,7 +32,7 @@ namespace BillWise.ViewModels
         [ObservableProperty] private string _invoiceName = string.Empty;
         [ObservableProperty] private string _amountText = string.Empty;
         [ObservableProperty] private string _notes = string.Empty;
-        [ObservableProperty] private string _paymentMethod = "Cash";
+        [ObservableProperty] private string _paymentMethod = "Bank Transfer";
         [ObservableProperty] private CategoryType _selectedCategory = CategoryType.Other;
 
         [ObservableProperty]
@@ -300,7 +300,7 @@ namespace BillWise.ViewModels
                     Notes = Notes,
                     PaymentMethod = Enum.TryParse<Models.Entities.PaymentMethod>(
                         PaymentMethod?.Replace(" ", ""), true, out var pm)
-                        ? pm : Models.Entities.PaymentMethod.Cash,
+                        ? pm : Models.Entities.PaymentMethod.BankTransfer,
                     Status = InvoiceStatus.Pending,
                     CreatedAt = DateTime.UtcNow
                 };

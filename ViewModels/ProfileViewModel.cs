@@ -3,6 +3,7 @@ using BillWise.Models.Providers;
 using BillWise.Resources.Strings;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace BillWise.ViewModels
 {
@@ -57,7 +58,7 @@ namespace BillWise.ViewModels
         [ObservableProperty] private int _paidInvoices = 0;
         [ObservableProperty] private int _pendingInvoices = 0;
         [ObservableProperty] private int _overdueInvoices = 0;
-        [ObservableProperty] private string _selectedCurrency = "FCFA";
+        [ObservableProperty] private string _selectedCurrency = "£";
         [ObservableProperty] private string _selectedLanguage = "en";
         [ObservableProperty] private bool _notificationsEnabled = true;
         [ObservableProperty] private int _reminderDays = 2;
@@ -66,7 +67,7 @@ namespace BillWise.ViewModels
 
         private void LoadSettings()
         {
-            SelectedCurrency = Preferences.Default.Get("currency", "FCFA");
+            SelectedCurrency = Preferences.Default.Get("currency", "£");
             SelectedLanguage = Preferences.Default.Get("language", "en");
             NotificationsEnabled = Preferences.Default.Get("notif_enabled", true);
             ReminderDays = Preferences.Default.Get("reminder_days", 2);
@@ -85,6 +86,9 @@ namespace BillWise.ViewModels
             Preferences.Default.Set("reminder_days", ReminderDays);
             Preferences.Default.Set("haptic_enabled", HapticFeedbackEnabled);
             Preferences.Default.Set("shake_to_add", ShakeToAddEnabled);
+
+            // Broadcast currency change so all ViewModels refresh
+            WeakReferenceMessenger.Default.Send(new CurrencyChangedMessage(SelectedCurrency));
 
             try
             {

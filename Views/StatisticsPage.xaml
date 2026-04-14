@@ -10,7 +10,7 @@
              Shell.NavBarIsVisible="False">
 
     <ScrollView>
-        <VerticalStackLayout Spacing="20" Padding="16,40,16,100">
+        <VerticalStackLayout Spacing="20" Padding="16,0,16,100">
 
             <!-- Header -->
             <VerticalStackLayout Spacing="4">
@@ -35,7 +35,7 @@
                                FontSize="12" TextColor="#6B7280"/>
                         <Label Text="{Binding TotalAmount, StringFormat='{0:N0}'}"
                                FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
-                        <Label Text="FCFA" FontSize="10" TextColor="#9CA3AF"/>
+                        <Label Text="{Binding CurrencySymbol}" FontSize="10" TextColor="#9CA3AF"/>
                     </VerticalStackLayout>
                 </Border>
 
@@ -51,7 +51,7 @@
                                FontSize="12" TextColor="#6B7280"/>
                         <Label Text="{Binding ThisMonthAmount, StringFormat='{0:N0}'}"
                                FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
-                        <Label Text="FCFA" FontSize="10" TextColor="#9CA3AF"/>
+                        <Label Text="{Binding CurrencySymbol}" FontSize="10" TextColor="#9CA3AF"/>
                     </VerticalStackLayout>
                 </Border>
 
@@ -67,7 +67,7 @@
                                FontSize="12" TextColor="#6B7280"/>
                         <Label Text="{Binding PaidAmount, StringFormat='{0:N0}'}"
                                FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
-                        <Label Text="FCFA" FontSize="10" TextColor="#9CA3AF"/>
+                        <Label Text="{Binding CurrencySymbol}" FontSize="10" TextColor="#9CA3AF"/>
                     </VerticalStackLayout>
                 </Border>
 
@@ -83,7 +83,7 @@
                                FontSize="12" TextColor="#6B7280"/>
                         <Label Text="{Binding ToPayAmount, StringFormat='{0:N0}'}"
                                FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
-                        <Label Text="FCFA" FontSize="10" TextColor="#9CA3AF"/>
+                        <Label Text="{Binding CurrencySymbol}" FontSize="10" TextColor="#9CA3AF"/>
                     </VerticalStackLayout>
                 </Border>
 

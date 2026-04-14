@@ -1,11 +1,13 @@
 using BillWise.Models.Messages;
+using BillWise.Models.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 
 namespace BillWise.ViewModels
 {
     public partial class BaseViewModel : ObservableObject,
-        IRecipient<LanguageChangedMessage>
+        IRecipient<LanguageChangedMessage>,
+        IRecipient<CurrencyChangedMessage>
     {
         [ObservableProperty]
         private string _title = string.Empty;
@@ -13,16 +15,25 @@ namespace BillWise.ViewModels
         [ObservableProperty]
         private bool _isBusy = false;
 
+        public string CurrencySymbol => CurrencyService.Symbol;
+
         protected BaseViewModel()
         {
-            // Register to receive language change messages
-            WeakReferenceMessenger.Default.Register(this);
+            // Register to receive language and currency change messages
+            WeakReferenceMessenger.Default.Register<LanguageChangedMessage>(this);
+            WeakReferenceMessenger.Default.Register<CurrencyChangedMessage>(this);
         }
 
         // Called when language changes — refresh all bindings
         public virtual void Receive(LanguageChangedMessage message)
         {
             OnPropertyChanged(string.Empty);
+        }
+
+        // Called when currency changes — refresh CurrencySymbol
+        public virtual void Receive(CurrencyChangedMessage message)
+        {
+            OnPropertyChanged(nameof(CurrencySymbol));
         }
     }
 }

@@ -337,14 +337,14 @@
   <data name="SelectPaymentMethodTitle" xml:space="preserve">
     <value>Choisir la méthode de paiement</value>
   </data>
-  <data name="PaymentCash" xml:space="preserve">
-    <value>Espèces</value>
-  </data>
-  <data name="PaymentMobileMoney" xml:space="preserve">
-    <value>Mobile Money</value>
-  </data>
   <data name="PaymentBankTransfer" xml:space="preserve">
     <value>Virement bancaire</value>
+  </data>
+  <data name="PaymentPayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="PaymentGooglePay" xml:space="preserve">
+    <value>Google Pay</value>
   </data>
   <data name="SettingsSaved" xml:space="preserve">
     <value>Paramètres enregistrés.</value>

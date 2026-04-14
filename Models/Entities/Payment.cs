@@ -1,3 +1,4 @@
+using BillWise.Models.Services;
 using Postgrest.Attributes;
 using Postgrest.Models;
 using Newtonsoft.Json;
@@ -20,7 +21,7 @@ namespace BillWise.Models.Entities
         public DateTime PaidAt { get; set; } = DateTime.Now;
 
         [Column("method")]
-        public PaymentMethod Method { get; set; } = PaymentMethod.Cash;
+        public PaymentMethod Method { get; set; } = PaymentMethod.BankTransfer;
 
         [Column("reference")]
         public string? Reference { get; set; }
@@ -29,15 +30,14 @@ namespace BillWise.Models.Entities
         public bool IsPartial { get; set; } = false;
 
         [JsonIgnore]
-        public string AmountFormatted => $"{Amount:N0} FCFA";
+        public string AmountFormatted => CurrencyService.Format(Amount);
 
         [JsonIgnore]
         public string MethodLabel => Method switch
         {
-            PaymentMethod.Cash => "Cash",
-            PaymentMethod.MobileMoney => "Mobile Money",
-            PaymentMethod.BankTransfer => "Bank Transfer",
-            _ => "Cash"
+            PaymentMethod.PayPal    => "PayPal",
+            PaymentMethod.GooglePay => "Google Pay",
+            _                       => "Bank Transfer"
         };
     }
 }

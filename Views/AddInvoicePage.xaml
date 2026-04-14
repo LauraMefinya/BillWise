@@ -276,9 +276,9 @@
                     <Label Text="{Binding [PaymentMethod], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13" TextColor="#757575"/>
                     <Picker SelectedItem="{Binding PaymentMethod}" Title="{Binding [SelectMethod], Source={x:Static strings:LocalizationResourceManager.Instance}}" TitleColor="#9CA3AF" BackgroundColor="Transparent" TextColor="Black">
                         <Picker.Items>
-                            <x:String>Cash</x:String>
-                            <x:String>Mobile Money</x:String>
                             <x:String>Bank Transfer</x:String>
+                            <x:String>PayPal</x:String>
+                            <x:String>Google Pay</x:String>
                         </Picker.Items>
                     </Picker>
                 </VerticalStackLayout>

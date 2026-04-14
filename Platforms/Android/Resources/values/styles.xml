@@ -5,7 +5,7 @@
         <item name="colorPrimaryDark">#3498DB</item>
         <item name="colorAccent">#3498DB</item>
         <item name="android:statusBarColor">#3498DB</item>
-        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">#FFFFFF</item>
         <item name="android:windowLightNavigationBar">true</item>
     </style>
