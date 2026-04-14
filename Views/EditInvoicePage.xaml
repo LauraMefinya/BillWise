@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:BillWise.ViewModels"
-             xmlns:entities="clr-namespace:BillWise.Models.Entities"
              xmlns:strings="clr-namespace:BillWise.Resources.Strings"
              x:Class="BillWise.Views.EditInvoicePage"
              x:DataType="vm:EditInvoiceViewModel"
@@ -98,145 +97,22 @@
             </Border>
 
             <!-- Category -->
-            <Border Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 12" 
+            <Border Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 12"
                     BackgroundColor="White" Padding="16,12">
-                <VerticalStackLayout Spacing="10">
+                <VerticalStackLayout Spacing="4">
                     <Label Text="{Binding [Category], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13" TextColor="#757575"/>
-                    
-                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto" ColumnSpacing="8" RowSpacing="8">
-                        
-                        <Border Grid.Row="0" Grid.Column="0" Stroke="#E0E0E0" BackgroundColor="White" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
-                            <Border.Triggers>
-                                <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory}" Value="0">
-                                    <Setter Property="BackgroundColor" Value="#E3F2FD" />
-                                    <Setter Property="Stroke" Value="#2196F3" />
-                                </DataTrigger>
-                            </Border.Triggers>
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SelectCategoryCommand}" CommandParameter="{x:Static entities:CategoryType.Electricity}"/>
-                            </Border.GestureRecognizers>
-                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                                <Label Text="⚡" FontSize="20" HorizontalOptions="Center" />
-                                <Label Text="{Binding [Electricity], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="11" TextColor="Gray" HorizontalOptions="Center">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding SelectedCategory}" Value="0">
-                                            <Setter Property="TextColor" Value="#2196F3" />
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
-                            </VerticalStackLayout>
-                        </Border>
-                        
-                        <Border Grid.Row="0" Grid.Column="1" Stroke="#E0E0E0" BackgroundColor="White" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
-                            <Border.Triggers>
-                                <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory}" Value="1">
-                                    <Setter Property="BackgroundColor" Value="#E3F2FD" />
-                                    <Setter Property="Stroke" Value="#2196F3" />
-                                </DataTrigger>
-                            </Border.Triggers>
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SelectCategoryCommand}" CommandParameter="{x:Static entities:CategoryType.Water}"/>
-                            </Border.GestureRecognizers>
-                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                                <Label Text="💧" FontSize="20" HorizontalOptions="Center" />
-                                <Label Text="{Binding [Water], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="11" TextColor="Gray" HorizontalOptions="Center">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding SelectedCategory}" Value="1">
-                                            <Setter Property="TextColor" Value="#2196F3" />
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
-                            </VerticalStackLayout>
-                        </Border>
-                        
-                        <Border Grid.Row="0" Grid.Column="2" Stroke="#E0E0E0" BackgroundColor="White" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
-                            <Border.Triggers>
-                                <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory}" Value="2">
-                                    <Setter Property="BackgroundColor" Value="#E3F2FD" />
-                                    <Setter Property="Stroke" Value="#2196F3" />
-                                </DataTrigger>
-                            </Border.Triggers>
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SelectCategoryCommand}" CommandParameter="{x:Static entities:CategoryType.Internet}"/>
-                            </Border.GestureRecognizers>
-                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                                <Label Text="🌐" FontSize="20" HorizontalOptions="Center" />
-                                <Label Text="{Binding [Internet], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="11" TextColor="Gray" HorizontalOptions="Center">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding SelectedCategory}" Value="2">
-                                            <Setter Property="TextColor" Value="#2196F3" />
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
-                            </VerticalStackLayout>
-                        </Border>
-                        
-                        <Border Grid.Row="1" Grid.Column="0" Stroke="#E0E0E0" BackgroundColor="White" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
-                            <Border.Triggers>
-                                <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory}" Value="3">
-                                    <Setter Property="BackgroundColor" Value="#E3F2FD" />
-                                    <Setter Property="Stroke" Value="#2196F3" />
-                                </DataTrigger>
-                            </Border.Triggers>
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SelectCategoryCommand}" CommandParameter="{x:Static entities:CategoryType.Rent}"/>
-                            </Border.GestureRecognizers>
-                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                                <Label Text="🏠" FontSize="20" HorizontalOptions="Center" />
-                                <Label Text="{Binding [Rent], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="11" TextColor="Gray" HorizontalOptions="Center">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding SelectedCategory}" Value="3">
-                                            <Setter Property="TextColor" Value="#2196F3" />
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
-                            </VerticalStackLayout>
-                        </Border>
-                        
-                        <Border Grid.Row="1" Grid.Column="1" Stroke="#E0E0E0" BackgroundColor="White" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
-                            <Border.Triggers>
-                                <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory}" Value="4">
-                                    <Setter Property="BackgroundColor" Value="#E3F2FD" />
-                                    <Setter Property="Stroke" Value="#2196F3" />
-                                </DataTrigger>
-                            </Border.Triggers>
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SelectCategoryCommand}" CommandParameter="{x:Static entities:CategoryType.Subscription}"/>
-                            </Border.GestureRecognizers>
-                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                                <Label Text="📺" FontSize="20" HorizontalOptions="Center" />
-                                <Label Text="{Binding [Subscription], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="11" TextColor="Gray" HorizontalOptions="Center">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding SelectedCategory}" Value="4">
-                                            <Setter Property="TextColor" Value="#2196F3" />
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
-                            </VerticalStackLayout>
-                        </Border>
-                        
-                        <Border Grid.Row="1" Grid.Column="2" Stroke="#E0E0E0" BackgroundColor="White" StrokeThickness="1" StrokeShape="RoundRectangle 8" HeightRequest="70">
-                            <Border.Triggers>
-                                <DataTrigger TargetType="Border" Binding="{Binding SelectedCategory}" Value="5">
-                                    <Setter Property="BackgroundColor" Value="#E3F2FD" />
-                                    <Setter Property="Stroke" Value="#2196F3" />
-                                </DataTrigger>
-                            </Border.Triggers>
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SelectCategoryCommand}" CommandParameter="{x:Static entities:CategoryType.Other}"/>
-                            </Border.GestureRecognizers>
-                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                                <Label Text="📄" FontSize="20" HorizontalOptions="Center" />
-                                <Label Text="{Binding [Other], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="11" TextColor="Gray" HorizontalOptions="Center">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding SelectedCategory}" Value="5">
-                                            <Setter Property="TextColor" Value="#2196F3" />
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
-                            </VerticalStackLayout>
-                        </Border>
-                    </Grid>
+                    <Border Stroke="#E0E0E0" StrokeThickness="1" StrokeShape="RoundRectangle 8"
+                            BackgroundColor="#F9FAFB" Padding="12,10">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenCategoryPickerCommand}"/>
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Grid.Column="0" Text="{Binding SelectedCategoryLabel}"
+                                   TextColor="Black" VerticalOptions="Center" FontSize="14"/>
+                            <Label Grid.Column="1" Text="›" FontSize="22" TextColor="#9CA3AF"
+                                   VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
                 </VerticalStackLayout>
             </Border>
 

@@ -118,7 +118,15 @@ namespace BillWise.ViewModels
             IsBusy = false;
 
             if (success)
-                OnPropertyChanged(nameof(Invoice));
+            {
+                OnPropertyChanged(nameof(IsPaid));
+                OnPropertyChanged(nameof(ShowPaymentAction));
+                OnPropertyChanged(nameof(ShowEditAction));
+                OnPropertyChanged(nameof(StatusText));
+                OnPropertyChanged(nameof(StatusBadgeBackgroundColor));
+                OnPropertyChanged(nameof(StatusBadgeTextColor));
+                OnPropertyChanged(nameof(PaymentDateText));
+            }
             else
                 await Shell.Current.DisplayAlertAsync(L["ErrorTitle"], L["FailedUpdateInvoice"], "OK");
         }

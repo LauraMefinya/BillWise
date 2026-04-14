@@ -33,7 +33,32 @@ namespace BillWise.ViewModels
         [ObservableProperty] private string _amountText = string.Empty;
         [ObservableProperty] private string _notes = string.Empty;
         [ObservableProperty] private string _paymentMethod = "Bank Transfer";
-        [ObservableProperty] private CategoryType _selectedCategory = CategoryType.Other;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(SelectedCategoryLabel))]
+        private CategoryType _selectedCategory = CategoryType.Other;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(SelectedCategoryLabel))]
+        private string _customCategoryName = string.Empty;
+
+        public string SelectedCategoryLabel
+        {
+            get
+            {
+                var L = LocalizationResourceManager.Instance;
+                return SelectedCategory switch
+                {
+                    CategoryType.Electricity  => L["Electricity"],
+                    CategoryType.Water        => L["Water"],
+                    CategoryType.Internet     => L["Internet"],
+                    CategoryType.Rent         => L["Rent"],
+                    CategoryType.Subscription => L["Subscription"],
+                    _ => string.IsNullOrWhiteSpace(CustomCategoryName)
+                            ? L["Other"]
+                            : CustomCategoryName
+                };
+            }
+        }
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(DueDateText))]
@@ -258,8 +283,67 @@ namespace BillWise.ViewModels
         }
 
         [RelayCommand]
-        public void SelectCategory(CategoryType category) =>
-            SelectedCategory = category;
+        public async Task OpenCategoryPickerAsync()
+        {
+            var L = LocalizationResourceManager.Instance;
+            var custom = CategoryService.GetCustomCategories();
+
+            var addNewLabel = L["AddNewCategory"];
+            var otherLabel  = L["Other"];
+
+            var builtInMap = new Dictionary<string, CategoryType>
+            {
+                { L["Electricity"],  CategoryType.Electricity  },
+                { L["Water"],        CategoryType.Water        },
+                { L["Internet"],     CategoryType.Internet     },
+                { L["Rent"],         CategoryType.Rent         },
+                { L["Subscription"], CategoryType.Subscription },
+            };
+
+            var options = builtInMap.Keys.ToList();
+            options.AddRange(custom);
+            options.Add(otherLabel);
+            options.Add(addNewLabel);
+
+            string? choice = await Shell.Current.DisplayActionSheetAsync(
+                L["SelectCategory"], L["Cancel"], null, options.ToArray());
+
+            if (string.IsNullOrEmpty(choice) || choice == L["Cancel"]) return;
+
+            if (builtInMap.TryGetValue(choice, out var cat))
+            {
+                SelectedCategory = cat;
+                CustomCategoryName = string.Empty;
+                return;
+            }
+
+            if (choice == addNewLabel)
+            {
+                var name = await Shell.Current.DisplayPromptAsync(
+                    L["AddNewCategory"], L["EnterCategoryName"],
+                    L["Save"], L["Cancel"], maxLength: 30);
+                if (string.IsNullOrWhiteSpace(name)) return;
+                name = name.Trim();
+                CategoryService.SaveCustomCategory(name);
+                SelectedCategory = CategoryType.Other;
+                CustomCategoryName = name;
+                return;
+            }
+
+            if (choice == otherLabel)
+            {
+                var name = await Shell.Current.DisplayPromptAsync(
+                    L["Other"], L["EnterCategoryName"],
+                    "OK", L["Cancel"], maxLength: 30);
+                SelectedCategory = CategoryType.Other;
+                CustomCategoryName = string.IsNullOrWhiteSpace(name) ? string.Empty : name.Trim();
+                return;
+            }
+
+            // Saved custom category selected
+            SelectedCategory = CategoryType.Other;
+            CustomCategoryName = choice;
+        }
 
         [RelayCommand]
         public async Task GoBackAsync() =>

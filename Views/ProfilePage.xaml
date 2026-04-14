@@ -96,6 +96,20 @@
                     </Grid>
                 </Border>
 
+                <!-- Manage Categories -->
+                <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ManageCategoriesCommand}"/>
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <Border Grid.Column="0" BackgroundColor="#FEF3C7" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" VerticalOptions="Center">
+                            <Label Text="🏷️" FontSize="16"/>
+                        </Border>
+                        <Label Grid.Column="1" Text="{Binding [ManageCategories], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="14" VerticalOptions="Center" Margin="12,0,0,0"/>
+                        <Label Grid.Column="2" Text="›" FontSize="20" TextColor="#9CA3AF" VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+
                 <!-- Buttons -->
                 <Button Text="{Binding [EditProfile], Source={x:Static strings:LocalizationResourceManager.Instance}}" Command="{Binding GoToEditProfileCommand}" BackgroundColor="#3498DB" TextColor="White" CornerRadius="8" FontAttributes="Bold" HeightRequest="50"/>
                 

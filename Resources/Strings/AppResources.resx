@@ -415,4 +415,25 @@
   <data name="SelectInvoicePhoto" xml:space="preserve">
     <value>Select invoice photo</value>
   </data>
+  <data name="SelectCategory" xml:space="preserve">
+    <value>Select a category</value>
+  </data>
+  <data name="AddNewCategory" xml:space="preserve">
+    <value>Add new category</value>
+  </data>
+  <data name="EnterCategoryName" xml:space="preserve">
+    <value>Enter category name</value>
+  </data>
+  <data name="ManageCategories" xml:space="preserve">
+    <value>Manage categories</value>
+  </data>
+  <data name="NoSavedCategories" xml:space="preserve">
+    <value>No saved categories.</value>
+  </data>
+  <data name="RemoveCategoryTitle" xml:space="preserve">
+    <value>Remove a category</value>
+  </data>
+  <data name="CategorySaved" xml:space="preserve">
+    <value>Category saved.</value>
+  </data>
 </root>

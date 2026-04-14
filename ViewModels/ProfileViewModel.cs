@@ -1,5 +1,6 @@
 using BillWise.Models.Messages;
 using BillWise.Models.Providers;
+using BillWise.Models.Services;
 using BillWise.Resources.Strings;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -127,6 +128,27 @@ namespace BillWise.ViewModels
                 Preferences.Default.Clear();
                 await Shell.Current.DisplayAlertAsync(L["ClearedTitle"], L["DataCleared"], "OK");
             }
+        }
+
+        [RelayCommand]
+        public async Task ManageCategoriesAsync()
+        {
+            var L = LocalizationResourceManager.Instance;
+            var custom = CategoryService.GetCustomCategories();
+
+            if (custom.Count == 0)
+            {
+                await Shell.Current.DisplayAlertAsync(
+                    L["ManageCategories"], L["NoSavedCategories"], "OK");
+                return;
+            }
+
+            string? choice = await Shell.Current.DisplayActionSheetAsync(
+                L["RemoveCategoryTitle"], L["Cancel"], null, custom.ToArray());
+
+            if (string.IsNullOrEmpty(choice) || choice == L["Cancel"]) return;
+
+            CategoryService.RemoveCustomCategory(choice);
         }
 
         [RelayCommand]
