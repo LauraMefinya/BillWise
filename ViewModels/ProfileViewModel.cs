@@ -12,12 +12,21 @@ namespace BillWise.ViewModels
     {
         private readonly Models.Services.AuthService _authService;
         private readonly InvoiceProvider _invoiceProvider;
+        private readonly Models.Services.PdfExportService _pdfExportService;
+        private readonly Models.Services.InvoiceService _invoiceService;
+        private readonly Models.Services.LocalNotificationScheduler _scheduler;
 
         public ProfileViewModel(Models.Services.AuthService authService,
-                                InvoiceProvider invoiceProvider)
+                                InvoiceProvider invoiceProvider,
+                                Models.Services.PdfExportService pdfExportService,
+                                Models.Services.InvoiceService invoiceService,
+                                Models.Services.LocalNotificationScheduler scheduler)
         {
             _authService = authService;
             _invoiceProvider = invoiceProvider;
+            _pdfExportService = pdfExportService;
+            _invoiceService = invoiceService;
+            _scheduler = scheduler;
             Title = "Profile";
             LoadSettings();
             LoadUserData();
@@ -99,6 +108,9 @@ namespace BillWise.ViewModels
             }
             catch { }
 
+            // Reprogramme (ou annule) les notifications selon le nouveau réglage
+            _ = _scheduler.ScheduleAsync();
+
             await Shell.Current.DisplayAlertAsync(L["SuccessTitle"], L["SettingsSaved"], "OK");
             await Shell.Current.GoToAsync("..");
         }
@@ -114,7 +126,26 @@ namespace BillWise.ViewModels
         public async Task ExportDataAsync()
         {
             var L = LocalizationResourceManager.Instance;
-            await Shell.Current.DisplayAlertAsync(L["ExportTitle"], L["ExportComingSoon"], "OK");
+            if (IsBusy) return;
+            try
+            {
+                IsBusy = true;
+                var path = await _pdfExportService.GenerateAsync(UserEmail);
+                await Share.RequestAsync(new ShareFileRequest
+                {
+                    Title = L["ExportTitle"],
+                    File  = new ShareFile(path)
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"PDF export error: {ex}");
+                await Shell.Current.DisplayAlertAsync("Error", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         [RelayCommand]
@@ -123,10 +154,18 @@ namespace BillWise.ViewModels
             var L = LocalizationResourceManager.Instance;
             bool answer = await Shell.Current.DisplayAlertAsync(
                 L["WarningTitle"], L["ClearDataConfirm"], L["Yes"], L["No"]);
-            if (answer)
+            if (!answer) return;
+
+            bool deleted = await _invoiceService.DeleteAllInvoicesAsync();
+            if (deleted)
             {
                 Preferences.Default.Clear();
+                await RefreshStatsAsync();
                 await Shell.Current.DisplayAlertAsync(L["ClearedTitle"], L["DataCleared"], "OK");
+            }
+            else
+            {
+                await Shell.Current.DisplayAlertAsync(L["WarningTitle"], "Failed to delete data. Please try again.", "OK");
             }
         }
 

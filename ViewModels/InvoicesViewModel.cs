@@ -33,6 +33,35 @@ namespace BillWise.ViewModels
         [ObservableProperty]
         private int _overdueCount;
 
+        [ObservableProperty]
+        private string _selectedFilter = "All";
+
+        partial void OnSelectedFilterChanged(string value)
+        {
+            OnPropertyChanged(nameof(AllChipBackground));
+            OnPropertyChanged(nameof(AllChipTextColor));
+            OnPropertyChanged(nameof(PaidChipBackground));
+            OnPropertyChanged(nameof(PaidChipTextColor));
+            OnPropertyChanged(nameof(PendingChipBackground));
+            OnPropertyChanged(nameof(PendingChipTextColor));
+            OnPropertyChanged(nameof(OverdueChipBackground));
+            OnPropertyChanged(nameof(OverdueChipTextColor));
+        }
+
+        partial void OnSearchQueryChanged(string value)
+        {
+            _ = LoadDataAsync(SelectedFilter);
+        }
+
+        public Color AllChipBackground     => SelectedFilter == "All"     ? Color.FromArgb("#2196F3") : Color.FromArgb("#F3F4F6");
+        public Color AllChipTextColor      => SelectedFilter == "All"     ? Colors.White : Color.FromArgb("#4B5563");
+        public Color PaidChipBackground    => SelectedFilter == "Paid"    ? Color.FromArgb("#2196F3") : Color.FromArgb("#F3F4F6");
+        public Color PaidChipTextColor     => SelectedFilter == "Paid"    ? Colors.White : Color.FromArgb("#4B5563");
+        public Color PendingChipBackground => SelectedFilter == "Pending" ? Color.FromArgb("#2196F3") : Color.FromArgb("#F3F4F6");
+        public Color PendingChipTextColor  => SelectedFilter == "Pending" ? Colors.White : Color.FromArgb("#4B5563");
+        public Color OverdueChipBackground => SelectedFilter == "Overdue" ? Color.FromArgb("#2196F3") : Color.FromArgb("#F3F4F6");
+        public Color OverdueChipTextColor  => SelectedFilter == "Overdue" ? Colors.White : Color.FromArgb("#4B5563");
+
         [RelayCommand]
         public async Task GoToDetailsAsync(Invoice invoice)
         {
@@ -49,6 +78,7 @@ namespace BillWise.ViewModels
             try
             {
                 IsBusy = true;
+                SelectedFilter = filter;
 
                 List<Invoice> result;
                 if (!string.IsNullOrWhiteSpace(SearchQuery))

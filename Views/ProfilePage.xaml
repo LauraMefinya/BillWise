@@ -111,13 +111,42 @@
                 </Border>
 
                 <!-- Buttons -->
-                <Button Text="{Binding [EditProfile], Source={x:Static strings:LocalizationResourceManager.Instance}}" Command="{Binding GoToEditProfileCommand}" BackgroundColor="#3498DB" TextColor="White" CornerRadius="8" FontAttributes="Bold" HeightRequest="50"/>
-                
-                <Button Text="{Binding [ExportData], Source={x:Static strings:LocalizationResourceManager.Instance}}" Command="{Binding ExportDataCommand}" BackgroundColor="#2ECC71" TextColor="White" CornerRadius="8" FontAttributes="Bold" HeightRequest="50"/>
-                
-                <Button Text="{Binding [ClearAllData], Source={x:Static strings:LocalizationResourceManager.Instance}}" Command="{Binding ClearAllDataCommand}" BackgroundColor="#E74C3C" TextColor="White" CornerRadius="8" FontAttributes="Bold" HeightRequest="50" Margin="0,0,0,10"/>
+                <Button Text="{Binding [EditProfile], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                        Command="{Binding GoToEditProfileCommand}"
+                        BackgroundColor="#3498DB" TextColor="White"
+                        CornerRadius="10" FontAttributes="Bold" HeightRequest="52"/>
 
-                <Button Text="{Binding [Logout], Source={x:Static strings:LocalizationResourceManager.Instance}}" Command="{Binding LogoutCommand}" BackgroundColor="Transparent" TextColor="#E74C3C" BorderColor="#E74C3C" BorderWidth="1" CornerRadius="8" FontAttributes="Bold" HeightRequest="50" Margin="0,0,0,20"/>
+                <!-- Export + Clear side by side -->
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                    <Border Grid.Column="0"
+                            BackgroundColor="White" Stroke="#2ECC71" StrokeThickness="1.5"
+                            StrokeShape="RoundRectangle 10">
+                        <Button Text="{Binding [ExportData], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                                Command="{Binding ExportDataCommand}"
+                                BackgroundColor="Transparent" TextColor="#2ECC71"
+                                CornerRadius="10" FontAttributes="Bold" HeightRequest="52"/>
+                    </Border>
+                    <Border Grid.Column="1"
+                            BackgroundColor="White" Stroke="#E74C3C" StrokeThickness="1.5"
+                            StrokeShape="RoundRectangle 10">
+                        <Button Text="{Binding [ClearAllData], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                                Command="{Binding ClearAllDataCommand}"
+                                BackgroundColor="Transparent" TextColor="#E74C3C"
+                                CornerRadius="10" FontAttributes="Bold" HeightRequest="52"/>
+                    </Border>
+                </Grid>
+
+                <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                   IsVisible="{Binding IsBusy}"
+                                   Color="#3498DB"
+                                   HorizontalOptions="Center"/>
+
+                <Button Text="{Binding [Logout], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                        Command="{Binding LogoutCommand}"
+                        BackgroundColor="Transparent" TextColor="#E74C3C"
+                        BorderColor="#E74C3C" BorderWidth="1.5"
+                        CornerRadius="10" FontAttributes="Bold" HeightRequest="52"
+                        Margin="0,4,0,20"/>
 
             </VerticalStackLayout>
         </VerticalStackLayout>

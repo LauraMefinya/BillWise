@@ -18,6 +18,14 @@ namespace BillWise.Models.Services
 
         public async Task ScheduleAsync()
         {
+            // If the user disabled notifications, cancel everything and stop
+            var enabled = Preferences.Default.Get("notif_enabled", true);
+            if (!enabled)
+            {
+                LocalNotificationCenter.Current.CancelAll();
+                return;
+            }
+
             var granted = await LocalNotificationCenter.Current.RequestNotificationPermission();
             if (!granted) return;
 

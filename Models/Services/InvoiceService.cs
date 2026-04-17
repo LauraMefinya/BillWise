@@ -145,6 +145,25 @@ namespace BillWise.Models.Services
             }
         }
 
+        public async Task<bool> DeleteAllInvoicesAsync()
+        {
+            try
+            {
+                var userId = _client.Auth.CurrentUser?.Id;
+                if (string.IsNullOrEmpty(userId)) return false;
+
+                await _client.From<Invoice>()
+                    .Filter("user_id", Postgrest.Constants.Operator.Equals, userId)
+                    .Delete();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting all invoices: {ex.Message}");
+                return false;
+            }
+        }
+
         public async Task<bool> DeleteInvoiceAsync(string id)
         {
             try

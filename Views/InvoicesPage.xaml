@@ -25,6 +25,7 @@
                     <Entry Grid.Column="1"
                            Placeholder="{Binding [SearchInvoice], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                            PlaceholderColor="#9CA3AF"
+                           TextColor="#111827"
                            Text="{Binding SearchQuery}" ClearButtonVisibility="WhileEditing"
                            BackgroundColor="Transparent"/>
                 </Grid>
@@ -34,40 +35,40 @@
             <ScrollView Grid.Row="2" Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
                 <HorizontalStackLayout Spacing="8">
                     <!-- Filter: All -->
-                    <Border StrokeThickness="0" BackgroundColor="#2196F3" StrokeShape="RoundRectangle 8" Padding="16,8">
+                    <Border StrokeThickness="0" BackgroundColor="{Binding AllChipBackground}" StrokeShape="RoundRectangle 8" Padding="16,8">
                         <HorizontalStackLayout Spacing="4">
-                            <Label Text="{Binding [All], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="White" FontSize="13" FontAttributes="Bold"/>
-                            <Label Text="{Binding AllCount, StringFormat='({0})'}" TextColor="White" FontSize="13" FontAttributes="Bold"/>
+                            <Label Text="{Binding [All], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{Binding AllChipTextColor}" FontSize="13" FontAttributes="Bold"/>
+                            <Label Text="{Binding AllCount, StringFormat='({0})'}" TextColor="{Binding AllChipTextColor}" FontSize="13" FontAttributes="Bold"/>
                         </HorizontalStackLayout>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding LoadDataCommand}" CommandParameter="All"/>
                         </Border.GestureRecognizers>
                     </Border>
                     <!-- Filter: Paid -->
-                    <Border StrokeThickness="0" BackgroundColor="#F3F4F6" StrokeShape="RoundRectangle 8" Padding="16,8">
+                    <Border StrokeThickness="0" BackgroundColor="{Binding PaidChipBackground}" StrokeShape="RoundRectangle 8" Padding="16,8">
                         <HorizontalStackLayout Spacing="4">
-                            <Label Text="{Binding [Paid], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#4B5563" FontSize="13"/>
-                            <Label Text="{Binding PaidCount, StringFormat='({0})'}" TextColor="#4B5563" FontSize="13"/>
+                            <Label Text="{Binding [Paid], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{Binding PaidChipTextColor}" FontSize="13"/>
+                            <Label Text="{Binding PaidCount, StringFormat='({0})'}" TextColor="{Binding PaidChipTextColor}" FontSize="13"/>
                         </HorizontalStackLayout>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding LoadDataCommand}" CommandParameter="Paid"/>
                         </Border.GestureRecognizers>
                     </Border>
                     <!-- Filter: Pending -->
-                    <Border StrokeThickness="0" BackgroundColor="#F3F4F6" StrokeShape="RoundRectangle 8" Padding="16,8">
+                    <Border StrokeThickness="0" BackgroundColor="{Binding PendingChipBackground}" StrokeShape="RoundRectangle 8" Padding="16,8">
                         <HorizontalStackLayout Spacing="4">
-                            <Label Text="{Binding [Pending], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#4B5563" FontSize="13"/>
-                            <Label Text="{Binding PendingCount, StringFormat='({0})'}" TextColor="#4B5563" FontSize="13"/>
+                            <Label Text="{Binding [Pending], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{Binding PendingChipTextColor}" FontSize="13"/>
+                            <Label Text="{Binding PendingCount, StringFormat='({0})'}" TextColor="{Binding PendingChipTextColor}" FontSize="13"/>
                         </HorizontalStackLayout>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding LoadDataCommand}" CommandParameter="Pending"/>
                         </Border.GestureRecognizers>
                     </Border>
                     <!-- Filter: Overdue -->
-                    <Border StrokeThickness="0" BackgroundColor="#F3F4F6" StrokeShape="RoundRectangle 8" Padding="16,8">
+                    <Border StrokeThickness="0" BackgroundColor="{Binding OverdueChipBackground}" StrokeShape="RoundRectangle 8" Padding="16,8">
                         <HorizontalStackLayout Spacing="4">
-                            <Label Text="{Binding [Overdue], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#4B5563" FontSize="13"/>
-                            <Label Text="{Binding OverdueCount, StringFormat='({0})'}" TextColor="#4B5563" FontSize="13"/>
+                            <Label Text="{Binding [Overdue], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{Binding OverdueChipTextColor}" FontSize="13"/>
+                            <Label Text="{Binding OverdueCount, StringFormat='({0})'}" TextColor="{Binding OverdueChipTextColor}" FontSize="13"/>
                         </HorizontalStackLayout>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding LoadDataCommand}" CommandParameter="Overdue"/>

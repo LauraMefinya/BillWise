@@ -16,20 +16,9 @@
                                  HorizontalOptions="Center"
                                  VerticalOptions="Center"
                                  Spacing="12">
-                <Border BackgroundColor="White"
-                        StrokeThickness="0"
-                        WidthRequest="90" HeightRequest="90"
-                        StrokeShape="RoundRectangle 22"
-                        HorizontalOptions="Center">
-                    <Label Text="BW" FontSize="28"
-                           FontAttributes="Bold"
-                           TextColor="#3498DB"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center"/>
-                </Border>
-                <Label Text="BillWise"
-                       FontSize="34" FontAttributes="Bold"
-                       TextColor="White"
+                <Image Source="logo.png"
+                       WidthRequest="280" HeightRequest="100"
+                       Aspect="AspectFit"
                        HorizontalOptions="Center"/>
                 <Label Text="{Binding [ManageInvoicesSmartly], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                        FontSize="14" TextColor="#D6EAF8"

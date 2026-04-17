@@ -5,6 +5,10 @@ using BillWise.Models.Services;
 using BillWise.Resources.Strings;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
 
 namespace BillWise.ViewModels
 {
@@ -30,6 +34,15 @@ namespace BillWise.ViewModels
 
         [ObservableProperty]
         private bool _hasOverdueInvoices;
+
+        [ObservableProperty]
+        private ObservableCollection<ISeries> _barSeries = new();
+
+        [ObservableProperty]
+        private Axis[] _xAxes = new[] { new Axis() };
+
+        [ObservableProperty]
+        private Axis[] _yAxes = new[] { new Axis() };
 
         public string OverdueMessage =>
             string.Format(LocalizationResourceManager.Instance["OverdueCountMessage"], OverdueCount);
@@ -79,6 +92,47 @@ namespace BillWise.ViewModels
                 var overdue = await _invoiceService.GetOverdueInvoicesAsync();
                 OverdueCount = overdue.Count;
                 HasOverdueInvoices = OverdueCount > 0;
+
+                var monthly = await _invoiceService.GetMonthlyExpensesAsync();
+                if (monthly.Count > 0)
+                {
+                    var values = monthly.Select(m => (double)m.Amount).ToArray();
+                    var labels = monthly.Select(m => m.Month.ToString("MMM")).ToArray();
+
+                    BarSeries = new ObservableCollection<ISeries>
+                    {
+                        new ColumnSeries<double>
+                        {
+                            Values = values,
+                            Fill = new SolidColorPaint(SKColors.CornflowerBlue),
+                            MaxBarWidth = 35,
+                            Rx = 4,
+                            Ry = 4
+                        }
+                    };
+
+                    XAxes = new Axis[]
+                    {
+                        new Axis
+                        {
+                            Labels = labels,
+                            TextSize = 11,
+                            LabelsPaint = new SolidColorPaint(SKColors.Gray),
+                            SeparatorsPaint = null
+                        }
+                    };
+
+                    YAxes = new Axis[]
+                    {
+                        new Axis
+                        {
+                            Labeler = value => value.ToString("N0"),
+                            TextSize = 10,
+                            LabelsPaint = new SolidColorPaint(SKColors.Gray),
+                            SeparatorsPaint = new SolidColorPaint(SKColors.LightGray) { StrokeThickness = 1 }
+                        }
+                    };
+                }
             }
             catch (Exception ex)
             {
