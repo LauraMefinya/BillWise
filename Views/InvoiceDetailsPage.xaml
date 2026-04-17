@@ -5,14 +5,14 @@
              xmlns:strings="clr-namespace:BillWise.Resources.Strings"
              x:Class="BillWise.Views.InvoiceDetailsPage"
              x:DataType="vm:InvoiceDetailsViewModel"
-             BackgroundColor="#F3F4F6"
+             BackgroundColor="{AppThemeBinding Light=#F3F4F6, Dark=#121212}"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False">
 
     <Grid>
         <!-- Blue Top Background -->
         <BoxView Color="#3498DB" HeightRequest="250" VerticalOptions="Start" />
-        
+
         <Grid RowDefinitions="Auto, *">
             <!-- Header Icons -->
             <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto, Auto" Padding="20,16,20,0" HeightRequest="60">
@@ -23,114 +23,112 @@
                     </Label.GestureRecognizers>
                 </Label>
 
-                <!-- Edit icon (Vector) -->
+                <!-- Edit icon -->
                 <Grid Grid.Column="2" WidthRequest="24" HeightRequest="24" VerticalOptions="Center" Margin="0,0,16,0" IsVisible="{Binding ShowEditAction}">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding EditInvoiceCommand}" />
                     </Grid.GestureRecognizers>
-                    <Path Data="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" 
+                    <Path Data="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
                           Stroke="White" StrokeThickness="2" StrokeLineCap="Round" StrokeLineJoin="Round" Fill="Transparent" Aspect="Uniform"/>
                 </Grid>
 
-                <!-- Delete icon (Vector) -->
+                <!-- Delete icon -->
                 <Grid Grid.Column="3" WidthRequest="24" HeightRequest="24" VerticalOptions="Center">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding DeleteInvoiceCommand}" />
                     </Grid.GestureRecognizers>
-                    <Path Data="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6" 
+                    <Path Data="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"
                           Stroke="White" StrokeThickness="2" StrokeLineCap="Round" StrokeLineJoin="Round" Fill="Transparent" Aspect="Uniform"/>
                 </Grid>
             </Grid>
 
             <ScrollView Grid.Row="1">
                 <VerticalStackLayout Spacing="0">
-                    
+
                     <!-- Title and Icon Area -->
                     <VerticalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Spacing="8" Margin="0,10,0,0">
                         <Label Text="{Binding Invoice.CategoryIcon}" FontSize="48" HorizontalOptions="Center" />
                         <Label Text="{Binding Invoice.Name}" FontSize="22" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
-                        
+
                         <!-- Status Badge -->
-                        <Border Stroke="Transparent" StrokeThickness="0" BackgroundColor="{Binding StatusBadgeBackgroundColor}" 
+                        <Border Stroke="Transparent" StrokeThickness="0" BackgroundColor="{Binding StatusBadgeBackgroundColor}"
                                 Padding="12,4" StrokeShape="RoundRectangle 8" HorizontalOptions="Center">
                             <Label Text="{Binding StatusText}" TextColor="{Binding StatusBadgeTextColor}" FontSize="12" FontAttributes="Bold" />
                         </Border>
                     </VerticalStackLayout>
 
-                    <!-- White Card Container overlapping the blue background slightly -->
+                    <!-- Card Container -->
                     <VerticalStackLayout Spacing="16" Padding="16,24,16,30" Margin="0,16,0,0">
-                        
+
                         <!-- Main Amount Card -->
-                        <Border BackgroundColor="White" Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 12" Padding="20">
+                        <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 12" Padding="20">
                             <Border.Shadow>
                                 <Shadow Brush="Black" Offset="0,4" Radius="10" Opacity="0.05"/>
                             </Border.Shadow>
                             <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
-                                <Label Text="{Binding [AmountLabel], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="13" HorizontalOptions="Center"/>
+                                <Label Text="{Binding [AmountLabel], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" FontSize="13" HorizontalOptions="Center"/>
                                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="4" VerticalOptions="End">
-                                    <Label Text="{Binding Invoice.Amount, StringFormat='{0:N0}'}" FontSize="32" FontAttributes="Bold" TextColor="#111827" />
-                                    <Label Text="{Binding CurrencySymbol}" FontSize="16" FontAttributes="Bold" TextColor="#4B5563" VerticalOptions="Center" Margin="0,8,0,0"/>
+                                    <Label Text="{Binding Invoice.Amount, StringFormat='{0:N0}'}" FontSize="32" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" />
+                                    <Label Text="{Binding CurrencySymbol}" FontSize="16" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#4B5563, Dark=#9CA3AF}" VerticalOptions="Center" Margin="0,8,0,0"/>
                                 </HorizontalStackLayout>
                             </VerticalStackLayout>
                         </Border>
 
                         <!-- Due Date Card -->
-                        <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                        <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
                             <Grid ColumnDefinitions="Auto, *">
-                                <!-- Calendar Grid Icon -->
                                 <Border Grid.Column="0" BackgroundColor="#DBEAFE" StrokeThickness="0" StrokeShape="RoundRectangle 8" WidthRequest="40" HeightRequest="40" Margin="0,0,16,0">
                                     <Label Text="📅" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                    <Label Text="{Binding [DueDateLabel], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="12" />
-                                    <Label Text="{Binding Invoice.DueDate, StringFormat='{0:dd MMMM yyyy}'}" TextColor="#111827" FontSize="14" FontAttributes="Bold" />
+                                    <Label Text="{Binding [DueDateLabel], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" FontSize="12" />
+                                    <Label Text="{Binding Invoice.DueDate, StringFormat='{0:dd MMMM yyyy}'}" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" FontSize="14" FontAttributes="Bold" />
                                 </VerticalStackLayout>
                             </Grid>
                         </Border>
 
                         <!-- Category Card -->
-                        <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                        <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
                             <Grid ColumnDefinitions="Auto, *">
-                                <!-- Category Icon -->
                                 <Border Grid.Column="0" BackgroundColor="{Binding Invoice.CategoryIconBackgroundColor}" StrokeThickness="0" StrokeShape="RoundRectangle 8" WidthRequest="40" HeightRequest="40" Margin="0,0,16,0">
                                     <Label Text="{Binding Invoice.CategoryIcon}" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                    <Label Text="{Binding [CategoryLabel], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="12" />
-                                    <Label Text="{Binding Invoice.CategoryText}" TextColor="#111827" FontSize="14" FontAttributes="Bold" />
+                                    <Label Text="{Binding [CategoryLabel], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" FontSize="12" />
+                                    <Label Text="{Binding Invoice.CategoryText}" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" FontSize="14" FontAttributes="Bold" />
                                 </VerticalStackLayout>
                             </Grid>
                         </Border>
 
                         <!-- Payment Date Card (Visible Only if Paid) -->
-                        <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16" IsVisible="{Binding IsPaid}">
+                        <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16" IsVisible="{Binding IsPaid}">
                             <Grid ColumnDefinitions="Auto, *">
                                 <Border Grid.Column="0" BackgroundColor="#D1FAE5" StrokeThickness="0" StrokeShape="RoundRectangle 8" WidthRequest="40" HeightRequest="40" Margin="0,0,16,0">
                                     <Label Text="✅" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                    <Label Text="{Binding [PaymentDate], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="12" />
-                                    <Label Text="{Binding PaymentDateText}" TextColor="#111827" FontSize="14" FontAttributes="Bold" />
+                                    <Label Text="{Binding [PaymentDate], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" FontSize="12" />
+                                    <Label Text="{Binding PaymentDateText}" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" FontSize="14" FontAttributes="Bold" />
                                 </VerticalStackLayout>
                             </Grid>
                         </Border>
 
                         <!-- Payment Method Card (Visible Only if Paid) -->
-                        <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16" IsVisible="{Binding IsPaid}">
+                        <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16" IsVisible="{Binding IsPaid}">
                             <Grid ColumnDefinitions="Auto, *">
                                 <Border Grid.Column="0" BackgroundColor="#FFEDD5" StrokeThickness="0" StrokeShape="RoundRectangle 8" WidthRequest="40" HeightRequest="40" Margin="0,0,16,0">
                                     <Label Text="💳" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                    <Label Text="{Binding [PaymentMethod], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="12" />
-                                    <Label Text="{Binding Invoice.PaymentMethodText}" TextColor="#111827" FontSize="14" FontAttributes="Bold" />
+                                    <Label Text="{Binding [PaymentMethod], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" FontSize="12" />
+                                    <Label Text="{Binding Invoice.PaymentMethodText}" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" FontSize="14" FontAttributes="Bold" />
                                 </VerticalStackLayout>
                             </Grid>
                         </Border>
 
                         <!-- Bottom Action Button -->
                         <Button Text="{Binding [MarkAsPaid], Source={x:Static strings:LocalizationResourceManager.Instance}}" Command="{Binding MarkAsPaidCommand}"
-                                BackgroundColor="#10B981" TextColor="White" 
+                                BackgroundColor="#10B981" TextColor="White"
                                 CornerRadius="12" HeightRequest="56" FontAttributes="Bold" FontSize="16"
                                 Margin="0,16,0,0" IsVisible="{Binding ShowPaymentAction}"/>
 

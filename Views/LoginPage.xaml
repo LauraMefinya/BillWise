@@ -26,7 +26,7 @@
             </VerticalStackLayout>
 
             <!-- White form -->
-            <Border Grid.Row="1" BackgroundColor="White"
+            <Border Grid.Row="1" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
                     StrokeThickness="0" Padding="28,36,28,40">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="36,36,0,0"/>
@@ -36,43 +36,43 @@
 
                     <Label Text="{Binding [WelcomeBack], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                            FontSize="26" FontAttributes="Bold"
-                           TextColor="#1A1A2E"/>
+                           TextColor="{AppThemeBinding Light=#1A1A2E, Dark=#F9FAFB}"/>
                     <Label Text="{Binding [SignInToAccount], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                            FontSize="14" TextColor="#9CA3AF"
                            Margin="0,6,0,28"/>
 
                     <!-- Email -->
                     <Label Text="{Binding [EmailAddress], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13"
-                           FontAttributes="Bold" TextColor="#374151"
+                           FontAttributes="Bold" TextColor="{AppThemeBinding Light=#374151, Dark=#D1D5DB}"
                            Margin="0,0,0,6"/>
-                    <Border Stroke="#E5E7EB" StrokeThickness="1.5"
+                    <Border Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1.5"
                             StrokeShape="RoundRectangle 14"
-                            BackgroundColor="#F9FAFB"
+                            BackgroundColor="{AppThemeBinding Light=#F9FAFB, Dark=#252836}"
                             Padding="16,0" HeightRequest="56"
                             Margin="0,0,0,16">
                         <Entry Text="{Binding Email}"
                                Placeholder="your@email.com"
                                Keyboard="Email"
                                BackgroundColor="Transparent"
-                               TextColor="#111827"
+                               TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"
                                PlaceholderColor="#9CA3AF"
                                VerticalTextAlignment="Center"/>
                     </Border>
 
                     <!-- Password -->
                     <Label Text="{Binding [Password], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13"
-                           FontAttributes="Bold" TextColor="#374151"
+                           FontAttributes="Bold" TextColor="{AppThemeBinding Light=#374151, Dark=#D1D5DB}"
                            Margin="0,0,0,6"/>
-                    <Border Stroke="#E5E7EB" StrokeThickness="1.5"
+                    <Border Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1.5"
                             StrokeShape="RoundRectangle 14"
-                            BackgroundColor="#F9FAFB"
+                            BackgroundColor="{AppThemeBinding Light=#F9FAFB, Dark=#252836}"
                             Padding="16,0" HeightRequest="56"
                             Margin="0,0,0,8">
                         <Entry Text="{Binding Password}"
                                Placeholder="Password"
                                IsPassword="True"
                                BackgroundColor="Transparent"
-                               TextColor="#111827"
+                               TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"
                                PlaceholderColor="#9CA3AF"
                                VerticalTextAlignment="Center"/>
                     </Border>
@@ -104,8 +104,7 @@
                                FontAttributes="Bold" FontSize="14"
                                VerticalOptions="Center">
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{Binding GoToRegisterCommand}"/>
+                                <TapGestureRecognizer Command="{Binding GoToRegisterCommand}"/>
                             </Label.GestureRecognizers>
                         </Label>
                     </HorizontalStackLayout>

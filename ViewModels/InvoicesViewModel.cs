@@ -53,14 +53,21 @@ namespace BillWise.ViewModels
             _ = LoadDataAsync(SelectedFilter);
         }
 
-        public Color AllChipBackground     => SelectedFilter == "All"     ? Color.FromArgb("#2196F3") : Color.FromArgb("#F3F4F6");
-        public Color AllChipTextColor      => SelectedFilter == "All"     ? Colors.White : Color.FromArgb("#4B5563");
-        public Color PaidChipBackground    => SelectedFilter == "Paid"    ? Color.FromArgb("#2196F3") : Color.FromArgb("#F3F4F6");
-        public Color PaidChipTextColor     => SelectedFilter == "Paid"    ? Colors.White : Color.FromArgb("#4B5563");
-        public Color PendingChipBackground => SelectedFilter == "Pending" ? Color.FromArgb("#2196F3") : Color.FromArgb("#F3F4F6");
-        public Color PendingChipTextColor  => SelectedFilter == "Pending" ? Colors.White : Color.FromArgb("#4B5563");
-        public Color OverdueChipBackground => SelectedFilter == "Overdue" ? Color.FromArgb("#2196F3") : Color.FromArgb("#F3F4F6");
-        public Color OverdueChipTextColor  => SelectedFilter == "Overdue" ? Colors.White : Color.FromArgb("#4B5563");
+        private static Color InactiveChipBg =>
+            Application.Current?.RequestedTheme == AppTheme.Dark
+                ? Color.FromArgb("#374151") : Color.FromArgb("#F3F4F6");
+        private static Color InactiveChipText =>
+            Application.Current?.RequestedTheme == AppTheme.Dark
+                ? Color.FromArgb("#D1D5DB") : Color.FromArgb("#4B5563");
+
+        public Color AllChipBackground     => SelectedFilter == "All"     ? Color.FromArgb("#2196F3") : InactiveChipBg;
+        public Color AllChipTextColor      => SelectedFilter == "All"     ? Colors.White : InactiveChipText;
+        public Color PaidChipBackground    => SelectedFilter == "Paid"    ? Color.FromArgb("#2196F3") : InactiveChipBg;
+        public Color PaidChipTextColor     => SelectedFilter == "Paid"    ? Colors.White : InactiveChipText;
+        public Color PendingChipBackground => SelectedFilter == "Pending" ? Color.FromArgb("#2196F3") : InactiveChipBg;
+        public Color PendingChipTextColor  => SelectedFilter == "Pending" ? Colors.White : InactiveChipText;
+        public Color OverdueChipBackground => SelectedFilter == "Overdue" ? Color.FromArgb("#2196F3") : InactiveChipBg;
+        public Color OverdueChipTextColor  => SelectedFilter == "Overdue" ? Colors.White : InactiveChipText;
 
         [RelayCommand]
         public async Task GoToDetailsAsync(Invoice invoice)

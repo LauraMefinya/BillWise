@@ -13,7 +13,7 @@
     <Grid>
         <ScrollView>
             <VerticalStackLayout Spacing="0">
-                
+
                 <!-- Blue Header Section -->
                 <Grid BackgroundColor="#3498DB" Padding="20,40,20,60">
                     <VerticalStackLayout Spacing="16">
@@ -33,40 +33,40 @@
                 </Grid>
 
                 <!-- Main Content Area -->
-                <VerticalStackLayout BackgroundColor="#FAFAFA" Spacing="16" Padding="16,0,16,100" Margin="0,-30,0,0">
+                <VerticalStackLayout BackgroundColor="{AppThemeBinding Light=#FAFAFA, Dark=#121212}" Spacing="16" Padding="16,0,16,100" Margin="0,-30,0,0">
 
                     <!-- Overlapping Cards: Paid / To Pay -->
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
                         <!-- Paid -->
-                        <Border Grid.Column="0" BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                        <Border Grid.Column="0" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
                             <VerticalStackLayout Spacing="8">
                                 <Border BackgroundColor="#D1FAE5" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="6" HorizontalOptions="Start">
                                     <Label Text="📉" FontSize="16"/>
                                 </Border>
-                                <Label Text="{Binding [Paid], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280"/>
-                                <Label Text="{Binding TotalPaid, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
-                                <Label Text="{Binding CurrencySymbol}" FontSize="10" TextColor="#6B7280" Margin="0,-4,0,0"/>
+                                <Label Text="{Binding [Paid], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}"/>
+                                <Label Text="{Binding TotalPaid, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"/>
+                                <Label Text="{Binding CurrencySymbol}" FontSize="10" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" Margin="0,-4,0,0"/>
                             </VerticalStackLayout>
                         </Border>
                         <!-- To Pay -->
-                        <Border Grid.Column="1" BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                        <Border Grid.Column="1" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
                             <VerticalStackLayout Spacing="8">
                                 <Border BackgroundColor="#FEE2E2" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="6" HorizontalOptions="Start">
                                     <Label Text="📈" FontSize="16"/>
                                 </Border>
-                                <Label Text="{Binding [ToPay], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280"/>
-                                <Label Text="{Binding TotalToPay, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
-                                <Label Text="{Binding CurrencySymbol}" FontSize="10" TextColor="#6B7280" Margin="0,-4,0,0"/>
+                                <Label Text="{Binding [ToPay], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}"/>
+                                <Label Text="{Binding TotalToPay, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"/>
+                                <Label Text="{Binding CurrencySymbol}" FontSize="10" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" Margin="0,-4,0,0"/>
                             </VerticalStackLayout>
                         </Border>
                     </Grid>
 
                     <!-- Monthly Expenses Graph -->
-                    <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1"
+                    <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1"
                             StrokeShape="RoundRectangle 12" Padding="16" Margin="0,10,0,0">
                         <VerticalStackLayout Spacing="16">
                             <Label Text="{Binding [MonthlyExpenses], Source={x:Static strings:LocalizationResourceManager.Instance}}"
-                                   FontSize="16" FontAttributes="Bold" TextColor="#111827"/>
+                                   FontSize="16" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"/>
                             <lvc:CartesianChart Series="{Binding BarSeries}"
                                                 XAxes="{Binding XAxes}"
                                                 YAxes="{Binding YAxes}"
@@ -85,7 +85,7 @@
 
                     <!-- Upcoming Invoices Header -->
                     <Grid ColumnDefinitions="*,Auto" Margin="0,16,0,8">
-                        <Label Grid.Column="0" Text="{Binding [UpcomingInvoices], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="18" FontAttributes="Bold" TextColor="#111827" VerticalOptions="Center"/>
+                        <Label Grid.Column="0" Text="{Binding [UpcomingInvoices], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="18" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" VerticalOptions="Center"/>
                         <Label Grid.Column="1" Text="{Binding [ViewAll], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#3498DB" FontSize="14" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="End">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding GoToInvoicesFallbackCommand}" />
@@ -97,7 +97,7 @@
                     <CollectionView ItemsSource="{Binding RecentInvoices}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="entities:Invoice">
-                                <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16" Margin="0,0,0,12">
+                                <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16" Margin="0,0,0,12">
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
                                     </Border.GestureRecognizers>
@@ -106,24 +106,24 @@
                                         <Border Grid.Column="0" BackgroundColor="{Binding CategoryIconBackgroundColor}" StrokeThickness="0" StrokeShape="RoundRectangle 12" WidthRequest="48" HeightRequest="48" HorizontalOptions="Center" VerticalOptions="Center">
                                             <Label Text="{Binding CategoryIcon}" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center" />
                                         </Border>
-                                        
+
                                         <!-- Invoice Details -->
                                         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
-                                            <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" TextColor="#111827" />
+                                            <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" />
                                             <HorizontalStackLayout Spacing="6">
-                                                <Label Text="📅" FontSize="12" TextColor="#6B7280" VerticalOptions="Center"/>
-                                                <Label Text="{Binding DueDate, StringFormat='{0:dd MMM. yyyy}'}" FontSize="13" TextColor="#6B7280" VerticalOptions="Center"/>
+                                                <Label Text="📅" FontSize="12" TextColor="#9CA3AF" VerticalOptions="Center"/>
+                                                <Label Text="{Binding DueDate, StringFormat='{0:dd MMM. yyyy}'}" FontSize="13" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" VerticalOptions="Center"/>
                                             </HorizontalStackLayout>
-                                            
+
                                             <!-- Status Tag -->
                                             <Border BackgroundColor="{Binding StatusBackgroundColor}" StrokeThickness="0" StrokeShape="RoundRectangle 16" Padding="8,4" HorizontalOptions="Start">
                                                 <Label Text="{Binding StatusText}" TextColor="{Binding StatusTextColor}" FontSize="11" FontAttributes="Bold"/>
                                             </Border>
                                         </VerticalStackLayout>
-                                        
+
                                         <!-- Amount & Arrow -->
                                         <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="8">
-                                            <Label Text="{Binding FormattedAmount}" FontSize="15" FontAttributes="Bold" TextColor="#111827" HorizontalOptions="End"/>
+                                            <Label Text="{Binding FormattedAmount}" FontSize="15" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" HorizontalOptions="End"/>
                                             <Label Text=">" FontSize="16" TextColor="#9CA3AF" HorizontalOptions="End"/>
                                         </VerticalStackLayout>
                                     </Grid>

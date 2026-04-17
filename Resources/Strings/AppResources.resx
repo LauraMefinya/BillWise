@@ -436,4 +436,7 @@
   <data name="CategorySaved" xml:space="preserve">
     <value>Category saved.</value>
   </data>
+  <data name="DarkMode" xml:space="preserve">
+    <value>Dark Mode</value>
+  </data>
 </root>

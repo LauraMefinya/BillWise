@@ -4,9 +4,9 @@
              xmlns:strings="clr-namespace:BillWise.Resources.Strings"
              x:Class="BillWise.Views.ProfilePage"
              x:DataType="vm:ProfileViewModel"
-             BackgroundColor="#FAFAFA"
+             BackgroundColor="{AppThemeBinding Light=#FAFAFA, Dark=#121212}"
              Shell.NavBarIsVisible="False">
-             
+
     <ScrollView>
         <VerticalStackLayout Spacing="0">
             <!-- Header section (Blue Background) -->
@@ -21,83 +21,92 @@
             </Grid>
 
             <VerticalStackLayout Spacing="24" Padding="16,24,16,60" Margin="0,-30,0,0">
-                
+
                 <!-- Summary Card -->
-                <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="20">
+                <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="20">
                     <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" ColumnSpacing="16" RowSpacing="24">
                         <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
-                            <Label Text="{Binding TotalInvoices}" FontSize="24" FontAttributes="Bold" TextColor="#111827" HorizontalOptions="Center"/>
-                            <Label Text="{Binding [TotalInvoices], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280" HorizontalOptions="Center"/>
+                            <Label Text="{Binding TotalInvoices}" FontSize="24" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" HorizontalOptions="Center"/>
+                            <Label Text="{Binding [TotalInvoices], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
                             <Label Text="{Binding PaidInvoices}" FontSize="24" FontAttributes="Bold" TextColor="#10B981" HorizontalOptions="Center"/>
-                            <Label Text="{Binding [Paid], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280" HorizontalOptions="Center"/>
+                            <Label Text="{Binding [Paid], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Row="1" Grid.Column="0" HorizontalOptions="Center">
                             <Label Text="{Binding PendingInvoices}" FontSize="24" FontAttributes="Bold" TextColor="#F59E0B" HorizontalOptions="Center"/>
-                            <Label Text="{Binding [Pending], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280" HorizontalOptions="Center"/>
+                            <Label Text="{Binding [Pending], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="Center">
                             <Label Text="{Binding OverdueInvoices}" FontSize="24" FontAttributes="Bold" TextColor="#EF4444" HorizontalOptions="Center"/>
-                            <Label Text="{Binding [Overdue], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="#6B7280" HorizontalOptions="Center"/>
+                            <Label Text="{Binding [Overdue], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="12" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Grid>
                 </Border>
 
-                <Label Text="{Binding [Settings], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="18" FontAttributes="Bold" TextColor="#111827"/>
+                <Label Text="{Binding [Settings], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="18" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"/>
 
-                <!-- Settings Display List -->
-                
                 <!-- Currency -->
-                <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
                     <Grid ColumnDefinitions="Auto,*,Auto">
                         <Border Grid.Column="0" BackgroundColor="#D1FAE5" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" VerticalOptions="Center">
                             <Label Text="💲" FontSize="16"/>
                         </Border>
-                        <Label Grid.Column="1" Text="{Binding [Currency], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="14" VerticalOptions="Center" Margin="12,0,0,0"/>
-                        <Label Grid.Column="2" Text="{Binding SelectedCurrency}" TextColor="#111827" FontAttributes="Bold" FontSize="14" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" Text="{Binding [Currency], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" FontSize="14" VerticalOptions="Center" Margin="12,0,0,0"/>
+                        <Label Grid.Column="2" Text="{Binding SelectedCurrency}" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" FontAttributes="Bold" FontSize="14" VerticalOptions="Center"/>
                     </Grid>
                 </Border>
 
                 <!-- Language -->
-                <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
                     <Grid ColumnDefinitions="Auto,*,Auto">
                         <Border Grid.Column="0" BackgroundColor="#DBEAFE" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" VerticalOptions="Center">
                             <Label Text="🌐" FontSize="16"/>
                         </Border>
-                        <Label Grid.Column="1" Text="{Binding [Language], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="14" VerticalOptions="Center" Margin="12,0,0,0"/>
-                        <Label Grid.Column="2" Text="{Binding SelectedLanguage}" TextColor="#111827" FontAttributes="Bold" FontSize="14" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" Text="{Binding [Language], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" FontSize="14" VerticalOptions="Center" Margin="12,0,0,0"/>
+                        <Label Grid.Column="2" Text="{Binding SelectedLanguage}" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" FontAttributes="Bold" FontSize="14" VerticalOptions="Center"/>
                     </Grid>
                 </Border>
 
                 <!-- Notifications -->
-                <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
                     <Grid ColumnDefinitions="Auto,*,Auto">
                         <Border Grid.Column="0" BackgroundColor="#FFEDD5" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" VerticalOptions="Center">
                             <Label Text="🔔" FontSize="16"/>
                         </Border>
                         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Margin="12,0,0,0" Spacing="2">
-                            <Label Text="{Binding [Notifications], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="14"/>
-                            <Label Text="{Binding [Enabled], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontAttributes="Bold" TextColor="#111827" FontSize="14"/>
+                            <Label Text="{Binding [Notifications], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" FontSize="14"/>
+                            <Label Text="{Binding [Enabled], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" FontSize="14"/>
                         </VerticalStackLayout>
                     </Grid>
                 </Border>
 
                 <!-- Feedback -->
-                <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
                     <Grid ColumnDefinitions="Auto,*,Auto">
                         <Border Grid.Column="0" BackgroundColor="#F3E8FF" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" VerticalOptions="Center">
                             <Label Text="📳" FontSize="16"/>
                         </Border>
                         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Margin="12,0,0,0" Spacing="2">
-                            <Label Text="{Binding [HapticFeedback], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="14"/>
-                            <Label Text="{Binding [Enabled], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontAttributes="Bold" TextColor="#111827" FontSize="14"/>
+                            <Label Text="{Binding [HapticFeedback], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" FontSize="14"/>
+                            <Label Text="{Binding [Enabled], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" FontSize="14"/>
                         </VerticalStackLayout>
                     </Grid>
                 </Border>
 
+                <!-- Dark Mode Toggle -->
+                <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <Border Grid.Column="0" BackgroundColor="#E0F2FE" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" VerticalOptions="Center">
+                            <Label Text="🌙" FontSize="16"/>
+                        </Border>
+                        <Label Grid.Column="1" Text="{Binding [DarkMode], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" FontSize="14" FontAttributes="Bold" VerticalOptions="Center" Margin="12,0,0,0"/>
+                        <Switch Grid.Column="2" IsToggled="{Binding DarkModeEnabled}" OnColor="#3498DB" VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+
                 <!-- Manage Categories -->
-                <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ManageCategoriesCommand}"/>
                     </Border.GestureRecognizers>
@@ -105,7 +114,7 @@
                         <Border Grid.Column="0" BackgroundColor="#FEF3C7" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" VerticalOptions="Center">
                             <Label Text="🏷️" FontSize="16"/>
                         </Border>
-                        <Label Grid.Column="1" Text="{Binding [ManageCategories], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="#6B7280" FontSize="14" VerticalOptions="Center" Margin="12,0,0,0"/>
+                        <Label Grid.Column="1" Text="{Binding [ManageCategories], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" FontSize="14" VerticalOptions="Center" Margin="12,0,0,0"/>
                         <Label Grid.Column="2" Text="›" FontSize="20" TextColor="#9CA3AF" VerticalOptions="Center"/>
                     </Grid>
                 </Border>
@@ -119,7 +128,7 @@
                 <!-- Export + Clear side by side -->
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
                     <Border Grid.Column="0"
-                            BackgroundColor="White" Stroke="#2ECC71" StrokeThickness="1.5"
+                            BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="#2ECC71" StrokeThickness="1.5"
                             StrokeShape="RoundRectangle 10">
                         <Button Text="{Binding [ExportData], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                                 Command="{Binding ExportDataCommand}"
@@ -127,7 +136,7 @@
                                 CornerRadius="10" FontAttributes="Bold" HeightRequest="52"/>
                     </Border>
                     <Border Grid.Column="1"
-                            BackgroundColor="White" Stroke="#E74C3C" StrokeThickness="1.5"
+                            BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="#E74C3C" StrokeThickness="1.5"
                             StrokeShape="RoundRectangle 10">
                         <Button Text="{Binding [ClearAllData], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                                 Command="{Binding ClearAllDataCommand}"

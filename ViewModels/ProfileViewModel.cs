@@ -74,6 +74,13 @@ namespace BillWise.ViewModels
         [ObservableProperty] private int _reminderDays = 2;
         [ObservableProperty] private bool _hapticFeedbackEnabled = true;
         [ObservableProperty] private bool _shakeToAddEnabled = true;
+        [ObservableProperty] private bool _darkModeEnabled = false;
+
+        partial void OnDarkModeEnabledChanged(bool value)
+        {
+            if (Application.Current != null)
+                Application.Current.UserAppTheme = value ? AppTheme.Dark : AppTheme.Light;
+        }
 
         private void LoadSettings()
         {
@@ -83,6 +90,7 @@ namespace BillWise.ViewModels
             ReminderDays = Preferences.Default.Get("reminder_days", 2);
             HapticFeedbackEnabled = Preferences.Default.Get("haptic_enabled", true);
             ShakeToAddEnabled = Preferences.Default.Get("shake_to_add", true);
+            DarkModeEnabled = Preferences.Default.Get("dark_mode", false);
         }
 
         [RelayCommand]
@@ -96,6 +104,7 @@ namespace BillWise.ViewModels
             Preferences.Default.Set("reminder_days", ReminderDays);
             Preferences.Default.Set("haptic_enabled", HapticFeedbackEnabled);
             Preferences.Default.Set("shake_to_add", ShakeToAddEnabled);
+            Preferences.Default.Set("dark_mode", DarkModeEnabled);
 
             // Broadcast currency change so all ViewModels refresh
             WeakReferenceMessenger.Default.Send(new CurrencyChangedMessage(SelectedCurrency));

@@ -5,10 +5,10 @@
        xmlns:strings="clr-namespace:BillWise.Resources.Strings"
        x:Class="BillWise.AppShell"
        Shell.FlyoutBehavior="Disabled"
-       Shell.TabBarBackgroundColor="White"
-       Shell.TabBarForegroundColor="#185FA5"
-       Shell.TabBarUnselectedColor="#9E9E9E"
-       Shell.TabBarTitleColor="#185FA5"
+       Shell.TabBarBackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
+       Shell.TabBarForegroundColor="{AppThemeBinding Light=#185FA5, Dark=#60A5FA}"
+       Shell.TabBarUnselectedColor="{AppThemeBinding Light=#9E9E9E, Dark=#6B7280}"
+       Shell.TabBarTitleColor="{AppThemeBinding Light=#185FA5, Dark=#60A5FA}"
        Shell.NavBarIsVisible="False"
        Shell.BackgroundColor="Transparent">
 

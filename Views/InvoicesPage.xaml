@@ -6,7 +6,7 @@
              xmlns:strings="clr-namespace:BillWise.Resources.Strings"
              x:Class="BillWise.Views.InvoicesPage"
              x:DataType="vm:InvoicesViewModel"
-             BackgroundColor="#FAFAFA"
+             BackgroundColor="{AppThemeBinding Light=#FAFAFA, Dark=#121212}"
              Shell.NavBarIsVisible="False">
     <Grid>
         <Grid RowDefinitions="Auto,Auto,Auto,*" Padding="16,0,16,0" RowSpacing="16">
@@ -14,18 +14,18 @@
             <!-- Header -->
             <Label Grid.Row="0"
                    Text="{Binding [MyInvoices], Source={x:Static strings:LocalizationResourceManager.Instance}}"
-                   FontSize="26" FontAttributes="Bold" TextColor="#111827"/>
+                   FontSize="26" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"/>
 
             <!-- Search Bar -->
             <Border Grid.Row="1"
-                    Stroke="#E5E7EB" StrokeThickness="1" StrokeShape="RoundRectangle 12"
-                    BackgroundColor="White" Padding="10,0">
+                    Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12"
+                    BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Padding="10,0">
                 <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                     <Label Text="🔍" FontSize="18" TextColor="#9CA3AF" VerticalOptions="Center"/>
                     <Entry Grid.Column="1"
                            Placeholder="{Binding [SearchInvoice], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                            PlaceholderColor="#9CA3AF"
-                           TextColor="#111827"
+                           TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"
                            Text="{Binding SearchQuery}" ClearButtonVisibility="WhileEditing"
                            BackgroundColor="Transparent"/>
                 </Grid>
@@ -85,13 +85,13 @@
                 <CollectionView.EmptyView>
                     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="16" Margin="0,50,0,0">
                         <Label Text="📄" FontSize="60" HorizontalOptions="Center" TextColor="#D1D5DB"/>
-                        <Label Text="{Binding [NoInvoicesFound], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" TextColor="#111827"/>
-                        <Label Text="{Binding [StartAdding], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="14" HorizontalOptions="Center" TextColor="#6B7280"/>
+                        <Label Text="{Binding [NoInvoicesFound], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"/>
+                        <Label Text="{Binding [StartAdding], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="14" HorizontalOptions="Center" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}"/>
                     </VerticalStackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="entities:Invoice">
-                        <Border BackgroundColor="White" Stroke="#E5E7EB" StrokeThickness="1"
+                        <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1"
                                 StrokeShape="RoundRectangle 12" Margin="0,6" Padding="16">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:InvoicesViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
@@ -102,12 +102,12 @@
                                         VerticalOptions="Start">
                                     <Label Text="{Binding CategoryIcon}" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center"/>
                                 </Border>
-                                
+
                                 <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
-                                    <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" TextColor="#111827"/>
+                                    <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"/>
                                     <HorizontalStackLayout Spacing="6">
-                                        <Label Text="📅" FontSize="12" TextColor="#6B7280" VerticalOptions="Center"/>
-                                        <Label Text="{Binding DueDate, StringFormat='{0:dd MMM. yyyy}'}" FontSize="12" TextColor="#6B7280" VerticalOptions="Center"/>
+                                        <Label Text="📅" FontSize="12" TextColor="#9CA3AF" VerticalOptions="Center"/>
+                                        <Label Text="{Binding DueDate, StringFormat='{0:dd MMM. yyyy}'}" FontSize="12" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" VerticalOptions="Center"/>
                                     </HorizontalStackLayout>
                                     <Border BackgroundColor="{Binding StatusBackgroundColor}" StrokeThickness="0"
                                             StrokeShape="RoundRectangle 12" Padding="8,4" HorizontalOptions="Start" Margin="0,4,0,0">
@@ -117,7 +117,7 @@
                                 </VerticalStackLayout>
 
                                 <VerticalStackLayout Grid.Column="2" Spacing="8" HorizontalOptions="End" VerticalOptions="Center">
-                                    <Label Text="{Binding FormattedAmount}" FontSize="16" FontAttributes="Bold" TextColor="#111827" HorizontalOptions="End"/>
+                                    <Label Text="{Binding FormattedAmount}" FontSize="16" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" HorizontalOptions="End"/>
                                     <Label Text=">" FontSize="16" TextColor="#9CA3AF" HorizontalOptions="End"/>
                                 </VerticalStackLayout>
                             </Grid>

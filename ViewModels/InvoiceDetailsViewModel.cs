@@ -3,6 +3,7 @@ using BillWise.Models.Services;
 using BillWise.Resources.Strings;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Devices;
 
 namespace BillWise.ViewModels
 {
@@ -75,7 +76,10 @@ namespace BillWise.ViewModels
                 IsBusy = false;
 
                 if (success)
+                {
+                    TriggerHaptic(HapticFeedbackType.Click);
                     await Shell.Current.GoToAsync("..");
+                }
                 else
                     await Shell.Current.DisplayAlertAsync(L["ErrorTitle"], L["FailedDeleteInvoice"], "OK");
             }
@@ -119,6 +123,7 @@ namespace BillWise.ViewModels
 
             if (success)
             {
+                TriggerHaptic(HapticFeedbackType.LongPress);
                 OnPropertyChanged(nameof(IsPaid));
                 OnPropertyChanged(nameof(ShowPaymentAction));
                 OnPropertyChanged(nameof(ShowEditAction));
@@ -129,6 +134,13 @@ namespace BillWise.ViewModels
             }
             else
                 await Shell.Current.DisplayAlertAsync(L["ErrorTitle"], L["FailedUpdateInvoice"], "OK");
+        }
+
+        private static void TriggerHaptic(HapticFeedbackType type = HapticFeedbackType.Click)
+        {
+            if (!Preferences.Default.Get("haptic_enabled", true)) return;
+            if (HapticFeedback.Default.IsSupported)
+                HapticFeedback.Default.Perform(type);
         }
     }
 }

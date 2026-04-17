@@ -19,6 +19,13 @@ namespace BillWise
             _scheduler = scheduler;
             _serviceProvider = serviceProvider;
             RestoreLanguage();
+            RestoreTheme();
+        }
+
+        private static void RestoreTheme()
+        {
+            if (Preferences.Default.Get("dark_mode", false))
+                Current!.UserAppTheme = AppTheme.Dark;
         }
 
         private static void RestoreLanguage()

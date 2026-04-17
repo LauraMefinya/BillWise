@@ -6,7 +6,7 @@
              xmlns:strings="clr-namespace:BillWise.Resources.Strings"
              x:Class="BillWise.Views.AlertsPage"
              x:DataType="vm:AlertsViewModel"
-             BackgroundColor="#FAFAFA"
+             BackgroundColor="{AppThemeBinding Light=#FAFAFA, Dark=#121212}"
              Shell.NavBarIsVisible="False">
 
     <Grid>
@@ -17,13 +17,13 @@
                 <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,8">
                     <VerticalStackLayout Spacing="4">
                         <Label Text="{Binding [Notifications], Source={x:Static strings:LocalizationResourceManager.Instance}}"
-                               FontSize="26" FontAttributes="Bold" TextColor="#111827"/>
-                        <Label Text="{Binding UnreadMessage}" FontSize="14" TextColor="#6B7280"/>
+                               FontSize="26" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"/>
+                        <Label Text="{Binding UnreadMessage}" FontSize="14" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}"/>
                     </VerticalStackLayout>
 
                     <!-- Bell icon with Badge -->
                     <Grid Grid.Column="1" WidthRequest="44" HeightRequest="44" VerticalOptions="Center">
-                        <Border BackgroundColor="#EFF6FF" StrokeThickness="0"
+                        <Border BackgroundColor="{AppThemeBinding Light=#EFF6FF, Dark=#1E3A5F}" StrokeThickness="0"
                                 StrokeShape="RoundRectangle 22"
                                 WidthRequest="44" HeightRequest="44">
                             <Label Text="🔔" FontSize="20"
@@ -44,7 +44,7 @@
 
                 <!-- Mark all as read button (only visible if there are unread) -->
                 <Border IsVisible="{Binding HasUnread}"
-                        BackgroundColor="#EFF6FF" StrokeThickness="0"
+                        BackgroundColor="{AppThemeBinding Light=#EFF6FF, Dark=#1E3A5F}" StrokeThickness="0"
                         StrokeShape="RoundRectangle 8" Padding="12,8"
                         HorizontalOptions="End">
                     <Border.GestureRecognizers>
@@ -87,7 +87,7 @@
                                                FontAttributes="Bold" FontSize="15"
                                                TextColor="{Binding TypeTitleColor}"/>
                                         <Label Text="{Binding Message}"
-                                               FontSize="13" TextColor="#4B5563"
+                                               FontSize="13" TextColor="{AppThemeBinding Light=#4B5563, Dark=#9CA3AF}"
                                                LineBreakMode="WordWrap"/>
                                         <Label Text="{Binding SentAt, StringFormat='{0:dd MMM yyyy}'}"
                                                FontSize="12" TextColor="#9CA3AF"/>
