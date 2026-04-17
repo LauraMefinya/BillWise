@@ -106,6 +106,9 @@
   <data name="Enabled" xml:space="preserve">
     <value>Enabled</value>
   </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
   <data name="HapticFeedback" xml:space="preserve">
     <value>Haptic Feedback</value>
   </data>

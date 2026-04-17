@@ -76,6 +76,12 @@ namespace BillWise.ViewModels
         [ObservableProperty] private bool _shakeToAddEnabled = true;
         [ObservableProperty] private bool _darkModeEnabled = false;
 
+        public string NotificationsStatusText => LocalizationResourceManager.Instance[NotificationsEnabled ? "Enabled" : "Disabled"];
+        public string HapticStatusText => LocalizationResourceManager.Instance[HapticFeedbackEnabled ? "Enabled" : "Disabled"];
+
+        partial void OnNotificationsEnabledChanged(bool value) => OnPropertyChanged(nameof(NotificationsStatusText));
+        partial void OnHapticFeedbackEnabledChanged(bool value) => OnPropertyChanged(nameof(HapticStatusText));
+
         partial void OnDarkModeEnabledChanged(bool value)
         {
             if (Application.Current != null)

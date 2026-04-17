@@ -76,12 +76,12 @@
                         </Border>
                         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Margin="12,0,0,0" Spacing="2">
                             <Label Text="{Binding [Notifications], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" FontSize="14"/>
-                            <Label Text="{Binding [Enabled], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" FontSize="14"/>
+                            <Label Text="{Binding NotificationsStatusText}" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" FontSize="14"/>
                         </VerticalStackLayout>
                     </Grid>
                 </Border>
 
-                <!-- Feedback -->
+                <!-- Haptic Feedback -->
                 <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
                     <Grid ColumnDefinitions="Auto,*,Auto">
                         <Border Grid.Column="0" BackgroundColor="#F3E8FF" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" VerticalOptions="Center">
@@ -89,7 +89,7 @@
                         </Border>
                         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Margin="12,0,0,0" Spacing="2">
                             <Label Text="{Binding [HapticFeedback], Source={x:Static strings:LocalizationResourceManager.Instance}}" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" FontSize="14"/>
-                            <Label Text="{Binding [Enabled], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" FontSize="14"/>
+                            <Label Text="{Binding HapticStatusText}" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}" FontSize="14"/>
                         </VerticalStackLayout>
                     </Grid>
                 </Border>

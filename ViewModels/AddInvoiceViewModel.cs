@@ -8,7 +8,6 @@ using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Extensions;
 using CommunityToolkit.Maui.Media;
 using CommunityToolkit.Maui.Core;
-using Microsoft.Maui.Devices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Plugin.Maui.OCR;
@@ -414,8 +413,8 @@ namespace BillWise.ViewModels
         private static void TriggerHaptic()
         {
             if (!Preferences.Default.Get("haptic_enabled", true)) return;
-            if (HapticFeedback.Default.IsSupported)
-                HapticFeedback.Default.Perform(HapticFeedbackType.Click);
+            if (Vibration.Default.IsSupported)
+                Vibration.Default.Vibrate(TimeSpan.FromMilliseconds(60));
         }
     }
 }

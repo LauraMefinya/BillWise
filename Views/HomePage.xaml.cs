@@ -46,7 +46,7 @@ namespace BillWise.Views
         {
             await MainThread.InvokeOnMainThreadAsync(async () =>
             {
-                TriggerHaptic(HapticFeedbackType.LongPress);
+                TriggerVibration(200);
                 await Shell.Current.GoToAsync(nameof(AddInvoicePage));
             });
         }
@@ -55,7 +55,7 @@ namespace BillWise.Views
         {
             try
             {
-                TriggerHaptic(HapticFeedbackType.Click);
+                TriggerVibration(60);
                 await Shell.Current.GoToAsync(nameof(AddInvoicePage));
             }
             catch (Exception ex)
@@ -64,11 +64,11 @@ namespace BillWise.Views
             }
         }
 
-        private static void TriggerHaptic(HapticFeedbackType type = HapticFeedbackType.Click)
+        private static void TriggerVibration(int milliseconds = 60)
         {
             if (!Preferences.Default.Get("haptic_enabled", true)) return;
-            if (HapticFeedback.Default.IsSupported)
-                HapticFeedback.Default.Perform(type);
+            if (Vibration.Default.IsSupported)
+                Vibration.Default.Vibrate(TimeSpan.FromMilliseconds(milliseconds));
         }
     }
 }

@@ -3,7 +3,6 @@ using BillWise.Models.Services;
 using BillWise.Resources.Strings;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Devices;
 
 namespace BillWise.ViewModels
 {
@@ -139,8 +138,8 @@ namespace BillWise.ViewModels
         private static void TriggerHaptic(HapticFeedbackType type = HapticFeedbackType.Click)
         {
             if (!Preferences.Default.Get("haptic_enabled", true)) return;
-            if (HapticFeedback.Default.IsSupported)
-                HapticFeedback.Default.Perform(type);
+            if (Vibration.Default.IsSupported)
+                Vibration.Default.Vibrate(TimeSpan.FromMilliseconds(type == HapticFeedbackType.LongPress ? 150 : 60));
         }
     }
 }

@@ -24,8 +24,9 @@ namespace BillWise
 
         private static void RestoreTheme()
         {
-            if (Preferences.Default.Get("dark_mode", false))
-                Current!.UserAppTheme = AppTheme.Dark;
+            Current!.UserAppTheme = Preferences.Default.Get("dark_mode", false)
+                ? AppTheme.Dark
+                : AppTheme.Light;
         }
 
         private static void RestoreLanguage()
