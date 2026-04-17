@@ -62,7 +62,7 @@
     <value>Invoice Name *</value>
   </data>
   <data name="Amount" xml:space="preserve">
-    <value>Amount (FCFA) *</value>
+    <value>Amount *</value>
   </data>
   <data name="DueDate" xml:space="preserve">
     <value>Due Date *</value>

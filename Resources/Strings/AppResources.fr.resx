@@ -62,7 +62,7 @@
     <value>Nom de la facture *</value>
   </data>
   <data name="Amount" xml:space="preserve">
-    <value>Montant (FCFA) *</value>
+    <value>Montant *</value>
   </data>
   <data name="DueDate" xml:space="preserve">
     <value>Date d'échéance *</value>

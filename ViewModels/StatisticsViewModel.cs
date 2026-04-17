@@ -35,6 +35,16 @@ namespace BillWise.ViewModels
         [ObservableProperty]
         private decimal _toPayAmount;
 
+        public string FormattedTotalAmount     => CurrencyService.Format(TotalAmount);
+        public string FormattedThisMonthAmount => CurrencyService.Format(ThisMonthAmount);
+        public string FormattedPaidAmount      => CurrencyService.Format(PaidAmount);
+        public string FormattedToPayAmount     => CurrencyService.Format(ToPayAmount);
+
+        partial void OnTotalAmountChanged(decimal value)     => OnPropertyChanged(nameof(FormattedTotalAmount));
+        partial void OnThisMonthAmountChanged(decimal value) => OnPropertyChanged(nameof(FormattedThisMonthAmount));
+        partial void OnPaidAmountChanged(decimal value)      => OnPropertyChanged(nameof(FormattedPaidAmount));
+        partial void OnToPayAmountChanged(decimal value)     => OnPropertyChanged(nameof(FormattedToPayAmount));
+
         [ObservableProperty]
         private ObservableCollection<ISeries> _barSeries = new();
 
@@ -67,8 +77,9 @@ namespace BillWise.ViewModels
                 {
                     ThisMonthAmount = monthly.Last().Amount;
 
-                    var values = monthly.Select(m => (double)m.Amount).ToArray();
+                    var values = monthly.Select(m => (double)CurrencyService.Convert(m.Amount)).ToArray();
                     var labels = monthly.Select(m => m.Month.ToString("MMM")).ToArray();
+                    var symbol = CurrencyService.Symbol;
 
                     BarSeries = new ObservableCollection<ISeries>
                     {
@@ -97,7 +108,7 @@ namespace BillWise.ViewModels
                     {
                         new Axis
                         {
-                            Labeler = value => $"{value:N0}",
+                            Labeler = value => $"{value:N0} {symbol}",
                             TextSize = 10,
                             LabelsPaint = new SolidColorPaint(SKColors.Gray),
                             SeparatorsPaint = new SolidColorPaint(SKColors.LightGray) { StrokeThickness = 1 }
@@ -116,7 +127,7 @@ namespace BillWise.ViewModels
                     var color = GetCategoryColor(cat.Key);
                     PieSeries.Add(new PieSeries<double>
                     {
-                        Values = new double[] { (double)cat.Value },
+                        Values = new double[] { (double)CurrencyService.Convert(cat.Value) },
                         Name = cat.Key.ToString(),
                         Fill = new SolidColorPaint(color)
                     });

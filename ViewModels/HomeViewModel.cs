@@ -28,6 +28,12 @@ namespace BillWise.ViewModels
         [ObservableProperty]
         private decimal _totalPaid;
 
+        public string FormattedTotalToPay => CurrencyService.Format(TotalToPay);
+        public string FormattedTotalPaid  => CurrencyService.Format(TotalPaid);
+
+        partial void OnTotalToPayChanged(decimal value) => OnPropertyChanged(nameof(FormattedTotalToPay));
+        partial void OnTotalPaidChanged(decimal value)  => OnPropertyChanged(nameof(FormattedTotalPaid));
+
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(OverdueMessage))]
         private int _overdueCount;
@@ -96,8 +102,9 @@ namespace BillWise.ViewModels
                 var monthly = await _invoiceService.GetMonthlyExpensesAsync();
                 if (monthly.Count > 0)
                 {
-                    var values = monthly.Select(m => (double)m.Amount).ToArray();
+                    var values = monthly.Select(m => (double)CurrencyService.Convert(m.Amount)).ToArray();
                     var labels = monthly.Select(m => m.Month.ToString("MMM")).ToArray();
+                    var symbol = CurrencyService.Symbol;
 
                     BarSeries = new ObservableCollection<ISeries>
                     {
@@ -126,7 +133,7 @@ namespace BillWise.ViewModels
                     {
                         new Axis
                         {
-                            Labeler = value => value.ToString("N0"),
+                            Labeler = value => $"{value:N0} {symbol}",
                             TextSize = 10,
                             LabelsPaint = new SolidColorPaint(SKColors.Gray),
                             SeparatorsPaint = new SolidColorPaint(SKColors.LightGray) { StrokeThickness = 1 }

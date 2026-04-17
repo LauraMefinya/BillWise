@@ -54,6 +54,12 @@ namespace BillWise.ViewModels
 
         public string PaymentDateText => Invoice?.PaidAt?.ToString("dd MMMM yyyy") ?? "-";
 
+        public override void Receive(Models.Messages.CurrencyChangedMessage message)
+        {
+            base.Receive(message);
+            OnPropertyChanged(nameof(Invoice));
+        }
+
         [RelayCommand]
         public async Task GoBackAsync() => await Shell.Current.GoToAsync("..");
 

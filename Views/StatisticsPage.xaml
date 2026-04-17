@@ -33,9 +33,8 @@
                         </Border>
                         <Label Text="{Binding [TotalAmount], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                                FontSize="12" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}"/>
-                        <Label Text="{Binding TotalAmount, StringFormat='{0:N0}'}"
+                        <Label Text="{Binding FormattedTotalAmount}"
                                FontSize="18" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"/>
-                        <Label Text="{Binding CurrencySymbol}" FontSize="10" TextColor="#9CA3AF"/>
                     </VerticalStackLayout>
                 </Border>
 
@@ -49,9 +48,8 @@
                         </Border>
                         <Label Text="{Binding [ThisMonth], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                                FontSize="12" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}"/>
-                        <Label Text="{Binding ThisMonthAmount, StringFormat='{0:N0}'}"
+                        <Label Text="{Binding FormattedThisMonthAmount}"
                                FontSize="18" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"/>
-                        <Label Text="{Binding CurrencySymbol}" FontSize="10" TextColor="#9CA3AF"/>
                     </VerticalStackLayout>
                 </Border>
 
@@ -65,9 +63,8 @@
                         </Border>
                         <Label Text="{Binding [Paid], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                                FontSize="12" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}"/>
-                        <Label Text="{Binding PaidAmount, StringFormat='{0:N0}'}"
+                        <Label Text="{Binding FormattedPaidAmount}"
                                FontSize="18" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"/>
-                        <Label Text="{Binding CurrencySymbol}" FontSize="10" TextColor="#9CA3AF"/>
                     </VerticalStackLayout>
                 </Border>
 
@@ -81,9 +78,8 @@
                         </Border>
                         <Label Text="{Binding [ToPay], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                                FontSize="12" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}"/>
-                        <Label Text="{Binding ToPayAmount, StringFormat='{0:N0}'}"
+                        <Label Text="{Binding FormattedToPayAmount}"
                                FontSize="18" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"/>
-                        <Label Text="{Binding CurrencySymbol}" FontSize="10" TextColor="#9CA3AF"/>
                     </VerticalStackLayout>
                 </Border>
 

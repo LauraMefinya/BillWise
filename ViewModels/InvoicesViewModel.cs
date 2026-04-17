@@ -69,6 +69,13 @@ namespace BillWise.ViewModels
         public Color OverdueChipBackground => SelectedFilter == "Overdue" ? Color.FromArgb("#2196F3") : InactiveChipBg;
         public Color OverdueChipTextColor  => SelectedFilter == "Overdue" ? Colors.White : InactiveChipText;
 
+        public override void Receive(Models.Messages.CurrencyChangedMessage message)
+        {
+            base.Receive(message);
+            if (!IsBusy)
+                LoadDataCommand.Execute(null);
+        }
+
         [RelayCommand]
         public async Task GoToDetailsAsync(Invoice invoice)
         {
