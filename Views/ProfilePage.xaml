@@ -20,7 +20,7 @@
                 </VerticalStackLayout>
             </Grid>
 
-            <VerticalStackLayout Spacing="24" Padding="16,24,16,60" Margin="0,-30,0,0">
+            <VerticalStackLayout Spacing="24" Padding="16,24,16,60">
 
                 <!-- Summary Card -->
                 <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="20">
