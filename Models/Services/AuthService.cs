@@ -62,7 +62,6 @@ namespace BillWise.Models.Services
             {
                 var session = await _client.Auth.SignUp(email, password);
 
-                // Auto-confirm disabled: user is immediately logged in
                 if (session?.AccessToken != null)
                 {
                     _sessionService.SaveSession(
@@ -71,9 +70,18 @@ namespace BillWise.Models.Services
                     return (true, false, string.Empty);
                 }
 
-                // Email confirmation required: account created but not yet active
+                // Email confirmation still enabled on Supabase — log in manually
                 if (session?.User != null)
-                    return (true, true, string.Empty);
+                {
+                    var loginSession = await _client.Auth.SignIn(email, password);
+                    if (loginSession?.AccessToken != null)
+                    {
+                        _sessionService.SaveSession(
+                            loginSession.AccessToken,
+                            loginSession.RefreshToken ?? "");
+                        return (true, false, string.Empty);
+                    }
+                }
 
                 return (false, false, "Registration failed. Please try again.");
             }

@@ -22,6 +22,17 @@ namespace BillWise.ViewModels
             _invoiceService = invoiceService;
         }
 
+        public string UserGreeting
+        {
+            get
+            {
+                var name = Preferences.Default.Get("user_name", string.Empty);
+                return !string.IsNullOrEmpty(name)
+                    ? $"{LocalizationResourceManager.Instance["Hello"]}, {name}"
+                    : LocalizationResourceManager.Instance["HomeGreeting"];
+            }
+        }
+
         [ObservableProperty]
         private decimal _totalToPay;
 
@@ -148,6 +159,7 @@ namespace BillWise.ViewModels
             finally
             {
                 IsBusy = false;
+                OnPropertyChanged(nameof(UserGreeting));
             }
         }
     }

@@ -15,6 +15,7 @@ namespace BillWise.ViewModels
             Title = "Register";
         }
 
+        [ObservableProperty] private string _fullName = string.Empty;
         [ObservableProperty] private string _email = string.Empty;
         [ObservableProperty] private string _password = string.Empty;
         [ObservableProperty] private string _confirmPassword = string.Empty;
@@ -25,7 +26,7 @@ namespace BillWise.ViewModels
             var L = LocalizationResourceManager.Instance;
             var mainPage = Application.Current?.Windows[0]?.Page;
 
-            if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
+            if (string.IsNullOrWhiteSpace(FullName) || string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
             {
                 if (mainPage != null)
                     await mainPage.DisplayAlertAsync(L["ErrorTitle"], L["EnterEmailAndPassword"], "OK");
@@ -47,20 +48,9 @@ namespace BillWise.ViewModels
 
             if (result.Success)
             {
-                if (result.NeedsEmailConfirmation)
-                {
-                    await mainPage.DisplayAlertAsync(
-                        L["CheckEmailTitle"], L["CheckEmailMessage"], "OK");
-                }
-                else
-                {
-                    await mainPage.DisplayAlertAsync(L["SuccessTitle"], L["AccountCreated"], "OK");
-                    if (Application.Current?.Windows.Count > 0)
-                        Application.Current.Windows[0].Page = new AppShell();
-                    return;
-                }
-
-                await mainPage.Navigation.PopAsync();
+                Preferences.Default.Set("user_name", FullName.Trim());
+                if (Application.Current?.Windows.Count > 0)
+                    Application.Current.Windows[0].Page = new AppShell();
             }
             else
             {

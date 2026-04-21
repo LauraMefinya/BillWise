@@ -47,8 +47,10 @@ namespace BillWise.ViewModels
         {
             var email = _authService.GetCurrentUserEmail();
             UserEmail = !string.IsNullOrEmpty(email) ? email : "Connected User";
-            if (!string.IsNullOrEmpty(email))
-                UserName = email.Split('@')[0];
+            var savedName = Preferences.Default.Get("user_name", string.Empty);
+            UserName = !string.IsNullOrEmpty(savedName)
+                ? savedName
+                : (!string.IsNullOrEmpty(email) ? email.Split('@')[0] : "User");
             await RefreshStatsAsync();
         }
 

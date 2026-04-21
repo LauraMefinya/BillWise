@@ -16,6 +16,12 @@
   <data name="AppTitle" xml:space="preserve">
     <value>BillWise</value>
   </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Nom complet</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Bonjour</value>
+  </data>
   <data name="HomeGreeting" xml:space="preserve">
     <value>Bonjour, Utilisateur</value>
   </data>
