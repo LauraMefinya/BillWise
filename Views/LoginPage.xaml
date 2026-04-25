@@ -81,7 +81,11 @@
                            TextColor="#3498DB" FontSize="13"
                            FontAttributes="Bold"
                            HorizontalOptions="End"
-                           Margin="0,0,0,28"/>
+                           Margin="0,0,0,28">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
 
                     <Button Text="{Binding [Login], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                             Command="{Binding LoginCommand}"

@@ -8,10 +8,12 @@ namespace BillWise.ViewModels
     public partial class RegisterViewModel : BaseViewModel
     {
         private readonly AuthService _authService;
+        private readonly IServiceProvider _serviceProvider;
 
-        public RegisterViewModel(AuthService authService)
+        public RegisterViewModel(AuthService authService, IServiceProvider serviceProvider)
         {
             _authService = authService;
+            _serviceProvider = serviceProvider;
             Title = "Register";
         }
 
@@ -59,11 +61,12 @@ namespace BillWise.ViewModels
         }
 
         [RelayCommand]
-        public async Task GoBackAsync()
+        public Task GoBackAsync()
         {
-            var mainPage = Application.Current?.Windows[0]?.Page;
-            if (mainPage != null)
-                await mainPage.Navigation.PopAsync();
+            var loginPage = _serviceProvider.GetService<Views.LoginPage>();
+            if (Application.Current?.Windows.Count > 0 && loginPage != null)
+                Application.Current.Windows[0].Page = loginPage;
+            return Task.CompletedTask;
         }
     }
 }

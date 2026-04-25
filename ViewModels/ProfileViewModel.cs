@@ -226,8 +226,7 @@ namespace BillWise.ViewModels
                 var loginPage = Application.Current.Handler.MauiContext
                     .Services.GetService<Views.LoginPage>();
                 if (Application.Current?.Windows.Count > 0)
-                    Application.Current.Windows[0].Page =
-                        new NavigationPage(loginPage);
+                    Application.Current.Windows[0].Page = loginPage;
             }
         }
     }

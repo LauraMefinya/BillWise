@@ -448,4 +448,13 @@
   <data name="DarkMode" xml:space="preserve">
     <value>Mode sombre</value>
   </data>
+  <data name="EnterEmailForReset" xml:space="preserve">
+    <value>Entrez votre adresse e-mail pour recevoir un lien de réinitialisation.</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Envoyer</value>
+  </data>
+  <data name="ResetEmailSent" xml:space="preserve">
+    <value>Un lien de réinitialisation a été envoyé à votre adresse e-mail.</value>
+  </data>
 </root>

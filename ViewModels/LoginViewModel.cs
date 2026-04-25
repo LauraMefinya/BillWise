@@ -50,12 +50,38 @@ namespace BillWise.ViewModels
         }
 
         [RelayCommand]
-        public async Task GoToRegisterAsync()
+        public async Task ForgotPasswordAsync()
+        {
+            var L = LocalizationResourceManager.Instance;
+            var mainPage = Application.Current?.Windows[0]?.Page;
+            if (mainPage == null) return;
+
+            var email = await mainPage.DisplayPromptAsync(
+                L["ForgotPassword"],
+                L["EnterEmailForReset"],
+                L["Send"],
+                L["Cancel"],
+                keyboard: Keyboard.Email);
+
+            if (string.IsNullOrWhiteSpace(email)) return;
+
+            IsBusy = true;
+            var result = await _authService.ForgotPasswordAsync(email.Trim());
+            IsBusy = false;
+
+            if (result.Success)
+                await mainPage.DisplayAlertAsync(L["SuccessTitle"], L["ResetEmailSent"], "OK");
+            else
+                await mainPage.DisplayAlertAsync(L["ErrorTitle"], result.ErrorMessage, "OK");
+        }
+
+        [RelayCommand]
+        public Task GoToRegisterAsync()
         {
             var registerPage = _serviceProvider.GetService<Views.RegisterPage>();
-            var mainPage = Application.Current?.Windows[0]?.Page;
-            if (mainPage != null && registerPage != null)
-                await mainPage.Navigation.PushAsync(registerPage);
+            if (Application.Current?.Windows.Count > 0 && registerPage != null)
+                Application.Current.Windows[0].Page = registerPage;
+            return Task.CompletedTask;
         }
     }
 }

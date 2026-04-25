@@ -105,6 +105,19 @@ namespace BillWise.Models.Services
             }
         }
 
+        public async Task<(bool Success, string ErrorMessage)> ForgotPasswordAsync(string email)
+        {
+            try
+            {
+                await _client.Auth.ResetPasswordForEmail(email);
+                return (true, string.Empty);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+            }
+        }
+
         public bool IsUserLoggedIn() =>
             _client.Auth.CurrentSession != null;
 

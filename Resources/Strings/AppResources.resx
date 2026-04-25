@@ -41,31 +41,31 @@
     <value>Overdue</value>
   </data>
   <data name="UpcomingInvoices" xml:space="preserve">
-    <value>Upcoming Invoices</value>
+    <value>Upcoming Bills</value>
   </data>
   <data name="ViewAll" xml:space="preserve">
     <value>View All</value>
   </data>
   <data name="MyInvoices" xml:space="preserve">
-    <value>My Invoices</value>
+    <value>My Bills</value>
   </data>
   <data name="SearchInvoice" xml:space="preserve">
-    <value>Search invoice...</value>
+    <value>Search bill...</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>All</value>
   </data>
   <data name="NoInvoicesFound" xml:space="preserve">
-    <value>No invoices found</value>
+    <value>No bills found</value>
   </data>
   <data name="StartAdding" xml:space="preserve">
-    <value>Start by adding your first invoice</value>
+    <value>Start by adding your first bill</value>
   </data>
   <data name="NewInvoice" xml:space="preserve">
-    <value>New Invoice</value>
+    <value>New Bill</value>
   </data>
   <data name="InvoiceName" xml:space="preserve">
-    <value>Invoice Name *</value>
+    <value>Bill Name *</value>
   </data>
   <data name="Amount" xml:space="preserve">
     <value>Amount *</value>
@@ -92,13 +92,13 @@
     <value>Notes (optional)</value>
   </data>
   <data name="SaveInvoice" xml:space="preserve">
-    <value>Save Invoice</value>
+    <value>Save Bill</value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
   </data>
   <data name="TotalInvoices" xml:space="preserve">
-    <value>Total Invoices</value>
+    <value>Total Bills</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
@@ -146,7 +146,7 @@
     <value>Home</value>
   </data>
   <data name="TabInvoices" xml:space="preserve">
-    <value>Invoices</value>
+    <value>Bills</value>
   </data>
   <data name="TabStats" xml:space="preserve">
     <value>Stats</value>
@@ -161,10 +161,10 @@
     <value>Monthly Expenses</value>
   </data>
   <data name="OverdueInvoices" xml:space="preserve">
-    <value>Overdue Invoices</value>
+    <value>Overdue Bills</value>
   </data>
   <data name="OverdueCountMessage" xml:space="preserve">
-    <value>You have {0} overdue invoice(s)</value>
+    <value>You have {0} overdue bill(s)</value>
   </data>
   <data name="Rent" xml:space="preserve">
     <value>Rent</value>
@@ -191,7 +191,7 @@
     <value>Select method...</value>
   </data>
   <data name="EditInvoice" xml:space="preserve">
-    <value>Edit Invoice</value>
+    <value>Edit Bill</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Save Changes</value>
@@ -218,7 +218,7 @@
     <value>No notifications yet</value>
   </data>
   <data name="NotifOverdueTitle" xml:space="preserve">
-    <value>Overdue Invoice</value>
+    <value>Overdue Bill</value>
   </data>
   <data name="NotifOverdueMessage" xml:space="preserve">
     <value>{0} is overdue</value>
@@ -251,7 +251,7 @@
     <value>Reminder before due date (days)</value>
   </data>
   <data name="ManageInvoicesSmartly" xml:space="preserve">
-    <value>Manage your invoices smartly</value>
+    <value>Manage your bills smartly</value>
   </data>
   <data name="WelcomeBack" xml:space="preserve">
     <value>Welcome Back</value>
@@ -332,13 +332,13 @@
     <value>Invalid amount.</value>
   </data>
   <data name="FailedSaveInvoice" xml:space="preserve">
-    <value>Failed to save invoice.</value>
+    <value>Failed to save bill.</value>
   </data>
   <data name="FailedUpdateInvoice" xml:space="preserve">
-    <value>Failed to update invoice.</value>
+    <value>Failed to update bill.</value>
   </data>
   <data name="FailedDeleteInvoice" xml:space="preserve">
-    <value>Failed to delete the invoice.</value>
+    <value>Failed to delete the bill.</value>
   </data>
   <data name="ConfirmDeleteInvoice" xml:space="preserve">
     <value>Are you sure you want to delete {0}?</value>
@@ -422,7 +422,7 @@
     <value>Could not get location.</value>
   </data>
   <data name="SelectInvoicePhoto" xml:space="preserve">
-    <value>Select invoice photo</value>
+    <value>Select bill photo</value>
   </data>
   <data name="SelectCategory" xml:space="preserve">
     <value>Select a category</value>
@@ -447,5 +447,14 @@
   </data>
   <data name="DarkMode" xml:space="preserve">
     <value>Dark Mode</value>
+  </data>
+  <data name="EnterEmailForReset" xml:space="preserve">
+    <value>Enter your email address to receive a reset link.</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="ResetEmailSent" xml:space="preserve">
+    <value>A password reset link has been sent to your email.</value>
   </data>
 </root>

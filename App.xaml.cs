@@ -84,7 +84,7 @@ namespace BillWise
                 // No session — go to login
                 var loginPage = _serviceProvider.GetService<Views.LoginPage>();
                 if (Windows.Count > 0)
-                    Windows[0].Page = new NavigationPage(loginPage);
+                    Windows[0].Page = loginPage;
             }
         }
 
