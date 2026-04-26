@@ -105,6 +105,7 @@ namespace BillWise
             builder.Services.AddTransient<EditInvoicePage>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<RegisterPage>();
+            builder.Services.AddTransient<AccountSettingsPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

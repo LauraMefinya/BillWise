@@ -469,4 +469,13 @@
   <data name="ResetEmailSent" xml:space="preserve">
     <value>A password reset link has been sent to your email.</value>
   </data>
+  <data name="AccountSettings" xml:space="preserve">
+    <value>Account Settings</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>Delete Account</value>
+  </data>
+  <data name="DeleteAccountConfirm" xml:space="preserve">
+    <value>Are you sure you want to permanently delete your account? This action cannot be undone.</value>
+  </data>
 </root>

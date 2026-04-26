@@ -469,4 +469,13 @@
   <data name="ResetEmailSent" xml:space="preserve">
     <value>Un lien de réinitialisation a été envoyé à votre adresse e-mail.</value>
   </data>
+  <data name="AccountSettings" xml:space="preserve">
+    <value>Paramètres du compte</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>Supprimer le compte</value>
+  </data>
+  <data name="DeleteAccountConfirm" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer définitivement votre compte ? Cette action est irréversible.</value>
+  </data>
 </root>
