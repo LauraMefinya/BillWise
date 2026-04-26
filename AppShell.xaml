@@ -14,24 +14,24 @@
 
     <TabBar>
         <ShellContent Title="{Binding [TabHome], Source={x:Static strings:LocalizationResourceManager.Instance}}"
-                      Icon="tab_home.png"
+                      Icon="tab_home.svg"
                       Route="HomePage"
                       ContentTemplate="{DataTemplate views:HomePage}"/>
         <ShellContent Title="{Binding [TabInvoices], Source={x:Static strings:LocalizationResourceManager.Instance}}"
-                      Icon="tab_invoices.png"
+                      Icon="tab_invoices.svg"
                       Route="InvoicesPage"
                       ContentTemplate="{DataTemplate views:InvoicesPage}"/>
+        <Tab Title="{Binding [TabAdd], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+             Icon="tab_add.svg">
+            <ShellContent Route="AddTabRoute"
+                          ContentTemplate="{DataTemplate views:AddTabPage}"/>
+        </Tab>
         <ShellContent Title="{Binding [TabStats], Source={x:Static strings:LocalizationResourceManager.Instance}}"
-                      Icon="tab_stats.png"
+                      Icon="tab_stats.svg"
                       Route="StatisticsPage"
                       ContentTemplate="{DataTemplate views:StatisticsPage}"/>
-        <Tab Title="{Binding [TabAlerts], Source={x:Static strings:LocalizationResourceManager.Instance}}"
-             Icon="tab_alerts.png">
-            <ShellContent ContentTemplate="{DataTemplate views:AlertsPage}" />
-        </Tab>
-
         <Tab Title="{Binding [Profile], Source={x:Static strings:LocalizationResourceManager.Instance}}"
-             Icon="tab_profile.png">
+             Icon="tab_profile.svg">
             <ShellContent ContentTemplate="{DataTemplate views:ProfilePage}" />
         </Tab>
     </TabBar>

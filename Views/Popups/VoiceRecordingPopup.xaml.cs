@@ -11,10 +11,15 @@ namespace BillWise.Views.Popups
         private string _currentText = string.Empty;
         private bool _isCancelled = false;
 
+        private readonly BoxView[] _bars;
+        private readonly double[] _barHeights = { 10, 20, 30, 16, 36, 22, 40, 18, 32, 14, 26, 10, 20, 34, 12 };
+        private readonly Random _rng = new();
+
         public VoiceRecordingPopup(ISpeechToText speechToText)
         {
             InitializeComponent();
             _speechToText = speechToText;
+            _bars = new[] { Bar1, Bar2, Bar3, Bar4, Bar5, Bar6, Bar7, Bar8, Bar9, Bar10, Bar11, Bar12, Bar13, Bar14, Bar15 };
             Opened += OnPopupOpened;
         }
 
@@ -22,6 +27,7 @@ namespace BillWise.Views.Popups
         {
             Opened -= OnPopupOpened;
             StartPulseAnimation();
+            StartWaveformAnimation();
             await StartListeningAsync();
         }
 
@@ -37,8 +43,7 @@ namespace BillWise.Views.Popups
             }
             catch (Exception ex)
             {
-                StatusLabel.Text = LocalizationResourceManager.Instance["VoiceError"];
-                TranscriptionLabel.Text = ex.Message;
+                StatusLabel.Text = ex.Message;
                 TranscriptionLabel.TextColor = Color.FromArgb("#EF4444");
             }
         }
@@ -67,7 +72,6 @@ namespace BillWise.Views.Popups
                 }
                 else if (!_isCancelled)
                 {
-                    StatusLabel.Text = LocalizationResourceManager.Instance["VoiceError"];
                     TranscriptionLabel.TextColor = Color.FromArgb("#EF4444");
                 }
             });
@@ -105,7 +109,6 @@ namespace BillWise.Views.Popups
             catch { }
         }
 
-        // Pulse animation: ring expands and fades in a loop while listening
         private void StartPulseAnimation()
         {
             _ = Task.Run(async () =>
@@ -117,12 +120,41 @@ namespace BillWise.Views.Popups
                         PulseRing.Opacity = 0.8;
                         PulseRing.Scale = 0.7;
                         await Task.WhenAll(
-                            PulseRing.ScaleTo(1.2, 800, Easing.SinOut),
+                            PulseRing.ScaleTo(1.3, 800, Easing.SinOut),
                             PulseRing.FadeTo(0, 800, Easing.SinIn)
                         );
                     });
                     await Task.Delay(200);
                 }
+            });
+        }
+
+        private void StartWaveformAnimation()
+        {
+            _ = Task.Run(async () =>
+            {
+                while (!_isCancelled)
+                {
+                    await MainThread.InvokeOnMainThreadAsync(() =>
+                    {
+                        for (int i = 0; i < _bars.Length; i++)
+                        {
+                            var bar = _bars[i];
+                            var target = (double)_rng.Next(6, 42);
+                            var from = bar.HeightRequest;
+                            bar.Animate($"bar{i}",
+                                new Animation(v => bar.HeightRequest = v, from, target),
+                                length: 300, easing: Easing.SinInOut);
+                        }
+                    });
+                    await Task.Delay(350);
+                }
+
+                await MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    for (int i = 0; i < _bars.Length; i++)
+                        _bars[i].HeightRequest = _barHeights[i];
+                });
             });
         }
     }

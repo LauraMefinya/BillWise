@@ -69,5 +69,9 @@ namespace BillWise.ViewModels
             _notificationService.MarkAllAsRead(Notifications.Select(n => n.Id));
             await LoadDataAsync();
         }
+
+        [RelayCommand]
+        public async Task GoBackAsync() =>
+            await Shell.Current.GoToAsync("..");
     }
 }

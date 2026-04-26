@@ -9,15 +9,18 @@ namespace BillWise
         private readonly Models.Services.AuthService _authService;
         private readonly Models.Services.LocalNotificationScheduler _scheduler;
         private readonly IServiceProvider _serviceProvider;
+        private readonly Models.Services.UserProfileService _userProfileService;
 
         public App(Models.Services.AuthService authService,
                    Models.Services.LocalNotificationScheduler scheduler,
-                   IServiceProvider serviceProvider)
+                   IServiceProvider serviceProvider,
+                   Models.Services.UserProfileService userProfileService)
         {
             InitializeComponent();
             _authService = authService;
             _scheduler = scheduler;
             _serviceProvider = serviceProvider;
+            _userProfileService = userProfileService;
             RestoreLanguage();
             RestoreTheme();
         }
@@ -62,29 +65,66 @@ namespace BillWise
         protected override async void OnStart()
         {
             base.OnStart();
-            await InitializeAsync();
+            try
+            {
+                await InitializeAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[App] OnStart crash: {ex}");
+                GoToLoginFallback();
+            }
         }
 
         private async Task InitializeAsync()
         {
-            // Try to restore saved session
-            var restored = await _authService.RestoreSessionAsync();
+            bool restored;
+            try { restored = await _authService.RestoreSessionAsync(); }
+            catch { restored = false; }
 
             if (restored || _authService.IsUserLoggedIn())
             {
-                // Session valid — go to main app
+                try
+                {
+                    var savedName = Preferences.Default.Get("user_name", string.Empty);
+                    if (string.IsNullOrEmpty(savedName))
+                    {
+                        var userId = _authService.GetCurrentUserId();
+                        if (!string.IsNullOrEmpty(userId))
+                        {
+                            var name = await _userProfileService.FetchNameAsync(userId);
+                            if (!string.IsNullOrEmpty(name))
+                                Preferences.Default.Set("user_name", name);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[App] Profile fetch error: {ex.Message}");
+                }
+
                 if (Windows.Count > 0)
                     Windows[0].Page = new AppShell();
 
-                // Schedule OS-level notifications in the background
                 _ = _scheduler.ScheduleAsync();
             }
             else
             {
-                // No session — go to login
+                GoToLoginFallback();
+            }
+        }
+
+        private void GoToLoginFallback()
+        {
+            try
+            {
                 var loginPage = _serviceProvider.GetService<Views.LoginPage>();
-                if (Windows.Count > 0)
+                if (Windows.Count > 0 && loginPage != null)
                     Windows[0].Page = loginPage;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[App] Login fallback error: {ex}");
             }
         }
 

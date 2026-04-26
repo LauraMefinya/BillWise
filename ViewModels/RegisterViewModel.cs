@@ -9,11 +9,13 @@ namespace BillWise.ViewModels
     {
         private readonly AuthService _authService;
         private readonly IServiceProvider _serviceProvider;
+        private readonly UserProfileService _userProfileService;
 
-        public RegisterViewModel(AuthService authService, IServiceProvider serviceProvider)
+        public RegisterViewModel(AuthService authService, IServiceProvider serviceProvider, UserProfileService userProfileService)
         {
             _authService = authService;
             _serviceProvider = serviceProvider;
+            _userProfileService = userProfileService;
             Title = "Register";
         }
 
@@ -51,6 +53,9 @@ namespace BillWise.ViewModels
             if (result.Success)
             {
                 Preferences.Default.Set("user_name", FullName.Trim());
+                var userId = _authService.GetCurrentUserId();
+                if (!string.IsNullOrEmpty(userId))
+                    await _userProfileService.UpsertAsync(userId, FullName.Trim(), Email.Trim());
                 if (Application.Current?.Windows.Count > 0)
                     Application.Current.Windows[0].Page = new AppShell();
             }

@@ -17,7 +17,20 @@
                 <!-- Blue Header Section -->
                 <Grid BackgroundColor="#3498DB" Padding="20,40,20,60">
                     <VerticalStackLayout Spacing="16">
-                        <Label Text="{Binding UserGreeting}" FontSize="26" FontAttributes="Bold" TextColor="White"/>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Grid.Column="0" Text="{Binding UserGreeting}" FontSize="26" FontAttributes="Bold" TextColor="White"/>
+                            <Grid Grid.Column="1" VerticalOptions="Start" WidthRequest="36" HeightRequest="36">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding GoToAlertsCommand}"/>
+                                </Grid.GestureRecognizers>
+                                <Label Text="🔔" FontSize="26"
+                                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <Ellipse IsVisible="{Binding HasOverdueInvoices}"
+                                         Fill="#E74C3C"
+                                         WidthRequest="8" HeightRequest="8"
+                                         HorizontalOptions="End" VerticalOptions="Start"/>
+                            </Grid>
+                        </Grid>
                         <Label Text="{Binding [ManageBills], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="14" TextColor="#E0F2FE" Margin="0,-12,0,0"/>
 
                         <Border BackgroundColor="#2980B9" StrokeThickness="0" StrokeShape="RoundRectangle 12" Padding="20" Margin="0,10,0,0">

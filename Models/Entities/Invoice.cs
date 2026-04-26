@@ -7,7 +7,7 @@ using Postgrest.Models;
 namespace BillWise.Models.Entities
 {
     public enum InvoiceStatus { Pending, Paid, Overdue }
-    public enum PaymentMethod { BankTransfer, PayPal, GooglePay }
+    public enum PaymentMethod { BankTransfer, PayPal, GooglePay, Cash, CardPayment, DirectDebit }
     public enum CategoryType { Electricity, Water, Internet, Rent, Subscription, Other }
 
     [Table("invoices")]

@@ -26,143 +26,180 @@
         </Border>
 
         <ScrollView Grid.Row="1">
-            <VerticalStackLayout Spacing="16" Padding="16,10,16,30">
+            <VerticalStackLayout Spacing="20" Padding="20,16,20,30">
 
-            <!-- Top Action Buttons -->
-            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12" Margin="0,0,0,16">
+                <!-- Top Action Buttons -->
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12" Margin="0,0,0,4">
 
-                <!-- Scan Button -->
-                <Border Grid.Column="0" Stroke="#3498DB" StrokeThickness="1"
-                        StrokeShape="RoundRectangle 12" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
-                        Padding="0,16">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ScanCommand}"/>
-                    </Border.GestureRecognizers>
-                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
-                        <Label Text="📷" FontSize="24" TextColor="#3498DB" HorizontalOptions="Center"/>
-                        <Label Text="{Binding [Scan], Source={x:Static strings:LocalizationResourceManager.Instance}}"
-                            FontSize="12" TextColor="#3498DB" HorizontalOptions="Center"/>
-                    </VerticalStackLayout>
-                </Border>
+                    <!-- Scan Button -->
+                    <Border Grid.Column="0" Stroke="#3498DB" StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
+                            Padding="0,16">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ScanCommand}"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <Label Text="📷" FontSize="24" HorizontalOptions="Center"/>
+                            <Label Text="{Binding [Scan], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                                FontSize="12" TextColor="#3498DB" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
 
-                <!-- Voice Button -->
-                <Border Grid.Column="1" StrokeThickness="1"
-                        Stroke="{Binding VoiceButtonColor}"
-                        StrokeShape="RoundRectangle 12" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
-                        Padding="0,16">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding VoiceCommand}"/>
-                    </Border.GestureRecognizers>
-                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
-                        <Label Text="🎤" FontSize="24"
-                            TextColor="{Binding VoiceButtonColor}" HorizontalOptions="Center"/>
-                        <Label Text="{Binding [Voice], Source={x:Static strings:LocalizationResourceManager.Instance}}"
-                            FontSize="12" TextColor="{Binding VoiceButtonColor}" HorizontalOptions="Center"/>
-                    </VerticalStackLayout>
-                </Border>
+                    <!-- Voice Button -->
+                    <Border Grid.Column="1" StrokeThickness="1"
+                            Stroke="{Binding VoiceButtonColor}"
+                            StrokeShape="RoundRectangle 12" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
+                            Padding="0,16">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding VoiceCommand}"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <Label Text="🎤" FontSize="24" HorizontalOptions="Center"/>
+                            <Label Text="{Binding [Voice], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                                FontSize="12" TextColor="{Binding VoiceButtonColor}" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
 
-                <!-- Location Button -->
-                <Border Grid.Column="2" Stroke="#2ECC71" StrokeThickness="1"
-                        StrokeShape="RoundRectangle 12" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
-                        Padding="0,16">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding LocationCommand}"/>
-                    </Border.GestureRecognizers>
-                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
-                        <Label Text="📍" FontSize="24" TextColor="#2ECC71" HorizontalOptions="Center"/>
-                        <Label Text="{Binding [Location], Source={x:Static strings:LocalizationResourceManager.Instance}}"
-                            FontSize="12" TextColor="#2ECC71" HorizontalOptions="Center"/>
-                    </VerticalStackLayout>
-                </Border>
+                    <!-- Location Button -->
+                    <Border Grid.Column="2" Stroke="#2ECC71" StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
+                            Padding="0,16">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LocationCommand}"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <Label Text="📍" FontSize="24" HorizontalOptions="Center"/>
+                            <Label Text="{Binding [Location], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                                FontSize="12" TextColor="#2ECC71" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
 
-            </Grid>
+                </Grid>
 
-            <!-- Invoice Name -->
-            <Border Stroke="{AppThemeBinding Light=#E0E0E0, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12"
-                    BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Padding="16,4" HeightRequest="65">
-                <VerticalStackLayout Spacing="0" VerticalOptions="Center">
-                    <Label Text="{Binding [InvoiceName], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13" TextColor="{AppThemeBinding Light=#757575, Dark=#9CA3AF}"/>
-                    <Entry Text="{Binding InvoiceName, Mode=TwoWay}" Placeholder="e.g., ENEO, CAMWATER..."
-                           PlaceholderColor="#9CA3AF" BackgroundColor="Transparent"
-                           TextColor="{AppThemeBinding Light=Black, Dark=#F9FAFB}" Margin="0,-4,0,0"/>
+                <!-- Bill Name -->
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="{Binding [InvoiceName], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                           FontSize="13" FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#374151, Dark=#9CA3AF}"/>
+                    <Border Stroke="{AppThemeBinding Light=#E0E0E0, Dark=#374151}" StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10"
+                            BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
+                            Padding="14,0" HeightRequest="52">
+                        <Entry Text="{Binding InvoiceName, Mode=TwoWay}"
+                               Placeholder="e.g., Electricity Bill"
+                               PlaceholderColor="#9CA3AF" BackgroundColor="Transparent"
+                               TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"
+                               VerticalOptions="Center"/>
+                    </Border>
                 </VerticalStackLayout>
-            </Border>
 
-            <!-- Amount -->
-            <Border Stroke="{AppThemeBinding Light=#E0E0E0, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12"
-                    BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Padding="16,4" HeightRequest="65">
-                <VerticalStackLayout Spacing="0" VerticalOptions="Center">
-                    <Label Text="{Binding [Amount], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13" TextColor="{AppThemeBinding Light=#757575, Dark=#9CA3AF}"/>
-                    <Entry Text="{Binding AmountText, Mode=TwoWay}" Placeholder="e.g., 25000" Keyboard="Numeric"
-                           PlaceholderColor="#9CA3AF" BackgroundColor="Transparent"
-                           TextColor="{AppThemeBinding Light=Black, Dark=#F9FAFB}" Margin="0,-4,0,0"/>
+                <!-- Amount -->
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="{Binding [Amount], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                           FontSize="13" FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#374151, Dark=#9CA3AF}"/>
+                    <Border Stroke="{AppThemeBinding Light=#E0E0E0, Dark=#374151}" StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10"
+                            BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
+                            Padding="14,0" HeightRequest="52">
+                        <Entry Text="{Binding AmountText, Mode=TwoWay}"
+                               Placeholder="£0.00" Keyboard="Numeric"
+                               PlaceholderColor="#9CA3AF" BackgroundColor="Transparent"
+                               TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"
+                               VerticalOptions="Center"/>
+                    </Border>
                 </VerticalStackLayout>
-            </Border>
 
-            <!-- Due Date -->
-            <Border Stroke="{AppThemeBinding Light=#E0E0E0, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12"
-                    BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Padding="16,12">
-                <VerticalStackLayout Spacing="4">
-                    <Label Text="{Binding [DueDate], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13" TextColor="{AppThemeBinding Light=#757575, Dark=#9CA3AF}"/>
-                    <Grid>
-                        <DatePicker Date="{Binding DueDate}" TextColor="Transparent" BackgroundColor="Transparent" DateSelected="OnDateSelected"/>
-                        <Label Text="{Binding DueDateText}" TextColor="{Binding DueDateColor}" VerticalOptions="Center" InputTransparent="True"/>
-                        <Label Text="📅" HorizontalOptions="End" VerticalOptions="Center" FontSize="16" InputTransparent="True"/>
-                    </Grid>
+                <!-- Due Date -->
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="{Binding [DueDate], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                           FontSize="13" FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#374151, Dark=#9CA3AF}"/>
+                    <Border Stroke="{AppThemeBinding Light=#E0E0E0, Dark=#374151}" StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10"
+                            BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
+                            Padding="14,0" HeightRequest="52">
+                        <Grid>
+                            <DatePicker Date="{Binding DueDate}" TextColor="Transparent" BackgroundColor="Transparent" DateSelected="OnDateSelected"/>
+                            <Label Text="{Binding DueDateText}" TextColor="{Binding DueDateColor}" VerticalOptions="Center" InputTransparent="True"/>
+                            <Label Text="📅" HorizontalOptions="End" VerticalOptions="Center" FontSize="16" InputTransparent="True" Margin="0,0,4,0"/>
+                        </Grid>
+                    </Border>
                 </VerticalStackLayout>
-            </Border>
 
-            <!-- Category -->
-            <Border Stroke="{AppThemeBinding Light=#E0E0E0, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12"
-                    BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Padding="16,12">
-                <VerticalStackLayout Spacing="4">
-                    <Label Text="{Binding [Category], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13" TextColor="{AppThemeBinding Light=#757575, Dark=#9CA3AF}"/>
-                    <Border Stroke="{AppThemeBinding Light=#E0E0E0, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 8"
-                            BackgroundColor="{AppThemeBinding Light=#F9FAFB, Dark=#252836}" Padding="12,10">
+                <!-- Category -->
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="{Binding [Category], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                           FontSize="13" FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#374151, Dark=#9CA3AF}"/>
+                    <Border Stroke="{AppThemeBinding Light=#E0E0E0, Dark=#374151}" StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10"
+                            BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
+                            Padding="14,0" HeightRequest="52">
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OpenCategoryPickerCommand}"/>
                         </Border.GestureRecognizers>
-                        <Grid ColumnDefinitions="*,Auto">
+                        <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
                             <Label Grid.Column="0" Text="{Binding SelectedCategoryLabel}"
-                                   TextColor="{AppThemeBinding Light=Black, Dark=#F9FAFB}" VerticalOptions="Center" FontSize="14"/>
+                                   TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"
+                                   VerticalOptions="Center" FontSize="14"/>
                             <Label Grid.Column="1" Text="›" FontSize="22" TextColor="#9CA3AF" VerticalOptions="Center"/>
                         </Grid>
                     </Border>
                 </VerticalStackLayout>
-            </Border>
 
-            <!-- Payment Method -->
-            <Border Stroke="{AppThemeBinding Light=#E0E0E0, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12"
-                    BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Padding="16,12">
-                <VerticalStackLayout Spacing="4">
-                    <Label Text="{Binding [PaymentMethod], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13" TextColor="{AppThemeBinding Light=#757575, Dark=#9CA3AF}"/>
-                    <Picker SelectedItem="{Binding PaymentMethod}" Title="{Binding [SelectMethod], Source={x:Static strings:LocalizationResourceManager.Instance}}" TitleColor="#9CA3AF" BackgroundColor="Transparent" TextColor="{AppThemeBinding Light=Black, Dark=#F9FAFB}">
-                        <Picker.Items>
-                            <x:String>Bank Transfer</x:String>
-                            <x:String>PayPal</x:String>
-                            <x:String>Google Pay</x:String>
-                        </Picker.Items>
-                    </Picker>
+                <!-- Payment Method -->
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="{Binding [PaymentMethod], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                           FontSize="13" FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#374151, Dark=#9CA3AF}"/>
+                    <Border Stroke="{AppThemeBinding Light=#E0E0E0, Dark=#374151}" StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10"
+                            BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
+                            Padding="14,0" HeightRequest="52">
+                        <Picker SelectedItem="{Binding PaymentMethod}"
+                                Title="{Binding [SelectMethod], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                                TitleColor="#9CA3AF" BackgroundColor="Transparent"
+                                TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"
+                                VerticalOptions="Center">
+                            <Picker.Items>
+                                <x:String>Bank Transfer</x:String>
+                                <x:String>PayPal</x:String>
+                                <x:String>Google Pay</x:String>
+                                <x:String>Cash</x:String>
+                                <x:String>Card Payment</x:String>
+                                <x:String>Direct Debit</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Border>
                 </VerticalStackLayout>
-            </Border>
 
-            <!-- Notes -->
-            <Border Stroke="{AppThemeBinding Light=#E0E0E0, Dark=#374151}" StrokeThickness="1" StrokeShape="RoundRectangle 12"
-                    BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Padding="16,12">
-                <VerticalStackLayout Spacing="4">
-                    <Label Text="{Binding [Notes], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13" TextColor="{AppThemeBinding Light=#757575, Dark=#9CA3AF}"/>
-                    <Editor Text="{Binding Notes}" Placeholder="{Binding [AddNotes], Source={x:Static strings:LocalizationResourceManager.Instance}}" PlaceholderColor="#9CA3AF" HeightRequest="80"
-                            BackgroundColor="Transparent" AutoSize="TextChanges" TextColor="{AppThemeBinding Light=Black, Dark=#F9FAFB}"/>
+                <!-- Notes -->
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="{Binding [Notes], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                           FontSize="13" FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#374151, Dark=#9CA3AF}"/>
+                    <Border Stroke="{AppThemeBinding Light=#E0E0E0, Dark=#374151}" StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10"
+                            BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
+                            Padding="14,10" MinimumHeightRequest="90">
+                        <Editor Text="{Binding Notes}"
+                                Placeholder="{Binding [AddNotes], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                                PlaceholderColor="#9CA3AF"
+                                BackgroundColor="Transparent"
+                                AutoSize="TextChanges"
+                                TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"/>
+                    </Border>
                 </VerticalStackLayout>
-            </Border>
 
-            <!-- Save Button -->
-            <Button Text="{Binding [SaveInvoice], Source={x:Static strings:LocalizationResourceManager.Instance}}" Command="{Binding SaveInvoiceCommand}"
-                    BackgroundColor="#3498DB" TextColor="White"
-                    CornerRadius="8" HeightRequest="50" FontAttributes="Bold"
-                    Margin="0,10,0,0"/>
+                <!-- Save Button -->
+                <Button Text="{Binding [SaveInvoice], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                        Command="{Binding SaveInvoiceCommand}"
+                        BackgroundColor="#3498DB" TextColor="White"
+                        CornerRadius="12" HeightRequest="54" FontAttributes="Bold"
+                        FontSize="16" Margin="0,8,0,0"/>
 
-        </VerticalStackLayout>
-    </ScrollView>
+            </VerticalStackLayout>
+        </ScrollView>
     </Grid>
 </ContentPage>

@@ -18,6 +18,38 @@ namespace BillWise
         {
             var builder = MauiApp.CreateBuilder();
 
+            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("NoUnderline", (handler, _) =>
+            {
+#if ANDROID
+                handler.PlatformView.BackgroundTintList =
+                    Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+#endif
+            });
+
+            Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping("NoUnderline", (handler, _) =>
+            {
+#if ANDROID
+                handler.PlatformView.BackgroundTintList =
+                    Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+#endif
+            });
+
+            Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping("NoUnderline", (handler, _) =>
+            {
+#if ANDROID
+                handler.PlatformView.BackgroundTintList =
+                    Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+#endif
+            });
+
+            Microsoft.Maui.Handlers.DatePickerHandler.Mapper.AppendToMapping("NoUnderline", (handler, _) =>
+            {
+#if ANDROID
+                handler.PlatformView.BackgroundTintList =
+                    Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+#endif
+            });
+
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
@@ -42,6 +74,7 @@ namespace BillWise
             builder.Services.AddSingleton(OcrPlugin.Default);
             builder.Services.AddSingleton<SessionService>();
             builder.Services.AddSingleton<AuthService>();
+            builder.Services.AddSingleton<UserProfileService>();
             builder.Services.AddSingleton<InvoiceService>();
             builder.Services.AddSingleton<NotificationService>();
             builder.Services.AddSingleton<LocalNotificationScheduler>();

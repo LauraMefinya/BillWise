@@ -88,6 +88,12 @@ namespace BillWise.ViewModels
         }
 
         [RelayCommand]
+        public async Task GoToAlertsAsync()
+        {
+            await Shell.Current.GoToAsync(nameof(Views.AlertsPage));
+        }
+
+        [RelayCommand]
         public async Task LoadDataAsync()
         {
             if (IsBusy) return;

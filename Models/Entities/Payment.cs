@@ -35,9 +35,12 @@ namespace BillWise.Models.Entities
         [JsonIgnore]
         public string MethodLabel => Method switch
         {
-            PaymentMethod.PayPal    => "PayPal",
-            PaymentMethod.GooglePay => "Google Pay",
-            _                       => "Bank Transfer"
+            PaymentMethod.PayPal      => "PayPal",
+            PaymentMethod.GooglePay   => "Google Pay",
+            PaymentMethod.Cash        => "Cash",
+            PaymentMethod.CardPayment => "Card Payment",
+            PaymentMethod.DirectDebit => "Direct Debit",
+            _                         => "Bank Transfer"
         };
     }
 }

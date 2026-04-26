@@ -154,6 +154,9 @@
   <data name="TabAlerts" xml:space="preserve">
     <value>Alertes</value>
   </data>
+  <data name="TabAdd" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
   <data name="ToPay" xml:space="preserve">
     <value>À Payer</value>
   </data>
@@ -354,6 +357,15 @@
   </data>
   <data name="PaymentGooglePay" xml:space="preserve">
     <value>Google Pay</value>
+  </data>
+  <data name="PaymentCash" xml:space="preserve">
+    <value>Espèces</value>
+  </data>
+  <data name="PaymentCardPayment" xml:space="preserve">
+    <value>Paiement par carte</value>
+  </data>
+  <data name="PaymentDirectDebit" xml:space="preserve">
+    <value>Prélèvement automatique</value>
   </data>
   <data name="SettingsSaved" xml:space="preserve">
     <value>Paramètres enregistrés.</value>

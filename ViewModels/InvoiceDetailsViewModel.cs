@@ -107,10 +107,13 @@ namespace BillWise.ViewModels
             var optBank   = L["PaymentBankTransfer"];
             var optPayPal = L["PaymentPayPal"];
             var optGoogle = L["PaymentGooglePay"];
+            var optCash   = L["PaymentCash"];
+            var optCard   = L["PaymentCardPayment"];
+            var optDebit  = L["PaymentDirectDebit"];
 
             string action = await Shell.Current.DisplayActionSheetAsync(
                 L["SelectPaymentMethodTitle"], L["Cancel"], null,
-                optBank, optPayPal, optGoogle);
+                optBank, optPayPal, optGoogle, optCash, optCard, optDebit);
 
             if (string.IsNullOrEmpty(action) || action == L["Cancel"]) return;
 
@@ -118,6 +121,9 @@ namespace BillWise.ViewModels
             if (action == optBank)        method = PaymentMethod.BankTransfer;
             else if (action == optPayPal) method = PaymentMethod.PayPal;
             else if (action == optGoogle) method = PaymentMethod.GooglePay;
+            else if (action == optCash)   method = PaymentMethod.Cash;
+            else if (action == optCard)   method = PaymentMethod.CardPayment;
+            else if (action == optDebit)  method = PaymentMethod.DirectDebit;
             else return;
 
             Invoice.MarkAsPaid(method);

@@ -15,18 +15,21 @@ namespace BillWise.ViewModels
         private readonly Models.Services.PdfExportService _pdfExportService;
         private readonly Models.Services.InvoiceService _invoiceService;
         private readonly Models.Services.LocalNotificationScheduler _scheduler;
+        private readonly Models.Services.UserProfileService _userProfileService;
 
         public ProfileViewModel(Models.Services.AuthService authService,
                                 InvoiceProvider invoiceProvider,
                                 Models.Services.PdfExportService pdfExportService,
                                 Models.Services.InvoiceService invoiceService,
-                                Models.Services.LocalNotificationScheduler scheduler)
+                                Models.Services.LocalNotificationScheduler scheduler,
+                                Models.Services.UserProfileService userProfileService)
         {
             _authService = authService;
             _invoiceProvider = invoiceProvider;
             _pdfExportService = pdfExportService;
             _invoiceService = invoiceService;
             _scheduler = scheduler;
+            _userProfileService = userProfileService;
             Title = "Profile";
             LoadSettings();
             LoadUserData();
@@ -106,6 +109,7 @@ namespace BillWise.ViewModels
         {
             var L = LocalizationResourceManager.Instance;
 
+            Preferences.Default.Set("user_name", UserName.Trim());
             Preferences.Default.Set("currency", SelectedCurrency);
             Preferences.Default.Set("language", SelectedLanguage);
             Preferences.Default.Set("notif_enabled", NotificationsEnabled);
@@ -127,6 +131,10 @@ namespace BillWise.ViewModels
 
             // Reprogramme (ou annule) les notifications selon le nouveau réglage
             _ = _scheduler.ScheduleAsync();
+
+            var userId = _authService.GetCurrentUserId();
+            if (!string.IsNullOrEmpty(userId))
+                await _userProfileService.UpsertAsync(userId, UserName.Trim(), UserEmail.Trim());
 
             await Shell.Current.DisplayAlertAsync(L["SuccessTitle"], L["SettingsSaved"], "OK");
             await Shell.Current.GoToAsync("..");
