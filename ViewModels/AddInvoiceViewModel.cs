@@ -19,6 +19,7 @@ namespace BillWise.ViewModels
         private readonly InvoiceService _invoiceService;
         private readonly IOcrService _ocrService;
         private readonly ISpeechToText _speechToText;
+        private string _customCategoryIcon = "📄";
 
         public AddInvoiceViewModel(InvoiceService invoiceService, IOcrService ocrService, ISpeechToText speechToText)
         {
@@ -300,8 +301,11 @@ namespace BillWise.ViewModels
                 { L["Subscription"], CategoryType.Subscription },
             };
 
+            // Map display label → CustomCategory for quick lookup
+            var customMap = custom.ToDictionary(c => $"{c.Icon} {c.Name}");
+
             var options = builtInMap.Keys.ToList();
-            options.AddRange(custom);
+            options.AddRange(customMap.Keys);
             options.Add(otherLabel);
             options.Add(addNewLabel);
 
@@ -314,17 +318,25 @@ namespace BillWise.ViewModels
             {
                 SelectedCategory = cat;
                 CustomCategoryName = string.Empty;
+                _customCategoryIcon = "📄";
                 return;
             }
 
             if (choice == addNewLabel)
             {
+                // 1. Pick icon
+                var iconResult = await Shell.Current.ShowPopupAsync(new IconPickerPopup(), new PopupOptions());
+                var icon = iconResult is IPopupResult<string> r && !string.IsNullOrEmpty(r.Result)
+                    ? r.Result : "📄";
+
+                // 2. Enter name
                 var name = await Shell.Current.DisplayPromptAsync(
                     L["AddNewCategory"], L["EnterCategoryName"],
                     L["Save"], L["Cancel"], maxLength: 30);
                 if (string.IsNullOrWhiteSpace(name)) return;
                 name = name.Trim();
-                CategoryService.SaveCustomCategory(name);
+                CategoryService.SaveCustomCategory(name, icon);
+                _customCategoryIcon = icon;
                 SelectedCategory = CategoryType.Other;
                 CustomCategoryName = name;
                 return;
@@ -336,13 +348,18 @@ namespace BillWise.ViewModels
                     L["Other"], L["EnterCategoryName"],
                     "OK", L["Cancel"], maxLength: 30);
                 SelectedCategory = CategoryType.Other;
+                _customCategoryIcon = "📄";
                 CustomCategoryName = string.IsNullOrWhiteSpace(name) ? string.Empty : name.Trim();
                 return;
             }
 
             // Saved custom category selected
-            SelectedCategory = CategoryType.Other;
-            CustomCategoryName = choice;
+            if (customMap.TryGetValue(choice, out var saved))
+            {
+                SelectedCategory = CategoryType.Other;
+                CustomCategoryName = saved.Name;
+                _customCategoryIcon = saved.Icon;
+            }
         }
 
         [RelayCommand]
@@ -374,6 +391,12 @@ namespace BillWise.ViewModels
             {
                 IsBusy = true;
 
+                // Encode custom category name + icon invisibly in Notes
+                const char sep = '';
+                var encodedNotes = !string.IsNullOrEmpty(CustomCategoryName)
+                    ? $"{sep}{CustomCategoryName}{sep}{_customCategoryIcon}{sep}{Notes}"
+                    : Notes;
+
                 var invoice = new Invoice
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -381,7 +404,7 @@ namespace BillWise.ViewModels
                     Amount = amount,
                     DueDate = DueDate,
                     Category = SelectedCategory,
-                    Notes = Notes,
+                    Notes = encodedNotes,
                     PaymentMethod = Enum.TryParse<Models.Entities.PaymentMethod>(
                         PaymentMethod?.Replace(" ", ""), true, out var pm)
                         ? pm : Models.Entities.PaymentMethod.BankTransfer,

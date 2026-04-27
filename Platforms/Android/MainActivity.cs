@@ -1,5 +1,7 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Content.PM;
+using Android.Content.Res;
 using Android.OS;
 using Android.Views;
 using AndroidX.Core.View;
@@ -20,6 +22,17 @@ namespace BillWise
     )]
     public class MainActivity : MauiAppCompatActivity
     {
+        protected override void AttachBaseContext(Context? @base)
+        {
+            var lang = Microsoft.Maui.Storage.Preferences.Default.Get("language", "en");
+            var locale = new Java.Util.Locale(lang);
+            Java.Util.Locale.Default = locale;
+            var config = new Configuration();
+            config.SetLocale(locale);
+            var ctx = @base?.CreateConfigurationContext(config);
+            base.AttachBaseContext(ctx ?? @base);
+        }
+
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

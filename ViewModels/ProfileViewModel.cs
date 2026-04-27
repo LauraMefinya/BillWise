@@ -257,12 +257,15 @@ namespace BillWise.ViewModels
                 return;
             }
 
+            var labels = custom.Select(c => $"{c.Icon} {c.Name}").ToArray();
             string? choice = await Shell.Current.DisplayActionSheetAsync(
-                L["RemoveCategoryTitle"], L["Cancel"], null, custom.ToArray());
+                L["RemoveCategoryTitle"], L["Cancel"], null, labels);
 
             if (string.IsNullOrEmpty(choice) || choice == L["Cancel"]) return;
 
-            CategoryService.RemoveCustomCategory(choice);
+            // Extract the name part after the icon prefix
+            var name = choice.Contains(' ') ? choice[(choice.IndexOf(' ') + 1)..] : choice;
+            CategoryService.RemoveCustomCategory(name);
         }
 
         [RelayCommand]

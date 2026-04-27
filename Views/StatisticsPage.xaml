@@ -29,7 +29,7 @@
                     <VerticalStackLayout Spacing="8">
                         <Border BackgroundColor="#E0F2FE" StrokeThickness="0"
                                 StrokeShape="RoundRectangle 8" Padding="8" HorizontalOptions="Start">
-                            <Label Text="💲" FontSize="16"/>
+                            <Label Text="💰" FontSize="16"/>
                         </Border>
                         <Label Text="{Binding [TotalAmount], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                                FontSize="12" TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}"/>

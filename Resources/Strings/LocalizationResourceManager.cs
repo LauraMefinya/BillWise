@@ -36,6 +36,23 @@ namespace BillWise.Resources.Strings
             CultureInfo.DefaultThreadCurrentUICulture = culture;
             CultureInfo.DefaultThreadCurrentCulture = culture;
 
+#if ANDROID
+            try
+            {
+                var locale = new Java.Util.Locale(culture.TwoLetterISOLanguageName);
+                Java.Util.Locale.Default = locale;
+                var activity = Microsoft.Maui.ApplicationModel.Platform.CurrentActivity;
+                if (activity?.Resources?.Configuration is { } config)
+                {
+                    config.SetLocale(locale);
+#pragma warning disable CA1422
+                    activity.Resources.UpdateConfiguration(config, activity.Resources.DisplayMetrics);
+#pragma warning restore CA1422
+                }
+            }
+            catch { }
+#endif
+
             // Notify all bindings to refresh (null = all properties, Item[] = all indexer bindings)
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item[]"));

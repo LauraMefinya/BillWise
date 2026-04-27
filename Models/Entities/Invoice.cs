@@ -82,16 +82,44 @@ namespace BillWise.Models.Entities
             _                     => "#92400E"
         };
 
-        [JsonIgnore]
-        public string CategoryIcon => Category switch
+        //  is a Private Use Area character — invisible to users, used as separator
+        private const char _sep = '';
+
+        private (string Name, string Icon) GetCustomCategoryInfo()
         {
-            CategoryType.Electricity  => "⚡",
-            CategoryType.Water        => "💧",
-            CategoryType.Internet     => "🌐",
-            CategoryType.Rent         => "🏠",
-            CategoryType.Subscription => "📺",
-            _                         => "📄"
-        };
+            if (string.IsNullOrEmpty(Notes) || Notes[0] != _sep) return (string.Empty, string.Empty);
+            var parts = Notes.Split(_sep, 4);
+            if (parts.Length >= 3) return (parts[1], parts[2]);
+            return (string.Empty, string.Empty);
+        }
+
+        [JsonIgnore]
+        public string UserNotes
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Notes) || Notes[0] != _sep) return Notes ?? string.Empty;
+                var parts = Notes.Split(_sep, 4);
+                return parts.Length >= 4 ? parts[3] : string.Empty;
+            }
+        }
+
+        [JsonIgnore]
+        public string CategoryIcon
+        {
+            get
+            {
+                return Category switch
+                {
+                    CategoryType.Electricity  => "⚡",
+                    CategoryType.Water        => "💧",
+                    CategoryType.Internet     => "🌐",
+                    CategoryType.Rent         => "🏠",
+                    CategoryType.Subscription => "📺",
+                    _ => GetCustomCategoryInfo().Icon is { Length: > 0 } icon ? icon : "📄"
+                };
+            }
+        }
 
         [JsonIgnore]
         public string CategoryIconBackgroundColor => Category switch
@@ -105,15 +133,23 @@ namespace BillWise.Models.Entities
         };
 
         [JsonIgnore]
-        public string CategoryText => Category switch
+        public string CategoryText
         {
-            CategoryType.Electricity  => LocalizationResourceManager.Instance["Electricity"],
-            CategoryType.Water        => LocalizationResourceManager.Instance["Water"],
-            CategoryType.Internet     => LocalizationResourceManager.Instance["Internet"],
-            CategoryType.Rent         => LocalizationResourceManager.Instance["Rent"],
-            CategoryType.Subscription => LocalizationResourceManager.Instance["Subscription"],
-            _                         => LocalizationResourceManager.Instance["Other"]
-        };
+            get
+            {
+                return Category switch
+                {
+                    CategoryType.Electricity  => LocalizationResourceManager.Instance["Electricity"],
+                    CategoryType.Water        => LocalizationResourceManager.Instance["Water"],
+                    CategoryType.Internet     => LocalizationResourceManager.Instance["Internet"],
+                    CategoryType.Rent         => LocalizationResourceManager.Instance["Rent"],
+                    CategoryType.Subscription => LocalizationResourceManager.Instance["Subscription"],
+                    _ => GetCustomCategoryInfo().Name is { Length: > 0 } name
+                            ? name
+                            : LocalizationResourceManager.Instance["Other"]
+                };
+            }
+        }
 
         [JsonIgnore]
         public string PaymentMethodText => PaymentMethod switch
