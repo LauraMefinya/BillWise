@@ -156,6 +156,10 @@ namespace BillWise.ViewModels
         public override void Receive(CurrencyChangedMessage message)
         {
             base.Receive(message);
+            OnPropertyChanged(nameof(FormattedTotalAmount));
+            OnPropertyChanged(nameof(FormattedThisMonthAmount));
+            OnPropertyChanged(nameof(FormattedPaidAmount));
+            OnPropertyChanged(nameof(FormattedToPayAmount));
             if (!IsBusy)
                 LoadDataCommand.Execute(null);
         }
