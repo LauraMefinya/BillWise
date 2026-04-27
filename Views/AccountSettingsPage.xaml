@@ -3,14 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:BillWise.ViewModels"
              xmlns:strings="clr-namespace:BillWise.Resources.Strings"
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="False"
              x:Class="BillWise.Views.AccountSettingsPage"
              x:DataType="vm:ProfileViewModel"
-             Title="{Binding [AccountSettings], Source={x:Static strings:LocalizationResourceManager.Instance}}"
-             BackgroundColor="{AppThemeBinding Light=#F3F4F6, Dark=#121212}">
+             BackgroundColor="{AppThemeBinding Light=#FAFAFA, Dark=#121212}">
 
     <ScrollView>
-        <VerticalStackLayout Spacing="16" Padding="16,20,16,40">
+        <VerticalStackLayout Spacing="20" Padding="16,0,16,40">
 
+            <!-- Header -->
+            <VerticalStackLayout Spacing="4" Padding="0,1,0,0">
+                <Button Text="‹ Back"
+                        Clicked="OnBackClicked"
+                        BackgroundColor="Transparent"
+                        TextColor="#3498DB"
+                        FontSize="16"
+                        HorizontalOptions="Start"
+                        Padding="0"
+                        Margin="-4,0,0,0"/>
+                <Label Text="{Binding [AccountSettings], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                       FontSize="26" FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"/>
+            </VerticalStackLayout>
+
+            <!-- Settings Card -->
             <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
                     Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}"
                     StrokeThickness="1"

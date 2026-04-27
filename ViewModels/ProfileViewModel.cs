@@ -57,6 +57,8 @@ namespace BillWise.ViewModels
             UserName = !string.IsNullOrEmpty(savedName)
                 ? savedName
                 : (!string.IsNullOrEmpty(email) ? email.Split('@')[0] : "User");
+            var savedPhoto = Preferences.Default.Get("profile_photo_path", string.Empty);
+            ProfilePhotoPath = string.IsNullOrEmpty(savedPhoto) ? null : savedPhoto;
             await RefreshStatsAsync();
         }
 
@@ -71,6 +73,19 @@ namespace BillWise.ViewModels
 
         [ObservableProperty] private string _userName = "User";
         [ObservableProperty] private string _userEmail = "user@example.com";
+        [ObservableProperty] private string? _profilePhotoPath;
+
+        public bool HasProfilePhoto => !string.IsNullOrEmpty(ProfilePhotoPath);
+        public bool HasNoProfilePhoto => string.IsNullOrEmpty(ProfilePhotoPath);
+        public ImageSource? ProfilePhoto =>
+            string.IsNullOrEmpty(ProfilePhotoPath) ? null : ImageSource.FromFile(ProfilePhotoPath);
+
+        partial void OnProfilePhotoPathChanged(string? value)
+        {
+            OnPropertyChanged(nameof(HasProfilePhoto));
+            OnPropertyChanged(nameof(HasNoProfilePhoto));
+            OnPropertyChanged(nameof(ProfilePhoto));
+        }
         [ObservableProperty] private int _totalInvoices;
         [ObservableProperty] private int _paidInvoices;
         [ObservableProperty] private int _pendingInvoices;
@@ -139,6 +154,47 @@ namespace BillWise.ViewModels
             ShakeToAddEnabled = Preferences.Default.Get("shake_to_add", true);
             DarkModeEnabled = Preferences.Default.Get("dark_mode", false);
             _isLoading = false;
+        }
+
+        [RelayCommand]
+        public async Task PickProfilePhotoAsync()
+        {
+            var L = LocalizationResourceManager.Instance;
+            string? choice = await Shell.Current.DisplayActionSheetAsync(
+                null, L["Cancel"], null, "📷 Take Photo", "🖼 Choose from Library");
+
+            if (string.IsNullOrEmpty(choice) || choice == L["Cancel"]) return;
+
+            try
+            {
+                FileResult? photo = choice.Contains("Take Photo")
+                    ? await MediaPicker.Default.CapturePhotoAsync()
+                    : await MediaPicker.Default.PickPhotoAsync();
+
+                if (photo == null) return;
+
+                // Delete old file to avoid cache issues
+                var oldPath = Preferences.Default.Get("profile_photo_path", string.Empty);
+                if (!string.IsNullOrEmpty(oldPath) && File.Exists(oldPath))
+                    File.Delete(oldPath);
+
+                // Unique filename so the binding always sees a new value
+                var localPath = Path.Combine(
+                    FileSystem.AppDataDirectory,
+                    $"profile_{DateTime.Now.Ticks}.jpg");
+
+                using var src = await photo.OpenReadAsync();
+                using var dst = File.Create(localPath);
+                await src.CopyToAsync(dst);
+
+                ProfilePhotoPath = null; // force binding reset
+                ProfilePhotoPath = localPath;
+                Preferences.Default.Set("profile_photo_path", localPath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ProfileVM] Photo error: {ex.Message}");
+            }
         }
 
         [RelayCommand]

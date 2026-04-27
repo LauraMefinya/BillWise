@@ -12,9 +12,10 @@
         <VerticalStackLayout Spacing="0">
 
             <!-- Blue Header -->
-            <Grid BackgroundColor="#3498DB" Padding="20,48,20,28">
+            <Grid BackgroundColor="#3498DB" Padding="20,48,20,24">
+                <!-- Pencil top-right -->
                 <Button Text="✏️"
-                        Command="{Binding GoToEditProfileCommand}"
+                        Command="{Binding PickProfilePhotoCommand}"
                         BackgroundColor="Transparent"
                         TextColor="White"
                         FontSize="18"
@@ -23,25 +24,32 @@
                         WidthRequest="44" HeightRequest="44"
                         Padding="0"
                         Margin="0,-4,-4,0"/>
-                <VerticalStackLayout HorizontalOptions="Center" Spacing="6" Margin="0,0,0,0">
-                    <Border StrokeShape="RoundRectangle 45"
-                            WidthRequest="90" HeightRequest="90"
+
+                <!-- Horizontal: photo + name/email -->
+                <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
+                    <Border StrokeShape="RoundRectangle 40"
+                            WidthRequest="75" HeightRequest="75"
                             BackgroundColor="#2980B9"
-                            Stroke="White" StrokeThickness="2.5"
-                            HorizontalOptions="Center">
-                        <Label Text="👤" FontSize="42"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
+                            Stroke="White" StrokeThickness="2.5">
+                        <Grid>
+                            <Label Text="👤" FontSize="36"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   IsVisible="{Binding HasNoProfilePhoto}"/>
+                            <Image Source="{Binding ProfilePhoto}"
+                                   Aspect="AspectFill"
+                                   IsVisible="{Binding HasProfilePhoto}"/>
+                        </Grid>
                     </Border>
-                    <Label Text="{Binding UserName}"
-                           TextColor="White" FontSize="20"
-                           FontAttributes="Bold"
-                           HorizontalOptions="Center"/>
-                    <Label Text="{Binding UserEmail}"
-                           TextColor="White" FontSize="13"
-                           Opacity="0.85"
-                           HorizontalOptions="Center"/>
-                </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                        <Label Text="{Binding UserName}"
+                               TextColor="White" FontSize="20"
+                               FontAttributes="Bold"/>
+                        <Label Text="{Binding UserEmail}"
+                               TextColor="White" FontSize="13"
+                               Opacity="0.85"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
             </Grid>
 
             <VerticalStackLayout Spacing="16" Padding="16,20,16,64">

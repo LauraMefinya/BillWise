@@ -15,6 +15,9 @@ namespace BillWise.Views.Popups
         private readonly double[] _barHeights = { 10, 20, 30, 16, 36, 22, 40, 18, 32, 14, 26, 10, 20, 34, 12 };
         private readonly Random _rng = new();
 
+        // 0.0 = silence, 1.0 = full speech — decays naturally between events
+        private double _speechLevel = 0.0;
+
         public VoiceRecordingPopup(ISpeechToText speechToText)
         {
             InitializeComponent();
@@ -50,6 +53,7 @@ namespace BillWise.Views.Popups
 
         private void OnPartialResult(object? sender, SpeechToTextRecognitionResultUpdatedEventArgs e)
         {
+            _speechLevel = 1.0; // speech detected — spike the bars
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 _currentText = e.RecognitionResult;
@@ -135,19 +139,26 @@ namespace BillWise.Views.Popups
             {
                 while (!_isCancelled)
                 {
+                    // Decay speech level toward silence each frame (~2s to fully settle)
+                    _speechLevel = Math.Max(0.0, _speechLevel - 0.12);
+
+                    var level = _speechLevel;
                     await MainThread.InvokeOnMainThreadAsync(() =>
                     {
                         for (int i = 0; i < _bars.Length; i++)
                         {
                             var bar = _bars[i];
-                            var target = (double)_rng.Next(6, 42);
+                            // Silence: 3–8 px  |  Full speech: 6–42 px
+                            double minH = 3.0 + level * 5.0;
+                            double maxH = 8.0 + level * 34.0;
+                            var target = minH + _rng.NextDouble() * (maxH - minH);
                             var from = bar.HeightRequest;
                             bar.Animate($"bar{i}",
                                 new Animation(v => bar.HeightRequest = v, from, target),
-                                length: 300, easing: Easing.SinInOut);
+                                length: 200, easing: Easing.SinInOut);
                         }
                     });
-                    await Task.Delay(350);
+                    await Task.Delay(250);
                 }
 
                 await MainThread.InvokeOnMainThreadAsync(() =>
