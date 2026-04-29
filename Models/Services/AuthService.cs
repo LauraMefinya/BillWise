@@ -105,6 +105,26 @@ namespace BillWise.Models.Services
             }
         }
 
+        public async Task<(bool Success, string ErrorMessage)> DeleteAccountAsync()
+        {
+            try
+            {
+                if (_client.Auth.CurrentSession == null)
+                    return (false, "No active session.");
+
+                // Calls the SECURITY DEFINER PostgreSQL function that deletes
+                // only the currently authenticated user (via auth.uid())
+                await _client.Rpc("delete_current_user", null);
+
+                _sessionService.ClearSession();
+                return (true, string.Empty);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+            }
+        }
+
         public async Task<(bool Success, string ErrorMessage)> ForgotPasswordAsync(string email)
         {
             try

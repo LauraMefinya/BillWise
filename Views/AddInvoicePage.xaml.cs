@@ -10,12 +10,17 @@ namespace BillWise.Views
             BindingContext = viewModel;
         }
 
+        private void OnDateFieldTapped(object sender, TappedEventArgs e)
+        {
+            if (BindingContext is AddInvoiceViewModel vm)
+                vm.IsDateSelected = true;
+            DatePickerControl.Focus();
+        }
+
         private void OnDateSelected(object sender, DateChangedEventArgs e)
         {
             if (BindingContext is AddInvoiceViewModel vm)
-            {
                 vm.IsDateSelected = true;
-            }
         }
     }
 }

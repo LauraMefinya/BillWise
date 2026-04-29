@@ -116,30 +116,44 @@ namespace BillWise.ViewModels
                     };
                 }
 
-                var categories = await _invoiceService.GetExpensesByCategoryAsync();
+                var categories = await _invoiceService.GetExpensesByDisplayCategoryAsync();
                 PieSeries.Clear();
                 CategoryStats.Clear();
 
-                var total = categories.Values.Sum();
+                var total = categories.Sum(c => c.Amount);
+
+                var customColors = new[]
+                {
+                    SKColors.Teal, SKColors.Coral, SKColors.Gold, SKColors.Orchid,
+                    SKColors.SteelBlue, SKColors.OliveDrab, SKColors.Salmon, SKColors.SlateBlue
+                };
+                int customIdx = 0;
 
                 foreach (var cat in categories)
                 {
-                    var color = GetCategoryColor(cat.Key);
+                    var color = cat.IsCustom
+                        ? customColors[customIdx++ % customColors.Length]
+                        : GetCategoryColor(cat.Name);
+
+                    var displayName = cat.IsCustom
+                        ? (string.IsNullOrEmpty(cat.Icon) ? cat.Name : $"{cat.Icon} {cat.Name}")
+                        : LocalizationResourceManager.Instance[cat.Name];
+
                     PieSeries.Add(new PieSeries<double>
                     {
-                        Values = new double[] { (double)CurrencyService.Convert(cat.Value) },
-                        Name = cat.Key.ToString(),
+                        Values = new double[] { (double)CurrencyService.Convert(cat.Amount) },
+                        Name = displayName,
                         Fill = new SolidColorPaint(color)
                     });
 
-                    var percentage = total > 0 ? (double)cat.Value / (double)total : 0;
+                    var pct = total > 0 ? (double)cat.Amount / (double)total : 0;
                     var hex = $"#{color.Red:X2}{color.Green:X2}{color.Blue:X2}";
                     CategoryStats.Add(new CategoryStat
                     {
-                        CategoryName = LocalizationResourceManager.Instance[cat.Key.ToString()],
-                        AmountFormatted = CurrencyService.Format(cat.Value),
+                        CategoryName = displayName,
+                        AmountFormatted = CurrencyService.Format(cat.Amount),
                         ColorHex = hex,
-                        BarWidth = (int)(percentage * 220)
+                        BarWidth = (int)(pct * 220)
                     });
                 }
             }
@@ -164,18 +178,15 @@ namespace BillWise.ViewModels
                 LoadDataCommand.Execute(null);
         }
 
-        private SKColor GetCategoryColor(CategoryType type)
+        private static SKColor GetCategoryColor(string name) => name switch
         {
-            return type switch
-            {
-                CategoryType.Electricity => SKColors.Orange,
-                CategoryType.Water => SKColors.DeepSkyBlue,
-                CategoryType.Internet => SKColors.Purple,
-                CategoryType.Rent => SKColors.Red,
-                CategoryType.Subscription => SKColors.MediumSeaGreen,
-                _ => SKColors.Gray
-            };
-        }
+            "Electricity"  => SKColors.Orange,
+            "Water"        => SKColors.DeepSkyBlue,
+            "Internet"     => SKColors.Purple,
+            "Rent"         => SKColors.Red,
+            "Subscription" => SKColors.MediumSeaGreen,
+            _              => SKColors.Gray
+        };
     }
 
     public class CategoryStat

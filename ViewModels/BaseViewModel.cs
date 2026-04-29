@@ -17,6 +17,11 @@ namespace BillWise.ViewModels
 
         public string CurrencySymbol => CurrencyService.Symbol;
 
+        public IList<string> PaymentMethodOptions { get; } = new List<string>
+        {
+            "Bank Transfer", "PayPal", "Google Pay", "Cash", "Card Payment", "Direct Debit"
+        };
+
         protected BaseViewModel()
         {
             // Register to receive language and currency change messages

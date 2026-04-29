@@ -69,14 +69,14 @@ namespace BillWise.ViewModels
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(DueDateText))]
         [NotifyPropertyChangedFor(nameof(DueDateColor))]
-        private bool _isDateSelected = false;
+        private bool _isDateSelected = true;
 
         // Voice recording state
         [ObservableProperty] private bool _isListening = false;
         [ObservableProperty] private string _voiceButtonColor = "#E74C3C";
 
         public string DueDateText => IsDateSelected
-            ? DueDate.ToString("dd / MM / yyyy") : "jj / mm / aaaa";
+            ? DueDate.ToString("dd / MM / yyyy") : "date";
         public Color DueDateColor => IsDateSelected
             ? Colors.Black : Color.FromArgb("#9CA3AF");
 
@@ -187,25 +187,13 @@ namespace BillWise.ViewModels
                 var popup = new VoiceRecordingPopup(_speechToText);
                 var result = await Shell.Current.ShowPopupAsync(popup, new PopupOptions());
 
-                // User validated: fill the invoice name and try to extract an amount
+                // User validated: fill only the invoice name (capitalized)
                 if (!result.WasDismissedByTappingOutsideOfPopup &&
                     result is IPopupResult<string> typed &&
                     !string.IsNullOrWhiteSpace(typed.Result))
                 {
-                    InvoiceName = typed.Result;
-
-                    // Try to detect an amount inside the spoken text
-                    if (string.IsNullOrWhiteSpace(AmountText))
-                    {
-                        var match = Regex.Match(typed.Result, @"\b(\d[\d\s]{0,8}\d|\d+)\b");
-                        if (match.Success)
-                        {
-                            var raw = match.Value.Replace(" ", "");
-                            if (decimal.TryParse(raw, NumberStyles.Any,
-                                    CultureInfo.InvariantCulture, out _))
-                                AmountText = raw;
-                        }
-                    }
+                    var name = typed.Result.Trim();
+                    InvoiceName = char.ToUpper(name[0]) + name[1..];
                 }
             }
             catch (Exception ex)
@@ -402,7 +390,7 @@ namespace BillWise.ViewModels
                     Id = Guid.NewGuid().ToString(),
                     Name = InvoiceName,
                     Amount = amount,
-                    DueDate = DueDate,
+                    DueDate = DateTime.SpecifyKind(DueDate.Date, DateTimeKind.Utc),
                     Category = SelectedCategory,
                     Notes = encodedNotes,
                     PaymentMethod = Enum.TryParse<Models.Entities.PaymentMethod>(

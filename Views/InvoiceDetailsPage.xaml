@@ -117,6 +117,27 @@
                             </Grid>
                         </Border>
 
+                        <!-- Notes Card -->
+                        <Border IsVisible="{Binding HasNotes}"
+                                BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
+                                Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#374151}"
+                                StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <Border Grid.Column="0" BackgroundColor="#F3F4F6" StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 8" WidthRequest="40" HeightRequest="40"
+                                        Margin="0,0,16,0" VerticalOptions="Start">
+                                    <Label Text="📝" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                    <Label Text="{Binding [Notes], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                                           TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" FontSize="12"/>
+                                    <Label Text="{Binding Invoice.UserNotes}"
+                                           TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"
+                                           FontSize="14" LineBreakMode="WordWrap"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+
                         <!-- Bottom Action Button -->
                         <Button Text="{Binding [MarkAsPaid], Source={x:Static strings:LocalizationResourceManager.Instance}}" Command="{Binding MarkAsPaidCommand}"
                                 BackgroundColor="#10B981" TextColor="White"

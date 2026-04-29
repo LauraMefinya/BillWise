@@ -109,13 +109,17 @@ namespace BillWise.Models.Services
             if (string.IsNullOrWhiteSpace(invoice.Name) || invoice.Amount <= 0)
                 return false;
 
+            var userId = _client.Auth.CurrentUser?.Id;
+            if (string.IsNullOrEmpty(userId))
+                throw new Exception("Session expired. Please log in again.");
+
             if (string.IsNullOrEmpty(invoice.Id))
                 invoice.Id = Guid.NewGuid().ToString();
 
             if (invoice.CreatedAt == default)
                 invoice.CreatedAt = DateTime.UtcNow;
 
-            invoice.UserId = _client.Auth.CurrentUser?.Id ?? string.Empty;
+            invoice.UserId = userId;
 
             invoice.UpdateStatus();
 
@@ -240,6 +244,40 @@ namespace BillWise.Models.Services
             return all
                 .GroupBy(i => i.Category)
                 .ToDictionary(g => g.Key, g => g.Sum(i => i.Amount));
+        }
+
+        public async Task<List<(string Name, string Icon, decimal Amount, bool IsCustom)>> GetExpensesByDisplayCategoryAsync()
+        {
+            const char sep = '';
+            var all = await GetAllInvoicesAsync();
+
+            return all
+                .GroupBy(i =>
+                {
+                    if (i.Category != CategoryType.Other)
+                        return i.Category.ToString();
+                    if (!string.IsNullOrEmpty(i.Notes) && i.Notes[0] == sep)
+                    {
+                        var parts = i.Notes.Split(sep);
+                        if (parts.Length >= 2 && !string.IsNullOrEmpty(parts[1]))
+                            return "custom:" + parts[1];
+                    }
+                    return "Other";
+                })
+                .Select(g =>
+                {
+                    bool isCustom = g.Key.StartsWith("custom:");
+                    string name = isCustom ? g.Key[7..] : g.Key;
+                    string icon = string.Empty;
+                    if (isCustom)
+                    {
+                        var notes = g.First().Notes ?? string.Empty;
+                        var parts = notes.Split(sep);
+                        icon = parts.Length >= 3 ? parts[2] : "📄";
+                    }
+                    return (Name: name, Icon: icon, Amount: g.Sum(i => i.Amount), IsCustom: isCustom);
+                })
+                .ToList();
         }
 
         public async Task<List<(DateTime Month, decimal Amount)>> GetMonthlyExpensesAsync()

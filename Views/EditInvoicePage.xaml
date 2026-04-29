@@ -113,13 +113,11 @@
                     BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}" Padding="16,12">
                 <VerticalStackLayout Spacing="4">
                     <Label Text="{Binding [PaymentMethod], Source={x:Static strings:LocalizationResourceManager.Instance}}" FontSize="13" TextColor="{AppThemeBinding Light=#757575, Dark=#9CA3AF}"/>
-                    <Picker SelectedItem="{Binding PaymentMethod}" Title="{Binding [SelectMethod], Source={x:Static strings:LocalizationResourceManager.Instance}}" TitleColor="#9CA3AF" BackgroundColor="Transparent" TextColor="{AppThemeBinding Light=Black, Dark=#F9FAFB}">
-                        <Picker.Items>
-                            <x:String>Bank Transfer</x:String>
-                            <x:String>PayPal</x:String>
-                            <x:String>Google Pay</x:String>
-                        </Picker.Items>
-                    </Picker>
+                    <Picker ItemsSource="{Binding PaymentMethodOptions}"
+                            SelectedItem="{Binding PaymentMethod, Mode=TwoWay}"
+                            Title="{Binding [SelectMethod], Source={x:Static strings:LocalizationResourceManager.Instance}}"
+                            TitleColor="#9CA3AF" BackgroundColor="Transparent"
+                            TextColor="{AppThemeBinding Light=Black, Dark=#F9FAFB}"/>
                 </VerticalStackLayout>
             </Border>
 

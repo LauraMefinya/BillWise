@@ -84,7 +84,7 @@ namespace BillWise.ViewModels
 
             InvoiceName = Invoice.Name;
             AmountText = Invoice.Amount.ToString();
-            DueDate = Invoice.DueDate;
+            DueDate = Invoice.DueDate.Date;
             SelectedCategory = Invoice.Category;
 
             // Decode custom category metadata stored in Notes
@@ -104,11 +104,15 @@ namespace BillWise.ViewModels
                 Notes = rawNotes;
             }
 
-            PaymentMethod = Invoice.PaymentMethod?.ToString() == "PayPal"
-                ? "PayPal"
-                : Invoice.PaymentMethod?.ToString() == "GooglePay"
-                    ? "Google Pay"
-                    : "Bank Transfer";
+            PaymentMethod = Invoice.PaymentMethod switch
+            {
+                Models.Entities.PaymentMethod.PayPal       => "PayPal",
+                Models.Entities.PaymentMethod.GooglePay    => "Google Pay",
+                Models.Entities.PaymentMethod.Cash         => "Cash",
+                Models.Entities.PaymentMethod.CardPayment  => "Card Payment",
+                Models.Entities.PaymentMethod.DirectDebit  => "Direct Debit",
+                _                                          => "Bank Transfer"
+            };
         }
 
         [RelayCommand]
@@ -220,7 +224,7 @@ namespace BillWise.ViewModels
 
                 Invoice.Name = InvoiceName;
                 Invoice.Amount = amount;
-                Invoice.DueDate = DueDate;
+                Invoice.DueDate = DateTime.SpecifyKind(DueDate.Date, DateTimeKind.Utc);
                 Invoice.Category = SelectedCategory;
                 Invoice.Notes = encodedNotes;
                 Invoice.PaymentMethod = Enum.TryParse<Models.Entities.PaymentMethod>(

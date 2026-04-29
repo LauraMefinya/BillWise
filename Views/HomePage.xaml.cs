@@ -51,19 +51,6 @@ namespace BillWise.Views
             });
         }
 
-        private async void OnFabClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                TriggerVibration(60);
-                await Shell.Current.GoToAsync(nameof(AddInvoicePage));
-            }
-            catch (Exception ex)
-            {
-                await Shell.Current.DisplayAlertAsync("Navigation Error", $"Failed to open page: {ex.Message}", "OK");
-            }
-        }
-
         private static void TriggerVibration(int milliseconds = 60)
         {
             if (!Preferences.Default.Get("haptic_enabled", true)) return;

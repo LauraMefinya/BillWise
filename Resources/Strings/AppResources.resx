@@ -286,6 +286,9 @@
   <data name="JoinToday" xml:space="preserve">
     <value>Join BillWise today</value>
   </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm Password</value>
   </data>
@@ -305,7 +308,7 @@
     <value>Done — tap Validate to confirm</value>
   </data>
   <data name="VoicePlaceholder" xml:space="preserve">
-    <value>Say the invoice name and amount...</value>
+    <value>Say the bill name...</value>
   </data>
   <data name="VoiceError" xml:space="preserve">
     <value>Could not recognize speech</value>

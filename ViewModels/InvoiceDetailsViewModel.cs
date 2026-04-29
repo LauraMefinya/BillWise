@@ -16,19 +16,29 @@ namespace BillWise.ViewModels
             _invoiceService = invoiceService;
         }
 
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(IsPaid))]
-        [NotifyPropertyChangedFor(nameof(ShowPaymentAction))]
-        [NotifyPropertyChangedFor(nameof(ShowEditAction))]
-        [NotifyPropertyChangedFor(nameof(StatusBadgeBackgroundColor))]
-        [NotifyPropertyChangedFor(nameof(StatusBadgeTextColor))]
-        [NotifyPropertyChangedFor(nameof(StatusText))]
-        [NotifyPropertyChangedFor(nameof(PaymentDateText))]
         private Invoice? _invoice;
+        public Invoice? Invoice
+        {
+            get => _invoice;
+            set
+            {
+                _invoice = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsPaid));
+                OnPropertyChanged(nameof(HasNotes));
+                OnPropertyChanged(nameof(ShowPaymentAction));
+                OnPropertyChanged(nameof(ShowEditAction));
+                OnPropertyChanged(nameof(StatusBadgeBackgroundColor));
+                OnPropertyChanged(nameof(StatusBadgeTextColor));
+                OnPropertyChanged(nameof(StatusText));
+                OnPropertyChanged(nameof(PaymentDateText));
+            }
+        }
 
         public bool IsPaid => Invoice?.Status == InvoiceStatus.Paid;
+        public bool HasNotes => !string.IsNullOrWhiteSpace(Invoice?.UserNotes);
         public bool ShowPaymentAction => Invoice != null && Invoice.Status != InvoiceStatus.Paid;
-        public bool ShowEditAction => Invoice != null && Invoice.Status != InvoiceStatus.Paid;
+        public bool ShowEditAction => Invoice != null;
 
         // Uses resource keys so the text changes with the app language
         public string StatusText => Invoice?.Status switch

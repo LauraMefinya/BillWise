@@ -119,8 +119,11 @@
                             StrokeShape="RoundRectangle 10"
                             BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
                             Padding="14,0" HeightRequest="52">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnDateFieldTapped"/>
+                        </Border.GestureRecognizers>
                         <Grid>
-                            <DatePicker Date="{Binding DueDate}" TextColor="Transparent" BackgroundColor="Transparent" DateSelected="OnDateSelected"/>
+                            <DatePicker x:Name="DatePickerControl" Date="{Binding DueDate}" TextColor="Transparent" BackgroundColor="Transparent" DateSelected="OnDateSelected"/>
                             <Label Text="{Binding DueDateText}" TextColor="{Binding DueDateColor}" VerticalOptions="Center" InputTransparent="True"/>
                             <Label Text="📅" HorizontalOptions="End" VerticalOptions="Center" FontSize="16" InputTransparent="True" Margin="0,0,4,0"/>
                         </Grid>
@@ -157,20 +160,12 @@
                             StrokeShape="RoundRectangle 10"
                             BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}"
                             Padding="14,0" HeightRequest="52">
-                        <Picker SelectedItem="{Binding PaymentMethod}"
+                        <Picker ItemsSource="{Binding PaymentMethodOptions}"
+                                SelectedItem="{Binding PaymentMethod, Mode=TwoWay}"
                                 Title="{Binding [SelectMethod], Source={x:Static strings:LocalizationResourceManager.Instance}}"
                                 TitleColor="#9CA3AF" BackgroundColor="Transparent"
                                 TextColor="{AppThemeBinding Light=#111827, Dark=#F9FAFB}"
-                                VerticalOptions="Center">
-                            <Picker.Items>
-                                <x:String>Bank Transfer</x:String>
-                                <x:String>PayPal</x:String>
-                                <x:String>Google Pay</x:String>
-                                <x:String>Cash</x:String>
-                                <x:String>Card Payment</x:String>
-                                <x:String>Direct Debit</x:String>
-                            </Picker.Items>
-                        </Picker>
+                                VerticalOptions="Center"/>
                     </Border>
                 </VerticalStackLayout>
 

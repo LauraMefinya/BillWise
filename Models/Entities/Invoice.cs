@@ -154,9 +154,12 @@ namespace BillWise.Models.Entities
         [JsonIgnore]
         public string PaymentMethodText => PaymentMethod switch
         {
-            Entities.PaymentMethod.PayPal       => LocalizationResourceManager.Instance["PaymentPayPal"],
-            Entities.PaymentMethod.GooglePay    => LocalizationResourceManager.Instance["PaymentGooglePay"],
-            _                                   => LocalizationResourceManager.Instance["PaymentBankTransfer"]
+            Entities.PaymentMethod.PayPal        => LocalizationResourceManager.Instance["PaymentPayPal"],
+            Entities.PaymentMethod.GooglePay     => LocalizationResourceManager.Instance["PaymentGooglePay"],
+            Entities.PaymentMethod.Cash          => LocalizationResourceManager.Instance["PaymentCash"],
+            Entities.PaymentMethod.CardPayment   => LocalizationResourceManager.Instance["PaymentCardPayment"],
+            Entities.PaymentMethod.DirectDebit   => LocalizationResourceManager.Instance["PaymentDirectDebit"],
+            _                                    => LocalizationResourceManager.Instance["PaymentBankTransfer"]
         };
 
         public void MarkAsPaid(PaymentMethod method)

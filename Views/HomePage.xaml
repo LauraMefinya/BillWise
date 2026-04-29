@@ -140,16 +140,6 @@
             </VerticalStackLayout>
         </ScrollView>
 
-        <!-- Floating Action Button -->
-        <ImageButton BackgroundColor="#3498DB" CornerRadius="30"
-                     WidthRequest="60" HeightRequest="60" Padding="15"
-                     HorizontalOptions="End" VerticalOptions="End" Margin="0,0,20,80"
-                     Clicked="OnFabClicked"
-                     Shadow="{Shadow Default}">
-            <ImageButton.Source>
-                <FontImageSource Glyph="+" Color="White" Size="28" />
-            </ImageButton.Source>
-        </ImageButton>
 
     </Grid>
 </ContentPage>

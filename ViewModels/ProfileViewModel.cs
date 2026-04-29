@@ -311,9 +311,17 @@ namespace BillWise.ViewModels
             try
             {
                 IsBusy = true;
-                await _invoiceService.DeleteAllInvoicesAsync();
+
+                // The RPC deletes invoices then the auth user in one transaction
+                var (deleted, error) = await _authService.DeleteAccountAsync();
+                if (!deleted)
+                {
+                    await Shell.Current.DisplayAlertAsync(L["ErrorTitle"], error, "OK");
+                    return;
+                }
+
                 Preferences.Default.Clear();
-                await _authService.LogoutAsync();
+
                 var loginPage = Application.Current.Handler.MauiContext
                     .Services.GetService<Views.LoginPage>();
                 if (Application.Current?.Windows.Count > 0)
