@@ -292,6 +292,24 @@
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirmer le mot de passe</value>
   </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Réinitialiser le mot de passe</value>
+  </data>
+  <data name="ResetPasswordDesc" xml:space="preserve">
+    <value>Entrez votre nouveau mot de passe ci-dessous.</value>
+  </data>
+  <data name="NewPasswordLabel" xml:space="preserve">
+    <value>Nouveau mot de passe</value>
+  </data>
+  <data name="PasswordsMustMatch" xml:space="preserve">
+    <value>Les mots de passe ne correspondent pas.</value>
+  </data>
+  <data name="PasswordTooShort" xml:space="preserve">
+    <value>Le mot de passe doit comporter au moins 6 caractères.</value>
+  </data>
+  <data name="PasswordResetSuccess" xml:space="preserve">
+    <value>Mot de passe réinitialisé ! Connectez-vous avec votre nouveau mot de passe.</value>
+  </data>
   <data name="AlreadyHaveAccount" xml:space="preserve">
     <value>Vous avez déjà un compte ?</value>
   </data>

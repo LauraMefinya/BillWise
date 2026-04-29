@@ -5,6 +5,7 @@ using Android.Content.Res;
 using Android.OS;
 using Android.Views;
 using AndroidX.Core.View;
+using BillWise.Models.Services;
 
 namespace BillWise
 {
@@ -19,6 +20,11 @@ namespace BillWise
             ConfigChanges.ScreenLayout |
             ConfigChanges.SmallestScreenSize |
             ConfigChanges.Density
+    )]
+    [IntentFilter(
+        new[] { Intent.ActionView },
+        Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
+        DataScheme = "billwise"
     )]
     public class MainActivity : MauiAppCompatActivity
     {
@@ -38,6 +44,21 @@ namespace BillWise
             base.OnCreate(savedInstanceState);
             WindowCompat.SetDecorFitsSystemWindows(Window!, false);
             Window?.DecorView?.Post(CollapseShellAppBar);
+            HandleDeepLink(Intent);
+        }
+
+        protected override void OnNewIntent(Intent? intent)
+        {
+            base.OnNewIntent(intent);
+            HandleDeepLink(intent);
+        }
+
+        private static void HandleDeepLink(Intent? intent)
+        {
+            if (intent?.Action != Intent.ActionView) return;
+            var url = intent.DataString;
+            if (!string.IsNullOrEmpty(url) && url.StartsWith("billwise://"))
+                DeepLinkService.QueueUrl(url);
         }
 
         protected override void OnResume()

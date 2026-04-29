@@ -23,6 +23,21 @@ namespace BillWise
             _userProfileService = userProfileService;
             RestoreLanguage();
             RestoreTheme();
+
+            Models.Services.DeepLinkService.RecoveryTokenReceived += OnRecoveryTokenReceived;
+        }
+
+        private Task OnRecoveryTokenReceived(string accessToken, string refreshToken)
+        {
+            var resetPage = _serviceProvider.GetService<Views.ResetPasswordPage>();
+            if (resetPage?.BindingContext is ViewModels.ResetPasswordViewModel vm)
+            {
+                vm.AccessToken = accessToken;
+                vm.RefreshToken = refreshToken;
+            }
+            if (Windows.Count > 0 && resetPage != null)
+                Windows[0].Page = resetPage;
+            return Task.CompletedTask;
         }
 
         private static void RestoreTheme()
@@ -107,6 +122,7 @@ namespace BillWise
                     Windows[0].Page = new AppShell();
 
                 _ = _scheduler.ScheduleAsync();
+                await Models.Services.DeepLinkService.ProcessPendingAsync();
             }
             else
             {
@@ -133,6 +149,7 @@ namespace BillWise
             base.OnResume();
             if (_authService.IsUserLoggedIn())
                 _ = _scheduler.ScheduleAsync();
+            _ = Models.Services.DeepLinkService.ProcessPendingAsync();
         }
     }
 }

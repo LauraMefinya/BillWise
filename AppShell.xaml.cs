@@ -14,6 +14,7 @@ namespace BillWise
             Routing.RegisterRoute(nameof(EditInvoicePage), typeof(EditInvoicePage));
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
             Routing.RegisterRoute(nameof(AlertsPage), typeof(AlertsPage));
+            Routing.RegisterRoute(nameof(ResetPasswordPage), typeof(ResetPasswordPage));
         }
 
     }

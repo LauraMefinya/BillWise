@@ -92,6 +92,7 @@ namespace BillWise
             builder.Services.AddTransient<EditInvoiceViewModel>();
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RegisterViewModel>();
+            builder.Services.AddTransient<ResetPasswordViewModel>();
 
             // Pages
             builder.Services.AddSingleton<HomePage>();
@@ -106,6 +107,7 @@ namespace BillWise
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<RegisterPage>();
             builder.Services.AddTransient<AccountSettingsPage>();
+            builder.Services.AddTransient<ResetPasswordPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

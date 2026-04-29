@@ -129,7 +129,27 @@ namespace BillWise.Models.Services
         {
             try
             {
-                await _client.Auth.ResetPasswordForEmail(email);
+                await _client.Auth.ResetPasswordForEmail(
+                    new Supabase.Gotrue.ResetPasswordForEmailOptions(email)
+                    {
+                        RedirectTo = "billwise://reset-password"
+                    });
+                return (true, string.Empty);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+            }
+        }
+
+        public async Task<(bool Success, string ErrorMessage)> ResetPasswordAsync(
+            string accessToken, string refreshToken, string newPassword)
+        {
+            try
+            {
+                await _client.Auth.SetSession(accessToken, refreshToken);
+                await _client.Auth.Update(new Supabase.Gotrue.UserAttributes { Password = newPassword });
+                _sessionService.ClearSession();
                 return (true, string.Empty);
             }
             catch (Exception ex)
