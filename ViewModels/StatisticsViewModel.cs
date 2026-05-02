@@ -108,7 +108,7 @@ namespace BillWise.ViewModels
                     {
                         new Axis
                         {
-                            Labeler = value => $"{value:N0} {symbol}",
+                            Labeler = value => $"{symbol}{value:N0}",
                             TextSize = 10,
                             LabelsPaint = new SolidColorPaint(SKColors.Gray),
                             SeparatorsPaint = new SolidColorPaint(SKColors.LightGray) { StrokeThickness = 1 }
@@ -136,7 +136,7 @@ namespace BillWise.ViewModels
                         : GetCategoryColor(cat.Name);
 
                     var displayName = cat.IsCustom
-                        ? (string.IsNullOrEmpty(cat.Icon) ? cat.Name : $"{cat.Icon} {cat.Name}")
+                        ? cat.Name
                         : LocalizationResourceManager.Instance[cat.Name];
 
                     PieSeries.Add(new PieSeries<double>
