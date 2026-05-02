@@ -65,16 +65,16 @@
     <value>New Bill</value>
   </data>
   <data name="InvoiceName" xml:space="preserve">
-    <value>Bill Name *</value>
+    <value>Bill Name*</value>
   </data>
   <data name="Amount" xml:space="preserve">
-    <value>Amount *</value>
+    <value>Amount*</value>
   </data>
   <data name="DueDate" xml:space="preserve">
-    <value>Due Date *</value>
+    <value>Date*</value>
   </data>
   <data name="Category" xml:space="preserve">
-    <value>Category *</value>
+    <value>Category*</value>
   </data>
   <data name="Electricity" xml:space="preserve">
     <value>Electricity</value>

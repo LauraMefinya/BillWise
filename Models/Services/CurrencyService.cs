@@ -23,8 +23,8 @@ namespace BillWise.Models.Services
             var symbol = Symbol;
             var converted = _fromGbp.TryGetValue(symbol, out var rate) ? gbpAmount * rate : gbpAmount;
             return converted % 1 == 0
-                ? $"{converted:N0} {symbol}"
-                : $"{converted:N2} {symbol}";
+                ? $"{symbol}{converted:N0}"
+                : $"{symbol}{converted:N2}";
         }
     }
 }

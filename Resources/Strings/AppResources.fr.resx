@@ -71,7 +71,7 @@
     <value>Montant *</value>
   </data>
   <data name="DueDate" xml:space="preserve">
-    <value>Date d'échéance *</value>
+    <value>Date</value>
   </data>
   <data name="Category" xml:space="preserve">
     <value>Catégorie *</value>
