@@ -71,7 +71,7 @@
     <value>Amount*</value>
   </data>
   <data name="DueDate" xml:space="preserve">
-    <value>Date*</value>
+    <value>Due Date*</value>
   </data>
   <data name="Category" xml:space="preserve">
     <value>Category*</value>

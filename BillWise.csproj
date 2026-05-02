@@ -48,7 +48,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<MauiIcon Include="Resources\AppIcon\appicon.png" Color="#2563EB" />
+		<MauiIcon Include="Resources\AppIcon\appicon.png" Color="#2563EB" ForegroundScale="0.65" />
 		<MauiSplashScreen Include="Resources\Splash\splash.png" Color="#FFFFFF" BaseSize="200,80" />
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
