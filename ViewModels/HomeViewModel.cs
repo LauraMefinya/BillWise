@@ -15,11 +15,13 @@ namespace BillWise.ViewModels
     public partial class HomeViewModel : BaseViewModel
     {
         private readonly InvoiceService _invoiceService;
+        private readonly AuthService _authService;
 
-        public HomeViewModel(InvoiceService invoiceService)
+        public HomeViewModel(InvoiceService invoiceService, AuthService authService)
         {
             Title = "Home";
             _invoiceService = invoiceService;
+            _authService = authService;
         }
 
         public string UserGreeting
@@ -27,6 +29,19 @@ namespace BillWise.ViewModels
             get
             {
                 var name = Preferences.Default.Get("user_name", string.Empty);
+                
+                if (string.IsNullOrEmpty(name))
+                {
+                    // Fallback to email prefix if Supabase profile fetch failed
+                    var email = _authService.GetCurrentUserEmail();
+                    if (!string.IsNullOrEmpty(email))
+                    {
+                        name = email.Split('@')[0];
+                        if (name.Length > 0)
+                            name = char.ToUpper(name[0]) + name[1..];
+                    }
+                }
+
                 return !string.IsNullOrEmpty(name)
                     ? $"{LocalizationResourceManager.Instance["Hello"]}, {name}"
                     : LocalizationResourceManager.Instance["HomeGreeting"];
