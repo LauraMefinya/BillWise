@@ -1,19 +1,19 @@
 # BillWise 
 
-BillWise is a smart, cross-platform personal finance and invoice management application built with [.NET MAUI](https://dotnet.microsoft.com/en-us/apps/maui). It helps users track, manage, and analyze their bills and invoices seamlessly across Android, Windows, and iOS devices.
+BillWise is a smart, cross-platform personal finance and bills management application built with [.NET MAUI](https://dotnet.microsoft.com/en-us/apps/maui). It helps users track, manage, and analyse their bills seamlessly across Android mobile and tablets devices.
 
 ---
 
 ##  Core Features
 
-- **Invoice Management**: Complete CRUD operations for invoices. Easily track statuses (Pending, Paid, Overdue).
-- **Cloud Sync & Authentication**: Powered by [Supabase](https://supabase.com/) for real-time database synchronization and secure user authentication (login, registration, reset password).
-- **Smart OCR Capabilities**: Automatically extract text and data from physical invoices using device cameras.
-- **Statistics & Insights**: Interactive and visually appealing charts using `LiveChartsCore` to analyze expenses over time.
-- **PDF Export**: Generate and export your invoices to a clean PDF format.
+- **Bill Management**: Complete CRUD operations for Bills. Easily track statuses (Pending, Paid, Overdue).
+- **Cloud Sync & Authentication**: Powered by [Supabase](https://supabase.com/) for real-time database synchronisation and secure user authentication (login, registration, reset password).
+- **Smart OCR Capabilities**: Automatically extract text and data from physical Bills using device cameras.
+- **Statistics & Insights**: Interactive and visually appealing charts using `LiveChartsCore` to analyse expenses over time.
+- **PDF Export**: Generate and export your Bills to a clean PDF format.
 - **Smart Reminders**: Local device notifications to ensure you never miss a payment deadline.
 - **Multi-language Support**: Easily switch between languages with a custom `LocalizationResourceManager`.
-- **Modern Adaptive UI**: Full support for both Light and Dark themes, utilizing a highly structured MVVM architecture and customized borderless UI components.
+- **Modern Adaptive UI**: Full support for both Light and Dark themes, utilising a highly structured MVVM architecture and customised borderless UI components.
 
 ##  Technology Stack
 
@@ -32,10 +32,10 @@ BillWise is a smart, cross-platform personal finance and invoice management appl
 
 ##  Project Structure
 
-- **`Models/`**: Contains core data entities (`Invoice`, `UserProfile`, `Category`, `Payment`) that map directly to the Supabase database.
-- **`Models/Services/`**: Contains application logic services (`AuthService`, `SessionService`, `InvoiceService`, `PdfExportService`, `NotificationService`).
-- **`ViewModels/`**: Contains the business logic and state management for each screen, strictly following the MVVM pattern (e.g., `HomeViewModel`, `AddInvoiceViewModel`).
-- **`Views/`**: The XAML-based UI pages containing the presentation layer (`HomePage`, `InvoicesPage`, `StatisticsPage`).
+- **`Models/`**: Contains core data entities (`Bill`, `UserProfile`, `Category`, `Payment`) that map directly to the Supabase database.
+- **`Models/Services/`**: Contains application logic services (`AuthService`, `SessionService`, `BillService`, `PdfExportService`, `NotificationService`).
+- **`ViewModels/`**: Contains the business logic and state management for each screen, strictly following the MVVM pattern (e.g., `HomeViewModel`, `AddBillViewModel`).
+- **`Views/`**: The XAML-based UI pages containing the presentation layer (`HomePage`, `BillsPage`, `StatisticsPage`).
 - **`Resources/`**: Contains images, vector icons (`.svg`), fonts, splash screens, and translation string dictionaries.
 
 ---
@@ -50,9 +50,9 @@ Before running the application, ensure you have the following installed:
 
 ###  Configuration & Secrets
 The application is pre-configured to connect to a Supabase backend.
-- The connection strings (`url` and `key`) are initialized in **`MauiProgram.cs`**.
+- The connection strings (`url` and `key`) are initialised in **`MauiProgram.cs`**.
 - If you intend to use your own Supabase project, you must replace these values with your own Project URL and `anon`/`public` key.
-- **Note**: Ensure your Supabase database has the correct tables (e.g., `invoices`, `user_profiles`) with Row Level Security (RLS) policies configured to match the application's models.
+- **Note**: Ensure your Supabase database has the correct tables (e.g., `Bills`, `user_profiles`) with Row Level Security (RLS) policies configured to match the application's models.
 
 ###  Running the Application
 1. **Clone the repository**:
