@@ -326,7 +326,7 @@
     <value>Terminé — appuyez sur Valider pour confirmer</value>
   </data>
   <data name="VoicePlaceholder" xml:space="preserve">
-    <value>Dites le nom de la facture...</value>
+    <value>Dites quelque chose à ajouter aux notes...</value>
   </data>
   <data name="VoiceError" xml:space="preserve">
     <value>La parole n'a pas pu être reconnue</value>

@@ -326,7 +326,7 @@
     <value>Done — tap Validate to confirm</value>
   </data>
   <data name="VoicePlaceholder" xml:space="preserve">
-    <value>Say the bill name...</value>
+    <value>Say something to add to notes...</value>
   </data>
   <data name="VoiceError" xml:space="preserve">
     <value>Could not recognize speech</value>

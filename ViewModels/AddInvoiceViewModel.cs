@@ -187,13 +187,14 @@ namespace BillWise.ViewModels
                 var popup = new VoiceRecordingPopup(_speechToText);
                 var result = await Shell.Current.ShowPopupAsync(popup, new PopupOptions());
 
-                // User validated: fill only the invoice name (capitalized)
+                // User validated: append to notes
                 if (!result.WasDismissedByTappingOutsideOfPopup &&
                     result is IPopupResult<string> typed &&
                     !string.IsNullOrWhiteSpace(typed.Result))
                 {
-                    var name = typed.Result.Trim();
-                    InvoiceName = char.ToUpper(name[0]) + name[1..];
+                    var text = typed.Result.Trim();
+                    text = char.ToUpper(text[0]) + text[1..];
+                    Notes = string.IsNullOrWhiteSpace(Notes) ? text : $"{Notes}\n{text}";
                 }
             }
             catch (Exception ex)
