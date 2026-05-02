@@ -1,4 +1,4 @@
-﻿using BillWise.Models.Entities;
+using BillWise.Models.Entities;
 using BillWise.Models.Services;
 using BillWise.Resources.Strings;
 using CommunityToolkit.Maui;
@@ -64,14 +64,14 @@ namespace BillWise.ViewModels
                 var L = LocalizationResourceManager.Instance;
                 return SelectedCategory switch
                 {
-                    CategoryType.Electricity  => L["Electricity"],
-                    CategoryType.Water        => L["Water"],
-                    CategoryType.Internet     => L["Internet"],
-                    CategoryType.Rent         => L["Rent"],
-                    CategoryType.Subscription => L["Subscription"],
+                    CategoryType.Electricity  => $"⚡ {L["Electricity"]}",
+                    CategoryType.Water        => $"💧 {L["Water"]}",
+                    CategoryType.Internet     => $"🌐 {L["Internet"]}",
+                    CategoryType.Rent         => $"🏠 {L["Rent"]}",
+                    CategoryType.Subscription => $"📺 {L["Subscription"]}",
                     _ => string.IsNullOrWhiteSpace(CustomCategoryName)
-                            ? L["Other"]
-                            : CustomCategoryName
+                            ? $"📄 {L["Other"]}"
+                            : $"{_customCategoryIcon} {CustomCategoryName}"
                 };
             }
         }
@@ -126,19 +126,19 @@ namespace BillWise.ViewModels
 
             var builtInMap = new Dictionary<string, CategoryType>
             {
-                { L["Electricity"],  CategoryType.Electricity  },
-                { L["Water"],        CategoryType.Water        },
-                { L["Internet"],     CategoryType.Internet     },
-                { L["Rent"],         CategoryType.Rent         },
-                { L["Subscription"], CategoryType.Subscription },
+                { $"⚡ {L["Electricity"]}",  CategoryType.Electricity  },
+                { $"💧 {L["Water"]}",        CategoryType.Water        },
+                { $"🌐 {L["Internet"]}",     CategoryType.Internet     },
+                { $"🏠 {L["Rent"]}",         CategoryType.Rent         },
+                { $"📺 {L["Subscription"]}", CategoryType.Subscription },
             };
 
             var customMap = custom.ToDictionary(c => $"{c.Icon} {c.Name}");
 
             var options = builtInMap.Keys.ToList();
             options.AddRange(customMap.Keys);
-            options.Add(otherLabel);
-            options.Add(addNewLabel);
+            options.Add($"📄 {otherLabel}");
+            options.Add($"➕ {addNewLabel}");
 
             string? choice = await Shell.Current.DisplayActionSheetAsync(
                 L["SelectCategory"], L["Cancel"], null, options.ToArray());
@@ -153,7 +153,7 @@ namespace BillWise.ViewModels
                 return;
             }
 
-            if (choice == addNewLabel)
+            if (choice == $"➕ {addNewLabel}")
             {
                 var iconResult = await Shell.Current.ShowPopupAsync(
                     new BillWise.Views.Popups.IconPickerPopup(), new PopupOptions());
@@ -172,7 +172,7 @@ namespace BillWise.ViewModels
                 return;
             }
 
-            if (choice == otherLabel)
+            if (choice == $"📄 {otherLabel}")
             {
                 var name = await Shell.Current.DisplayPromptAsync(
                     L["Other"], L["EnterCategoryName"],
