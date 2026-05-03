@@ -6,7 +6,7 @@ namespace BillWise.Models.Services
     /// </summary>
     public static class CurrencyService
     {
-        // Fixed exchange rates from GBP (base) — 1£ = 1.35$, 1£ = 1.15€
+        // Fixed exchange rates from GBP (base) — £1 = $1.35, £1 = €1.15
         private static readonly Dictionary<string, decimal> _fromGbp = new()
         {
             ["£"] = 1m,

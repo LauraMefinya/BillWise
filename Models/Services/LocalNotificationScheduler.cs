@@ -54,7 +54,8 @@ namespace BillWise.Models.Services
                         Description = string.Format(L["NotifOverdueMessage"], invoice.Name),
                         Schedule = new NotificationRequestSchedule
                         {
-                            NotifyTime = DateTime.Now.AddSeconds(delaySeconds)
+                            NotifyTime = DateTime.Now.AddSeconds(delaySeconds),
+                            RepeatType = NotificationRepeat.Daily
                         }
                     });
                     delaySeconds += 3;
@@ -74,7 +75,8 @@ namespace BillWise.Models.Services
                             Description = string.Format(L["NotifDueSoonMessage"], invoice.Name, invoice.DaysUntilDue),
                             Schedule = new NotificationRequestSchedule
                             {
-                                NotifyTime = DateTime.Now.AddSeconds(delaySeconds)
+                                NotifyTime = DateTime.Now.AddSeconds(delaySeconds),
+                                RepeatType = NotificationRepeat.Daily
                             }
                         });
                         delaySeconds += 3;
@@ -90,7 +92,8 @@ namespace BillWise.Models.Services
                             Description = string.Format(L["NotifDueSoonMessage"], invoice.Name, reminderDays),
                             Schedule = new NotificationRequestSchedule
                             {
-                                NotifyTime = notifyTime
+                                NotifyTime = notifyTime,
+                                RepeatType = NotificationRepeat.Daily
                             }
                         });
                     }

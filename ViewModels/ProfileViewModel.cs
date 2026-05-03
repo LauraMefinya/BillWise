@@ -5,6 +5,10 @@ using BillWise.Resources.Strings;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Extensions;
+using CommunityToolkit.Maui;
 
 namespace BillWise.ViewModels
 {
@@ -195,6 +199,13 @@ namespace BillWise.ViewModels
             {
                 Console.WriteLine($"[ProfileVM] Photo error: {ex.Message}");
             }
+        }
+
+        [RelayCommand]
+        public async Task ShowNotificationSettingsAsync()
+        {
+            var popup = new Views.Popups.NotificationSettingsPopup(this);
+            await Shell.Current.ShowPopupAsync(popup);
         }
 
         [RelayCommand]
