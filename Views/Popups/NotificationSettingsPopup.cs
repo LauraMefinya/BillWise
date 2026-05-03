@@ -98,7 +98,7 @@ namespace BillWise.Views.Popups
             reminderGrid.Children.Add(reminderLabel);
             Grid.SetColumn(reminderLabel, 1);
 
-            var entryBorder = new Border { Stroke = Color.FromArgb("#E5E7EB"), StrokeThickness = 1, StrokeShape = new RoundRectangle { CornerRadius = 8 }, BackgroundColor = Colors.White, WidthRequest = 60, HeightRequest = 36, VerticalOptions = LayoutOptions.Center };
+            var entryBorder = new Border { Stroke = Color.FromArgb("#E5E7EB"), StrokeThickness = 1, StrokeShape = new RoundRectangle { CornerRadius = 8 }, BackgroundColor = Colors.White, WidthRequest = 70, HeightRequest = 46, VerticalOptions = LayoutOptions.Center };
             var reminderEntry = new Entry { Keyboard = Keyboard.Numeric, BackgroundColor = Colors.Transparent, TextColor = Color.FromArgb("#111827"), HorizontalTextAlignment = TextAlignment.Center, VerticalOptions = LayoutOptions.Center };
             reminderEntry.SetBinding(Entry.TextProperty, nameof(ProfileViewModel.ReminderDays));
             reminderEntry.SetBinding(Entry.IsEnabledProperty, nameof(ProfileViewModel.NotificationsEnabled));
