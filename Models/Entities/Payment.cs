@@ -5,6 +5,10 @@ using Newtonsoft.Json;
 
 namespace BillWise.Models.Entities
 {
+    /// <summary>
+    /// Represents a payment made towards an invoice.
+    /// Maps to the 'payments' table in Supabase.
+    /// </summary>
     [Table("payments")]
     public class Payment : BaseModel
     {
@@ -14,6 +18,9 @@ namespace BillWise.Models.Entities
         [Column("invoice_id")]
         public string InvoiceId { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Gets or sets the monetary amount of this specific payment.
+        /// </summary>
         [Column("amount")]
         public decimal Amount { get; set; }
 
@@ -29,6 +36,9 @@ namespace BillWise.Models.Entities
         [Column("is_partial")]
         public bool IsPartial { get; set; } = false;
 
+        /// <summary>
+        /// Gets the fully formatted currency string for this payment's amount.
+        /// </summary>
         [JsonIgnore]
         public string AmountFormatted => CurrencyService.Format(Amount);
 

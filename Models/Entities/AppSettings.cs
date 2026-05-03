@@ -4,6 +4,10 @@ using Newtonsoft.Json;
 
 namespace BillWise.Models.Entities
 {
+    /// <summary>
+    /// Represents the user's application settings stored in the database.
+    /// Maps to the 'settings' table in Supabase.
+    /// </summary>
     [Table("settings")]
     public class AppSettings : BaseModel
     {

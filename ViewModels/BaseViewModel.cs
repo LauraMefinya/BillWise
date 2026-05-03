@@ -5,6 +5,10 @@ using CommunityToolkit.Mvvm.Messaging;
 
 namespace BillWise.ViewModels
 {
+    /// <summary>
+    /// The base view model class providing common properties and messaging functionality 
+    /// for all view models in the application.
+    /// </summary>
     public partial class BaseViewModel : ObservableObject,
         IRecipient<LanguageChangedMessage>,
         IRecipient<CurrencyChangedMessage>
@@ -15,6 +19,9 @@ namespace BillWise.ViewModels
         [ObservableProperty]
         private bool _isBusy = false;
 
+        /// <summary>
+        /// Gets the current currency symbol formatted globally.
+        /// </summary>
         public string CurrencySymbol => CurrencyService.Symbol;
 
         public IList<string> PaymentMethodOptions { get; } = new List<string>
@@ -29,13 +36,19 @@ namespace BillWise.ViewModels
             WeakReferenceMessenger.Default.Register<CurrencyChangedMessage>(this);
         }
 
-        // Called when language changes — refresh all bindings
+        /// <summary>
+        /// Handles language change messages by triggering a UI refresh for localized strings.
+        /// </summary>
+        /// <param name="message">The language change message.</param>
         public virtual void Receive(LanguageChangedMessage message)
         {
             OnPropertyChanged(string.Empty);
         }
 
-        // Called when currency changes — refresh CurrencySymbol
+        /// <summary>
+        /// Handles currency change messages by refreshing the CurrencySymbol property.
+        /// </summary>
+        /// <param name="message">The currency change message.</param>
         public virtual void Receive(CurrencyChangedMessage message)
         {
             OnPropertyChanged(nameof(CurrencySymbol));

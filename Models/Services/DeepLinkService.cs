@@ -1,16 +1,27 @@
 namespace BillWise.Models.Services
 {
+    /// <summary>
+    /// Service responsible for handling incoming deep links (e.g., from email password resets).
+    /// </summary>
     public static class DeepLinkService
     {
         private static string? _pendingUrl;
 
         public static event Func<string, string, Task>? RecoveryTokenReceived;
 
+        /// <summary>
+        /// Queues a deep link URL to be processed later when the app is fully initialized.
+        /// </summary>
+        /// <param name="url">The deep link URL.</param>
         public static void QueueUrl(string url)
         {
             _pendingUrl = url;
         }
 
+        /// <summary>
+        /// Processes any previously queued deep link URL.
+        /// Typically called during app startup or resume.
+        /// </summary>
         public static async Task ProcessPendingAsync()
         {
             if (_pendingUrl == null) return;
@@ -19,6 +30,10 @@ namespace BillWise.Models.Services
             await HandleUrlAsync(url);
         }
 
+        /// <summary>
+        /// Parses and handles a given deep link URL, extracting authentication tokens if present.
+        /// </summary>
+        /// <param name="url">The deep link URL to handle.</param>
         public static async Task HandleUrlAsync(string url)
         {
             if (!url.StartsWith("billwise://")) return;

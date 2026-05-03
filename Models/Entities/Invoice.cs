@@ -10,6 +10,10 @@ namespace BillWise.Models.Entities
     public enum PaymentMethod { BankTransfer, PayPal, GooglePay, Cash, CardPayment, DirectDebit }
     public enum CategoryType { Electricity, Water, Internet, Rent, Subscription, Other }
 
+    /// <summary>
+    /// Represents a bill or invoice in the application.
+    /// Maps to the 'invoices' table in Supabase.
+    /// </summary>
     [Table("invoices")]
     public class Invoice : BaseModel
     {

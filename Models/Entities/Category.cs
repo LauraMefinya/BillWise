@@ -4,6 +4,10 @@ using Newtonsoft.Json;
 
 namespace BillWise.Models.Entities
 {
+    /// <summary>
+    /// Represents an expense category in the application.
+    /// This entity maps to the 'categories' table in Supabase.
+    /// </summary>
     [Table("categories")]
     public class Category : BaseModel
     {
@@ -22,7 +26,10 @@ namespace BillWise.Models.Entities
         [Column("color")]
         public string Color { get; set; } = "#185FA5";
 
-        // Static method to get default categories
+        /// <summary>
+        /// Retrieves the list of default, predefined categories used across the application.
+        /// </summary>
+        /// <returns>A predefined list of basic categories with icons and colors.</returns>
         public static List<Category> GetDefaultCategories()
         {
             return new List<Category>

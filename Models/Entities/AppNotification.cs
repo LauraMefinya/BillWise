@@ -4,6 +4,10 @@ using Newtonsoft.Json;
 
 namespace BillWise.Models.Entities
 {
+    /// <summary>
+    /// Represents an in-app notification sent to the user regarding their bills or account.
+    /// Maps to the 'notifications' table in Supabase.
+    /// </summary>
     [Table("notifications")]
     public class AppNotification : BaseModel
     {
@@ -22,9 +26,16 @@ namespace BillWise.Models.Entities
         [Column("is_read")]
         public bool IsRead { get; set; } = false;
 
+        /// <summary>
+        /// Gets a value indicating whether the notification has not yet been read.
+        /// </summary>
         [JsonIgnore]
         public bool IsUnread => !IsRead;
 
+        /// <summary>
+        /// Gets or sets the type of the notification (e.g., 'info', 'warning', 'danger').
+        /// Used to determine the visual styling in the UI.
+        /// </summary>
         [Column("type")]
         public string Type { get; set; } = "info";
 
